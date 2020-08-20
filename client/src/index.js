@@ -9,10 +9,10 @@ import './styles/global.css';
 import App from './App';
 
 ReactDOM.render(
-  <Router>
-    <ThemeProvider theme={theme}>
+  <ThemeProvider theme={theme}>
+    <Router>
       <Route component={App} />
-    </ThemeProvider>
-  </Router>,
+    </Router>
+  </ThemeProvider>,
   document.getElementById('root')
 );

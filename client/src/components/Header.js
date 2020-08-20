@@ -1,5 +1,7 @@
-import React from 'react';
-import {makeStyles} from '@material-ui/core/styles';
+import React, {useState} from 'react';
+import {Link} from 'react-router-dom';
+import {makeStyles, useTheme} from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -12,6 +14,11 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+
+import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
 
 import logo from '../imgs/travelmor_square.png';
 
@@ -27,9 +34,12 @@ const useStyles = makeStyles((theme) => ({
   toolbar: {
     padding: 0,
   },
+  logoContainer: {
+    padding: 0,
+  },
   logo: {
     width: drawerWidth,
-    height: '5em',
+    height: '5.5em',
   },
   drawer: {
     width: drawerWidth,
@@ -42,6 +52,16 @@ const useStyles = makeStyles((theme) => ({
   drawerContainer: {
     overflow: 'auto',
   },
+  drawerIconContainer: {
+    '&:hover': {
+      backgroundColor: 'transparent',
+    },
+    marginLeft: 'auto',
+  },
+  drawerIcon: {
+    height: ' 50px',
+    width: '50px',
+  },
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
@@ -49,49 +69,89 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Header = () => {
+  const theme = useTheme();
   const classes = useStyles();
+  const matches = useMediaQuery(theme.breakpoints.up('md'));
+  const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
+
+  const [openDrawer, setOpenDrawer] = useState(false);
+
+  //renders drawer component depending on media breakpoint
+  const drawer = (
+    <Drawer
+      className={classes.drawer}
+      variant='permanent'
+      classes={{
+        paper: classes.drawerPaper,
+      }}
+    >
+      <Toolbar />
+      <div className={classes.drawerContainer}>
+        <List>
+          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+            <ListItem button key={text}>
+              <ListItemIcon>
+                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+        </List>
+        <Divider />
+        <List>
+          {['All mail', 'Trash', 'Spam'].map((text, index) => (
+            <ListItem button key={text}>
+              <ListItemIcon>
+                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+        </List>
+      </div>
+    </Drawer>
+  );
+  //renders Temporary drawer on smaller screens
+  const tempDrawer = (
+    <>
+      <SwipeableDrawer
+        disableBackdropTransition={!iOS}
+        disableDiscovery={iOS}
+        open={openDrawer}
+        onClose={() => setOpenDrawer(false)}
+        onOpen={() => setOpenDrawer(true)}
+      >
+        Example Drawer
+      </SwipeableDrawer>
+      <IconButton
+        onClick={() => setOpenDrawer(!openDrawer)}
+        disableRipple
+        className={classes.drawerIconContainer}
+      >
+        <MenuIcon className={classes.drawerIcon} />
+      </IconButton>
+    </>
+  );
 
   return (
     <div className={classes.root}>
       <CssBaseline />
       <AppBar position='fixed' className={classes.appBar} color='secondary'>
         <Toolbar className={classes.toolbar}>
-          <img src={logo} alt='Travelmor.logo' className={classes.logo} />
+          <Button
+            component={Link}
+            to='/'
+            className={classes.logoContainer}
+            disableRipple
+          >
+            <img src={logo} alt='Travelmor.logo' className={classes.logo} />
+          </Button>
           <Typography variant='h6' noWrap></Typography>
+          {matches ? null : tempDrawer}
         </Toolbar>
       </AppBar>
-      <Drawer
-        className={classes.drawer}
-        variant='permanent'
-        classes={{
-          paper: classes.drawerPaper,
-        }}
-      >
-        <Toolbar />
-        <div className={classes.drawerContainer}>
-          <List>
-            {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
-          </List>
-          <Divider />
-          <List>
-            {['All mail', 'Trash', 'Spam'].map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
-          </List>
-        </div>
-      </Drawer>
+      {/* media query to render clipped drawer */}
+      {matches ? drawer : null}
       <main className={classes.content}>
         <Toolbar />
         <Typography paragraph>
