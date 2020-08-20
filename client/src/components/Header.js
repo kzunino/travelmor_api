@@ -121,7 +121,7 @@ const Header = () => {
         onClose={() => setOpenDrawer(false)}
         onOpen={() => setOpenDrawer(true)}
       >
-        Example Drawer
+        {drawer}
       </SwipeableDrawer>
       <IconButton
         onClick={() => setOpenDrawer(!openDrawer)}
