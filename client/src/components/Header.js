@@ -25,11 +25,15 @@ import logo from '../imgs/travelmor_square.png';
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
+  toolbarMargin: {
+    ...theme.mixins.toolbar,
+    marginBottom: '1em',
+  },
   root: {
     display: 'flex',
   },
   appBar: {
-    zIndex: theme.zIndex.drawer + 1,
+    zIndex: theme.zIndex.modal + 1,
   },
   toolbar: {
     padding: 0,
@@ -85,10 +89,10 @@ const Header = () => {
         paper: classes.drawerPaper,
       }}
     >
-      <Toolbar />
+      <Toolbar className={classes.toolbarMargin} />
       <div className={classes.drawerContainer}>
         <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+          {['My Trips', 'New Trip'].map((text, index) => (
             <ListItem button key={text}>
               <ListItemIcon>
                 {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
@@ -99,7 +103,7 @@ const Header = () => {
         </List>
         <Divider />
         <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
+          {['About Us', 'Contact', 'Account'].map((text, index) => (
             <ListItem button key={text}>
               <ListItemIcon>
                 {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
