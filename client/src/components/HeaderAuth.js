@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import {makeStyles, useTheme} from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -88,7 +88,7 @@ const AuthHeader = () => {
   const [openDrawer, setOpenDrawer] = useState(false);
   const [value, setValue] = useState(0);
 
-  //Drawer List
+  //Drawer List - active indexes on dividers too
   const drawerItems = [
     {
       text: 'Dashboard',
@@ -142,6 +142,31 @@ const AuthHeader = () => {
     },
   ];
 
+  //Routes
+  const routes = [
+    {name: 'dashboard', link: '/dashboard', activeIndex: 0},
+    {name: '', link: '/mytrips', activeIndex: 1},
+    {name: 'dashboard', link: '/newtrip', activeIndex: 2},
+    {name: 'dashboard', link: '/about', activeIndex: 4},
+    {name: 'dashboard', link: '/contact', activeIndex: 5},
+    {name: 'dashboard', link: '/myaccount', activeIndex: 7},
+    {name: 'dashboard', link: '/logout', activeIndex: 8},
+  ];
+
+  useEffect(() => {
+    [...drawerItems, ...routes].forEach((route) => {
+      switch (window.location.pathname) {
+        case `${route.link}`:
+          if (value !== route.activeIndex) {
+            setValue(route.activeIndex);
+          }
+          break;
+        default:
+          break;
+      }
+    });
+  });
+
   //renders drawer component depending on media breakpoint
   const drawer = (
     <Drawer
@@ -156,10 +181,15 @@ const AuthHeader = () => {
         <List>
           {drawerItems.map((item, index) => {
             if (item.divider) {
-              return <Divider />;
+              return <Divider key={`${item}, ${index}`} />;
             } else
               return (
-                <ListItem button key={item} component={Link} to={item.link}>
+                <ListItem
+                  button
+                  key={`${item}, ${index}`}
+                  component={Link}
+                  to={item.link}
+                >
                   <ListItemIcon>{item.icon}</ListItemIcon>
                   <ListItemText primary={item.text} />
                 </ListItem>
