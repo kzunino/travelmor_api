@@ -1,12 +1,14 @@
 import React from 'react';
 import {Route, Switch} from 'react-router-dom';
 
-import Header from './components/Header';
+import AuthHeader from './components/HeaderAuth';
+//import LandingPage from './components/LandingPage';
 
 function App() {
   return (
     <>
-      <Header />
+      {/* <LandingPage /> */}
+      <AuthHeader />
       <Switch>
         <Route></Route>
       </Switch>

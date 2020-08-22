@@ -1,24 +1,11 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Link} from 'react-router-dom';
-import {makeStyles, useTheme} from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-
-import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 
 import logo from '../imgs/travelmor_square.png';
 
@@ -45,97 +32,15 @@ const useStyles = makeStyles((theme) => ({
     width: drawerWidth,
     height: '5.5em',
   },
-  drawer: {
-    width: drawerWidth,
-    flexShrink: 0,
-  },
-  drawerPaper: {
-    width: drawerWidth,
-    backgroundColor: theme.palette.secondary.main,
-  },
-  drawerContainer: {
-    overflow: 'auto',
-  },
-  drawerIconContainer: {
-    '&:hover': {
-      backgroundColor: 'transparent',
-    },
-    marginLeft: 'auto',
-  },
-  drawerIcon: {
-    height: ' 50px',
-    width: '50px',
-  },
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
   },
 }));
 
-const Header = () => {
-  const theme = useTheme();
+const LandingPage = () => {
+  //const theme = useTheme();
   const classes = useStyles();
-  const matches = useMediaQuery(theme.breakpoints.up('md'));
-  const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
-
-  const [openDrawer, setOpenDrawer] = useState(false);
-
-  //renders drawer component depending on media breakpoint
-  const drawer = (
-    <Drawer
-      className={classes.drawer}
-      variant='permanent'
-      classes={{
-        paper: classes.drawerPaper,
-      }}
-    >
-      <Toolbar className={classes.toolbarMargin} />
-      <div className={classes.drawerContainer}>
-        <List>
-          {['My Trips', 'New Trip'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
-        <Divider />
-        <List>
-          {['About Us', 'Contact', 'Account'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
-      </div>
-    </Drawer>
-  );
-  //renders Temporary drawer on smaller screens
-  const tempDrawer = (
-    <>
-      <SwipeableDrawer
-        disableBackdropTransition={!iOS}
-        disableDiscovery={iOS}
-        open={openDrawer}
-        onClose={() => setOpenDrawer(false)}
-        onOpen={() => setOpenDrawer(true)}
-      >
-        {drawer}
-      </SwipeableDrawer>
-      <IconButton
-        onClick={() => setOpenDrawer(!openDrawer)}
-        disableRipple
-        className={classes.drawerIconContainer}
-      >
-        <MenuIcon className={classes.drawerIcon} />
-      </IconButton>
-    </>
-  );
 
   return (
     <div className={classes.root}>
@@ -151,11 +56,9 @@ const Header = () => {
             <img src={logo} alt='Travelmor.logo' className={classes.logo} />
           </Button>
           <Typography variant='h6' noWrap></Typography>
-          {matches ? null : tempDrawer}
         </Toolbar>
       </AppBar>
       {/* media query to render clipped drawer */}
-      {matches ? drawer : null}
       <main className={classes.content}>
         <Toolbar />
         <Typography paragraph>
@@ -192,4 +95,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default LandingPage;
