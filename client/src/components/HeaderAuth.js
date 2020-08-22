@@ -68,6 +68,11 @@ const useStyles = makeStyles((theme) => ({
     },
     marginLeft: 'auto',
   },
+  drawerItemSelected: {
+    '& .MuiListItemText-root': {
+      opacity: 1,
+    },
+  },
   drawerIcon: {
     height: ' 50px',
     width: '50px',
@@ -189,6 +194,7 @@ const AuthHeader = () => {
                   key={`${item}, ${index}`}
                   component={Link}
                   to={item.link}
+                  selected={value === item.activeIndex}
                 >
                   <ListItemIcon>{item.icon}</ListItemIcon>
                   <ListItemText primary={item.text} />
