@@ -12,6 +12,9 @@ import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import Collapse from '@material-ui/core/Collapse';
+import ExpandLess from '@material-ui/icons/ExpandLess';
+import ExpandMore from '@material-ui/icons/ExpandMore';
 
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
@@ -25,6 +28,7 @@ import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import InfoIcon from '@material-ui/icons/Info';
 import RecentActorsIcon from '@material-ui/icons/RecentActors';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import FlightIcon from '@material-ui/icons/Flight';
 
 import logo from '../imgs/travelmor_square.png';
 
@@ -77,6 +81,14 @@ const useStyles = makeStyles((theme) => ({
     height: ' 50px',
     width: '50px',
   },
+  list: {
+    [theme.breakpoints.up('sm')]: {
+      padding: 0,
+    },
+  },
+  nested: {
+    paddingLeft: theme.spacing(4),
+  },
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
@@ -92,6 +104,11 @@ const AuthHeader = () => {
   //Component State Management
   const [openDrawer, setOpenDrawer] = useState(false);
   const [value, setValue] = useState(0);
+  const [openCollapse, setOpenCollapse] = React.useState(false);
+
+  const handleClick = () => {
+    setOpenCollapse(!openCollapse);
+  };
 
   //Drawer List - active indexes on dividers too
   const drawerItems = [
@@ -104,8 +121,6 @@ const AuthHeader = () => {
     {
       text: 'My Trips',
       icon: <CardTravelIcon />,
-      link: '/mytrips',
-      activeIndex: 1,
     },
     {
       text: 'New Trip',
@@ -147,18 +162,26 @@ const AuthHeader = () => {
     },
   ];
 
+  const trips = [
+    {name: 'Trip One', id: 12344},
+    {name: 'Trip Two', id: 22343434},
+    {name: 'Trip Three', id: 123234334},
+    {name: 'Trip Four', id: 1234334},
+  ];
+
   //Routes
   const routes = [
     {name: 'dashboard', link: '/dashboard', activeIndex: 0},
-    {name: '', link: '/mytrips', activeIndex: 1},
-    {name: 'dashboard', link: '/newtrip', activeIndex: 2},
-    {name: 'dashboard', link: '/about', activeIndex: 4},
-    {name: 'dashboard', link: '/contact', activeIndex: 5},
-    {name: 'dashboard', link: '/myaccount', activeIndex: 7},
-    {name: 'dashboard', link: '/logout', activeIndex: 8},
+    {name: 'new trip', link: '/newtrip', activeIndex: 2},
+    {name: 'about us', link: '/about', activeIndex: 4},
+    {name: 'contact us', link: '/contact', activeIndex: 5},
+    {name: 'my account', link: '/myaccount', activeIndex: 7},
+    {name: 'logout', link: '/logout', activeIndex: 8},
   ];
 
   useEffect(() => {
+    // checks window URL, and renders the selected prop to the correct
+    // dashboard item in order to highlight the navigation link
     [...drawerItems, ...routes].forEach((route) => {
       switch (window.location.pathname) {
         case `${route.link}`:
@@ -183,15 +206,52 @@ const AuthHeader = () => {
     >
       <Toolbar className={classes.toolbarMargin} />
       <div className={classes.drawerContainer}>
-        <List>
+        <List className={classes.list}>
           {drawerItems.map((item, index) => {
             if (item.divider) {
               return <Divider key={`${item}, ${index}`} />;
-            } else
+            } else if (item.text === 'My Trips') {
+              return (
+                <>
+                  <ListItem
+                    button
+                    key={`${item}, ${index}`}
+                    onClick={handleClick}
+                  >
+                    <ListItemIcon>{item.icon}</ListItemIcon>
+                    <ListItemText primary={item.text} />
+                    {openCollapse ? <ExpandLess /> : <ExpandMore />}
+                  </ListItem>
+                  <Collapse
+                    in={openCollapse}
+                    timeout='auto'
+                    unmountOnExit
+                    key={`${item.text}, ${index + 1}`}
+                  >
+                    <List disablePadding>
+                      {trips.map((trip, index) => {
+                        return (
+                          <ListItem
+                            button
+                            className={classes.nested}
+                            key={`${trip.id}${index}`}
+                          >
+                            <ListItemIcon>
+                              <FlightIcon />
+                            </ListItemIcon>
+                            <ListItemText primary={trip.name} />
+                          </ListItem>
+                        );
+                      })}
+                    </List>
+                  </Collapse>
+                </>
+              );
+            } else {
               return (
                 <ListItem
                   button
-                  key={`${item}, ${index}`}
+                  key={`${item.text}, ${index}`}
                   component={Link}
                   to={item.link}
                   selected={value === item.activeIndex}
@@ -200,6 +260,7 @@ const AuthHeader = () => {
                   <ListItemText primary={item.text} />
                 </ListItem>
               );
+            }
           })}
         </List>
       </div>
