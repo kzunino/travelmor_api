@@ -164,11 +164,12 @@ const AuthHeader = ({match}) => {
     },
   ];
 
+  //Trips will be rendered from the API
   const trips = [
-    {name: 'Trip One', link: '/trip', id: 12344, activeIndex: 0},
-    {name: 'Trip Two', link: '/trip', id: 22343434, activeIndex: 0},
-    {name: 'Trip Three', link: '/trip', id: 123234334, activeIndex: 0},
-    {name: 'Trip Four', link: '/trip', id: 1234334, activeIndex: 0},
+    {name: 'Trip One', link: '/trip', trip_uid: 12344, activeIndex: 0},
+    {name: 'Trip Two', link: '/trip', trip_uid: 22343434, activeIndex: 0},
+    {name: 'Trip Three', link: '/trip', trip_uid: 123234334, activeIndex: 0},
+    {name: 'Trip Four', link: '/trip', trip_uid: 1234334, activeIndex: 0},
   ];
 
   //Routes
@@ -191,11 +192,10 @@ const AuthHeader = ({match}) => {
             setValue(route.activeIndex);
           }
           break;
-        case `${route.link}/${route.id}`:
-          if (tripValue !== route.id) {
-            console.log('Iwork');
-            setTripValue(route.id);
-            setValue(null);
+        case `${route.link}/${route.trip_uid}`:
+          if (tripValue !== route.trip_uid) {
+            setTripValue(route.trip_uid);
+            setValue(1);
           }
           break;
         default:
@@ -226,6 +226,7 @@ const AuthHeader = ({match}) => {
                     button
                     key={`${item}, ${index}`}
                     onClick={handleClick}
+                    selected={value === item.activeIndex}
                   >
                     <ListItemIcon>{item.icon}</ListItemIcon>
                     <ListItemText primary={item.text} />
@@ -243,14 +244,14 @@ const AuthHeader = ({match}) => {
                           <ListItem
                             button
                             className={classes.nested}
-                            key={`${trip.id}${index}`}
+                            key={`${trip.trip_uid}${index}`}
                             component={Link}
-                            to={`/trip/${trip.id}`}
+                            to={`/trip/${trip.trip_uid}`}
                             onClick={() => {
-                              setValue(0);
-                              setTripValue(trip.id);
+                              setValue(1);
+                              setTripValue(trip.trip_uid);
                             }}
-                            selected={tripValue === trip.id}
+                            selected={tripValue === trip.trip_uid}
                           >
                             <ListItemIcon>
                               <FlightIcon />
