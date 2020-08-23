@@ -192,9 +192,9 @@ const AuthHeader = ({match}) => {
           }
           break;
         case `${route.link}/${route.id}`:
-          if (tripValue !== route.activeIndex) {
+          if (tripValue !== route.id) {
             console.log('Iwork');
-            setTripValue(tripValue);
+            setTripValue(route.id);
             setValue(null);
           }
           break;
