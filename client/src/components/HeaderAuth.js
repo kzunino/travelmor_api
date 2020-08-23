@@ -95,7 +95,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AuthHeader = () => {
+const AuthHeader = ({match}) => {
   const theme = useTheme();
   const classes = useStyles();
   const matches = useMediaQuery(theme.breakpoints.up('md'));
@@ -104,6 +104,7 @@ const AuthHeader = () => {
   //Component State Management
   const [openDrawer, setOpenDrawer] = useState(false);
   const [value, setValue] = useState(0);
+  const [tripValue, setTripValue] = useState(null);
   const [openCollapse, setOpenCollapse] = React.useState(false);
 
   const handleClick = () => {
@@ -121,11 +122,12 @@ const AuthHeader = () => {
     {
       text: 'My Trips',
       icon: <CardTravelIcon />,
+      activeIndex: 1,
     },
     {
       text: 'New Trip',
       icon: <FlightTakeoffIcon />,
-      link: '/newtrips',
+      link: '/newtrip',
       activeIndex: 2,
     },
     {
@@ -163,37 +165,44 @@ const AuthHeader = () => {
   ];
 
   const trips = [
-    {name: 'Trip One', id: 12344},
-    {name: 'Trip Two', id: 22343434},
-    {name: 'Trip Three', id: 123234334},
-    {name: 'Trip Four', id: 1234334},
+    {name: 'Trip One', link: '/trip', id: 12344, activeIndex: 0},
+    {name: 'Trip Two', link: '/trip', id: 22343434, activeIndex: 0},
+    {name: 'Trip Three', link: '/trip', id: 123234334, activeIndex: 0},
+    {name: 'Trip Four', link: '/trip', id: 1234334, activeIndex: 0},
   ];
 
   //Routes
-  const routes = [
-    {name: 'dashboard', link: '/dashboard', activeIndex: 0},
-    {name: 'new trip', link: '/newtrip', activeIndex: 2},
-    {name: 'about us', link: '/about', activeIndex: 4},
-    {name: 'contact us', link: '/contact', activeIndex: 5},
-    {name: 'my account', link: '/myaccount', activeIndex: 7},
-    {name: 'logout', link: '/logout', activeIndex: 8},
-  ];
+  // const routes = [
+  //   {name: 'dashboard', link: '/dashboard', activeIndex: 0},
+  //   {name: 'new trip', link: '/newtrip', activeIndex: 2},
+  //   {name: 'about us', link: '/about', activeIndex: 4},
+  //   {name: 'contact us', link: '/contact', activeIndex: 5},
+  //   {name: 'my account', link: '/myaccount', activeIndex: 7},
+  //   {name: 'logout', link: '/logout', activeIndex: 8},
+  // ];
 
   useEffect(() => {
     // checks window URL, and renders the selected prop to the correct
     // dashboard item in order to highlight the navigation link
-    [...drawerItems, ...routes].forEach((route) => {
+    [...drawerItems, ...trips].forEach((route) => {
       switch (window.location.pathname) {
         case `${route.link}`:
           if (value !== route.activeIndex) {
             setValue(route.activeIndex);
           }
           break;
+        case `${route.link}/${route.id}`:
+          if (tripValue !== route.activeIndex) {
+            console.log('Iwork');
+            setTripValue(tripValue);
+            setValue(null);
+          }
+          break;
         default:
           break;
       }
     });
-  });
+  }, [drawerItems, trips, tripValue, value]);
 
   //renders drawer component depending on media breakpoint
   const drawer = (
@@ -235,6 +244,13 @@ const AuthHeader = () => {
                             button
                             className={classes.nested}
                             key={`${trip.id}${index}`}
+                            component={Link}
+                            to={`/trip/${trip.id}`}
+                            onClick={() => {
+                              setValue(0);
+                              setTripValue(trip.id);
+                            }}
+                            selected={tripValue === trip.id}
                           >
                             <ListItemIcon>
                               <FlightIcon />
@@ -255,6 +271,9 @@ const AuthHeader = () => {
                   component={Link}
                   to={item.link}
                   selected={value === item.activeIndex}
+                  onClick={() => {
+                    setTripValue(null);
+                  }}
                 >
                   <ListItemIcon>{item.icon}</ListItemIcon>
                   <ListItemText primary={item.text} />

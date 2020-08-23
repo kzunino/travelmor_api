@@ -8,9 +8,9 @@ function App() {
   return (
     <>
       {/* <LandingPage /> */}
-      <AuthHeader />
+      <Route component={AuthHeader} />
       <Switch>
-        <Route></Route>
+        <Route exact to='/trip/:id' component={() => <div>trips</div>} />
       </Switch>
     </>
   );
