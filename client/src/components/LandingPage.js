@@ -3,6 +3,8 @@ import {Link} from 'react-router-dom';
 import {makeStyles} from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import AppBar from '@material-ui/core/AppBar';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -36,6 +38,14 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     padding: theme.spacing(3),
   },
+  tabContainer: {
+    marginLeft: 'auto',
+  },
+  tab: {
+    '&:hover': {
+      color: 'black',
+    },
+  },
 }));
 
 const LandingPage = () => {
@@ -55,7 +65,17 @@ const LandingPage = () => {
           >
             <img src={logo} alt='Travelmor.logo' className={classes.logo} />
           </Button>
-          <Typography variant='h6' noWrap></Typography>
+          <Tabs className={classes.tabContainer}>
+            <Tab
+              component={Link}
+              to='/login'
+              label='Login'
+              className={classes.tab}
+              disableRipple
+              indicatorColor='secondary'
+            />
+            }
+          </Tabs>
         </Toolbar>
       </AppBar>
       {/* media query to render clipped drawer */}
