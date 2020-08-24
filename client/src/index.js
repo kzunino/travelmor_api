@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {BrowserRouter as Router, Route} from 'react-router-dom';
 import {ThemeProvider} from '@material-ui/core/styles';
 import theme from './styles/theme';
 import 'fontsource-roboto';
@@ -10,9 +9,7 @@ import App from './App';
 
 ReactDOM.render(
   <ThemeProvider theme={theme}>
-    <Router>
-      <Route component={App} />
-    </Router>
+    <App />
   </ThemeProvider>,
   document.getElementById('root')
 );

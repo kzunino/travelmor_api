@@ -1,17 +1,22 @@
 import React from 'react';
-import {Route, Switch} from 'react-router-dom';
-
-import AuthHeader from './components/HeaderAuth';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import LandingPage from './components/LandingPage';
+import LandingPageContent from './components/LandingPageContent';
+import Login from './components/Login';
+//import AuthHeader from './components/HeaderAuth';
 
 function App() {
   return (
     <>
-      <LandingPage />
-      {/* <Route component={AuthHeader} /> */}
-      <Switch>
-        <Route exact to='/trip/:id' component={() => <div>trips</div>} />
-      </Switch>
+      <Router>
+        <LandingPage />
+        {/* <AuthHeader/> */}
+        <Switch>
+          <Route exact path='/' component={LandingPageContent} />
+          <Route path='/login' component={Login} />
+          <Route path='/trip/:id' component={() => <div>trips</div>} />
+        </Switch>
+      </Router>
     </>
   );
 }
