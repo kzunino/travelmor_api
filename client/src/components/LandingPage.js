@@ -31,8 +31,17 @@ const useStyles = makeStyles((theme) => ({
     width: drawerWidth,
     height: '5.5em',
   },
-  login: {
+  buttonWrapper: {
     marginLeft: 'auto',
+  },
+  signin: {
+    marginRight: '1em',
+    textTransform: 'none',
+    fontSize: '1rem',
+  },
+  signup: {
+    marginRight: '1em',
+    textTransform: 'none',
   },
 }));
 
@@ -53,9 +62,14 @@ const LandingPage = () => {
           >
             <img src={logo} alt='Travelmor.logo' className={classes.logo} />
           </Button>
-          <Button className={classes.login} component={Link} to='/login'>
-            Login
-          </Button>
+          <div className={classes.buttonWrapper}>
+            <Button className={classes.signin} component={Link} to='/signin'>
+              Sign In
+            </Button>
+            <Button className={classes.signin} component={Link} to='/signup'>
+              Sign Up
+            </Button>
+          </div>
         </Toolbar>
       </AppBar>
     </div>
