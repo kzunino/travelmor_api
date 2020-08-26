@@ -1,7 +1,6 @@
 import React from 'react';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import LandingPage from './components/LandingPage';
-import LandingPageContent from './components/LandingPageContent';
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
 //import AuthHeader from './components/HeaderAuth';
@@ -10,12 +9,12 @@ function App() {
   return (
     <>
       <Router>
-        <LandingPage />
         {/* <AuthHeader/> */}
         <Switch>
-          <Route exact path='/' component={LandingPageContent} />
+          <Route exact path='/' component={LandingPage} />
           <Route path='/signin' component={SignIn} />
           <Route path='/signup' component={SignUp} />
+
           <Route path='/trip/:id' component={() => <div>trips</div>} />
         </Switch>
       </Router>

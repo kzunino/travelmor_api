@@ -8,6 +8,8 @@ import Toolbar from '@material-ui/core/Toolbar';
 
 import logo from '../imgs/travelmor_square.png';
 
+import LandingPageContent from './LandingPageContent';
+
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -50,29 +52,33 @@ const LandingPage = () => {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
-      <CssBaseline />
-      <AppBar position='static' className={classes.appBar} color='secondary'>
-        <Toolbar className={classes.toolbar}>
-          <Button
-            component={Link}
-            to='/'
-            className={classes.logoContainer}
-            disableRipple
-          >
-            <img src={logo} alt='Travelmor.logo' className={classes.logo} />
-          </Button>
-          <div className={classes.buttonWrapper}>
-            <Button className={classes.signin} component={Link} to='/signin'>
-              Sign In
+    <>
+      <div className={classes.root}>
+        <CssBaseline />
+        <AppBar position='static' className={classes.appBar} color='secondary'>
+          <Toolbar className={classes.toolbar}>
+            <Button
+              component={Link}
+              to='/'
+              className={classes.logoContainer}
+              disableRipple
+            >
+              <img src={logo} alt='Travelmor.logo' className={classes.logo} />
             </Button>
-            <Button className={classes.signin} component={Link} to='/signup'>
-              Sign Up
-            </Button>
-          </div>
-        </Toolbar>
-      </AppBar>
-    </div>
+            <div className={classes.buttonWrapper}>
+              <Button className={classes.signin} component={Link} to='/signin'>
+                Sign In
+              </Button>
+              <Button className={classes.signin} component={Link} to='/signup'>
+                Sign Up
+              </Button>
+            </div>
+          </Toolbar>
+        </AppBar>
+      </div>
+      {/* Landing Page Content Rendered Below */}
+      <LandingPageContent />
+    </>
   );
 };
 

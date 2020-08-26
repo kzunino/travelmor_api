@@ -17,7 +17,7 @@ function Copyright() {
   return (
     <Typography variant='body2' color='textSecondary' align='center'>
       {'Copyright © '}
-      <Link color='inherit' href='https://www.travelmor.com'>
+      <Link color='inherit' to='https://www.travelmor.com'>
         Travelmor.
       </Link>{' '}
       {new Date().getFullYear()}
