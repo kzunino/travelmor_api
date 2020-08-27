@@ -32,6 +32,9 @@ const useStyles = makeStyles((theme) => ({
   logo: {
     width: drawerWidth,
     height: '5.5em',
+    [theme.breakpoints.down('xs')]: {
+      width: 200,
+    },
   },
   buttonWrapper: {
     marginLeft: 'auto',
@@ -40,6 +43,9 @@ const useStyles = makeStyles((theme) => ({
     marginRight: '1em',
     textTransform: 'none',
     fontSize: '1rem',
+    [theme.breakpoints.down('xs')]: {
+      marginRight: '0',
+    },
   },
   signup: {
     marginRight: '1em',

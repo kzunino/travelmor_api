@@ -35,6 +35,27 @@ const theme = createMuiTheme({
       fontWeight: 700,
       lineHeight: 1.5,
     },
+    h5: {
+      fontFamily: 'Raleway',
+      fontSize: '1.50rem',
+      fontWeight: 700,
+      lineHeight: 1.5,
+    },
+    h6: {
+      fontFamily: 'Raleway',
+      fontSize: '1.25rem',
+      fontWeight: 700,
+      lineHeight: 1.5,
+    },
+    subtitle1: {
+      lineHeight: 1.25,
+      fontSize: '1rem',
+      fontWeight: 500,
+    },
+    body1: {
+      lineHeight: 1,
+      fontSize: '1rem',
+    },
   },
 });
 

@@ -24,21 +24,23 @@ const useStyles = makeStyles((theme) => ({
       marginTop: '2em',
     },
   },
+  contentBlock: {
+    marginBottom: '5em',
+  },
   heroTextContainer: {
     [theme.breakpoints.down('xs')]: {
       marginLeft: 0,
-      marginBottom: '2em',
     },
   },
   dataReports: {
     marginLeft: '2em',
     [theme.breakpoints.down('xs')]: {
       marginLeft: 0,
+      marginTop: '2em',
     },
   },
   iconContainer: {
     marginRight: '2em',
-    marginTop: '10em',
     [theme.breakpoints.down('xs')]: {
       marginRight: 0,
     },
@@ -48,7 +50,23 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
   },
   divider: {
-    background: theme.palette.primary.main,
+    marginTop: '1em',
+    background: theme.palette.primary.dark,
+  },
+  servicesContainer: {
+    margin: 'auto',
+    [theme.breakpoints.down('xs')]: {
+      marginTop: '3em',
+    },
+  },
+  servicesTextContainer: {
+    [theme.breakpoints.down('xs')]: {
+      marginLeft: 0,
+    },
+  },
+  subheading: {
+    marginTop: '1em',
+    color: theme.palette.primary.main,
   },
 }));
 
@@ -57,12 +75,14 @@ const LandingPageContent = () => {
   const theme = useTheme();
   const matchesSm = useMediaQuery(theme.breakpoints.down('sm'));
 
+  const matchesXs = useMediaQuery(theme.breakpoints.down('xs'));
+
   return (
     <main className={classes.content}>
       {/* Outer grid component that wraps all grid content */}
       <Grid container direction='column' className={classes.mainContainer}>
         {/* ------------- Hero Block ---------- */}
-        <Grid item>
+        <Grid item className={classes.contentBlock}>
           <Grid
             container
             justify='flex-start'
@@ -71,7 +91,7 @@ const LandingPageContent = () => {
           >
             <Grid sm item className={classes.heroTextContainer}>
               <Typography
-                variant={matchesSm ? 'h4' : 'h2'}
+                variant={matchesSm ? 'h4' : 'h3'}
                 align='center'
                 className={classes.heroTextContainer}
               >
@@ -104,18 +124,49 @@ const LandingPageContent = () => {
               />
             </Grid>
             <Grid sm item className={classes.servicesContainer}>
-              <Grid container direction='column'>
+              <Grid
+                container
+                direction='column'
+                alignItems='center'
+                justify='center'
+              >
                 <Grid item>
                   <Typography
-                    variant={matchesSm ? 'h4' : 'h3'}
-                    align='center'
-                    className={classes.heroTextContainer}
+                    variant={matchesXs ? 'h5' : 'h4'}
+                    className={classes.servicesTextContainer}
                   >
-                    Smart and Light Weight Budgeting
+                    Smart &amp; Easy Budgeting
+                  </Typography>
+                  <Typography variant='subtitle1'>
+                    An easy way to monitor your travel budget to make the most
+                    of your experiences.
                     <Divider
-                      variant='middle'
+                      variant='fullWidth'
                       classes={{root: classes.divider}}
                     />
+                  </Typography>
+
+                  <Typography variant='h6' className={classes.subheading}>
+                    Stay accountable
+                  </Typography>
+                  <Typography variant='body1'>
+                    Update your budget and get real time graphics that give you
+                    a 4D overview of your expenses.
+                  </Typography>
+
+                  <Typography variant='h6' className={classes.subheading}>
+                    On-the-go financial clarity
+                  </Typography>
+                  <Typography variant='body1'>
+                    Highlights of your recent spending and budget for a clear
+                    picture of you budget.
+                  </Typography>
+
+                  <Typography variant='h6' className={classes.subheading}>
+                    Forecasting
+                  </Typography>
+                  <Typography variant='body1'>
+                    Clear data that helps you make the most of your spending.
                   </Typography>
                 </Grid>
               </Grid>
