@@ -16,6 +16,26 @@ const theme = createMuiTheme({
       main: lightBeige,
     },
   },
+  typography: {
+    h2: {
+      fontFamily: 'Raleway',
+      fontWeight: 700,
+      fontSize: '2.5rem',
+      lineHeight: 1.5,
+    },
+    h3: {
+      fontFamily: 'Raleway',
+      fontSize: '2rem',
+      fontWeight: 700,
+      lineHeight: 1.5,
+    },
+    h4: {
+      fontFamily: 'Raleway',
+      fontSize: '1.75rem',
+      fontWeight: 700,
+      lineHeight: 1.5,
+    },
+  },
 });
 
 export default theme;
