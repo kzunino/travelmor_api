@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
@@ -126,6 +127,8 @@ const LandingPageContent = () => {
                 <Grid item>
                   <Button
                     button
+                    component={Link}
+                    to='/signup'
                     variant='outlined'
                     className={classes.button}
                     disableRipple
