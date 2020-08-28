@@ -2,6 +2,7 @@ import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
+import Button from '@material-ui/core/Button';
 
 import {makeStyles, useTheme} from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
@@ -9,6 +10,7 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import DataReports from '../imgs/undraw_data_reports_706v.svg';
 import Traveler from '../imgs/undraw_stranded_traveler_pdbw.svg';
 import Adventure from '../imgs/undraw_adventure_4hum.svg';
+import Globe from '../imgs/undraw_connected_world_wuay.svg';
 
 const useStyles = makeStyles((theme) => ({
   content: {
@@ -26,18 +28,31 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   contentBlock: {
-    marginBottom: '5em',
+    marginBottom: '10em',
+    [theme.breakpoints.down('sm')]: {
+      marginBottom: '5em',
+    },
   },
   heroTextContainer: {
     [theme.breakpoints.down('xs')]: {
       marginLeft: 0,
     },
   },
+  button: {
+    marginTop: '2em',
+    borderRadius: '2em',
+    backgroundColor: theme.palette.primary.main,
+    color: 'white',
+    fontWeight: 'bold',
+    '&:hover': {
+      backgroundColor: theme.palette.primary.light,
+    },
+  },
   dataReports: {
     marginLeft: '2em',
     [theme.breakpoints.down('xs')]: {
       marginLeft: 0,
-      marginTop: '2em',
+      marginTop: '3em',
     },
   },
   iconContainerRight: {
@@ -96,15 +111,29 @@ const LandingPageContent = () => {
             alignItems='center'
             direction='row'
           >
-            <Grid sm item className={classes.heroTextContainer}>
-              <Typography
-                variant={matchesXs ? 'h4' : 'h3'}
-                align='center'
-                className={classes.heroTextContainer}
-              >
-                Get insights on your travel spending so you can get the most
-                from your travels
-              </Typography>
+            <Grid sm item>
+              <Grid container='column' justify='center'>
+                <Grid item>
+                  <Typography
+                    variant={matchesXs ? 'h4' : 'h3'}
+                    align='center'
+                    className={classes.heroTextContainer}
+                  >
+                    Get insights on your travel spending so you can get the most
+                    from your travels.
+                  </Typography>
+                </Grid>
+                <Grid item>
+                  <Button
+                    button
+                    variant='outlined'
+                    className={classes.button}
+                    disableRipple
+                  >
+                    Sign Up
+                  </Button>
+                </Grid>
+              </Grid>
             </Grid>
             <Grid sm item className={classes.dataReports}>
               <img
@@ -240,6 +269,71 @@ const LandingPageContent = () => {
               <img
                 alt='screenshots of travelmor app'
                 src={Traveler}
+                className={classes.icons}
+              />
+            </Grid>
+          </Grid>
+        </Grid>
+        {/* ------------- Global Container ---------- */}
+        <Grid item className={classes.contentBlock}>
+          <Grid
+            container
+            justify='flex-start'
+            alignItems='center'
+            direction='row'
+          >
+            <Grid sm item className={classes.servicesContainer}>
+              <Grid
+                container
+                direction='column'
+                alignItems='center'
+                justify='center'
+              >
+                <Grid item>
+                  <Typography
+                    variant={matchesXs ? 'h5' : 'h3'}
+                    className={classes.servicesTextContainer}
+                  >
+                    International like you
+                  </Typography>
+                  <Typography variant='subtitle1'>
+                    Travelmor. helps you manage your finances from anywhere in
+                    the world.
+                    <Divider
+                      variant='fullWidth'
+                      classes={{root: classes.divider}}
+                    />
+                  </Typography>
+
+                  <Typography variant='h6' className={classes.subheading}>
+                    Foreign currency converter
+                  </Typography>
+                  <Typography variant='body1'>
+                    200+ currencies to help you easily track your spending from
+                    anywhere in the world.
+                  </Typography>
+
+                  <Typography variant='h6' className={classes.subheading}>
+                    Exportable spreadsheets
+                  </Typography>
+                  <Typography variant='body1'>
+                    Want a physical copy of your budget? Export as CSV and use
+                    in Excel or Google Sheets!
+                  </Typography>
+
+                  <Typography variant='h6' className={classes.subheading}>
+                    Cross off bucket list items together
+                  </Typography>
+                  <Typography variant='body1'>
+                    Helping you spend money on the things that matter.
+                  </Typography>
+                </Grid>
+              </Grid>
+            </Grid>
+            <Grid sm item className={classes.iconContainerRight}>
+              <img
+                alt='screenshots of travelmor app'
+                src={Globe}
                 className={classes.icons}
               />
             </Grid>
