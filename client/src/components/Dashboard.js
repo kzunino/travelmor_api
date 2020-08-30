@@ -56,11 +56,19 @@ const useStyles = makeStyles((theme) => ({
   graphItem: {
     backgroundColor: theme.palette.secondary.light,
     marginTop: '2em',
+    display: 'flex',
   },
 
-  date: {
+  chartContainer: {
+    [theme.breakpoints.down('xs')]: {
+      height: '20em',
+    },
+  },
+
+  spendingInfoWidget: {
     marginLeft: 'auto',
     padding: '1em',
+    textAlign: 'right',
   },
 }));
 
@@ -155,38 +163,40 @@ const Dashboard = () => {
                     </Grid>
                   </Grid>
                 </Grid>
-                <Grid sm={7} item>
-                  <BarChart
-                    width={matchXs ? 350 : 500}
-                    height={matchXs ? 250 : 400}
-                    data={data}
-                    margin={{
-                      top: 20,
-                      right: 30,
-                      left: 20,
-                      bottom: 5,
-                    }}
-                  >
-                    <XAxis dataKey='name' />
-                    {/* <YAxis /> */}
-                    <Tooltip />
-                    {/* <Legend /> */}
-                    <Bar dataKey='$' fill='#4bb0f8' />
-                  </BarChart>
+                <Grid xs={12} sm={8} item className={classes.chartContainer}>
+                  <ResponsiveContainer width='99%'>
+                    <BarChart
+                      // width={matchXs ? 350 : 500}
+                      // height={matchXs ? 250 : 400}
+                      data={data}
+                      margin={{
+                        top: 20,
+                        right: 30,
+                        left: 20,
+                        bottom: 5,
+                      }}
+                    >
+                      <XAxis dataKey='name' />
+                      {/* <YAxis /> */}
+                      <Tooltip />
+                      {/* <Legend /> */}
+                      <Bar dataKey='$' fill='#4bb0f8' />
+                    </BarChart>
+                  </ResponsiveContainer>
                 </Grid>
-                <Grid xs={5} sm={3} item>
+                <Grid xs={12} sm={4} md={3} item>
                   <Grid container direction='column'>
-                    <Grid item className={classes.date}>
+                    <Grid item className={classes.spendingInfoWidget}>
                       <Typography variant='h6'>
                         {Moment(Date.now()).format('MMM Do, YYYY')}
                       </Typography>
                     </Grid>
                     <Grid container direction='row'>
-                      <Grid item className={classes.date}>
+                      <Grid item className={classes.spendingInfoWidget}>
                         <Typography variant='subtitle2'>trip budget</Typography>
                         <Typography variant='h6'>$1,000.00</Typography>
                       </Grid>
-                      <Grid item className={classes.date}>
+                      <Grid item className={classes.spendingInfoWidget}>
                         <Typography variant='subtitle2'>
                           daily budget
                         </Typography>
@@ -194,11 +204,11 @@ const Dashboard = () => {
                       </Grid>
                     </Grid>
                     <Divider />
-                    <Grid item className={classes.date}>
+                    <Grid item className={classes.spendingInfoWidget}>
                       <Typography variant='subtitle2'>spent today</Typography>
                       <Typography variant='h6'>$40.00</Typography>
                     </Grid>
-                    <Grid item className={classes.date}>
+                    <Grid item className={classes.spendingInfoWidget}>
                       <Typography variant='subtitle2'>remaining</Typography>
                       <Typography variant='h6'>$10.00</Typography>
                     </Grid>
