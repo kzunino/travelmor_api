@@ -3,6 +3,7 @@ import {createMuiTheme} from '@material-ui/core/styles';
 const mainBlue = '#4bb0f8';
 const softWheat = '#dfd8c8';
 const lightBeige = '#faf8f4';
+const lightGray = '#6e757c';
 
 const theme = createMuiTheme({
   palette: {
@@ -14,6 +15,9 @@ const theme = createMuiTheme({
     },
     background: {
       main: lightBeige,
+    },
+    heading: {
+      main: lightGray,
     },
   },
   typography: {
@@ -51,6 +55,12 @@ const theme = createMuiTheme({
       lineHeight: 1.25,
       fontSize: '1rem',
       fontWeight: 500,
+    },
+    subtitle2: {
+      lineHeight: 1.25,
+      fontSize: '.75rem',
+      fontWeight: 500,
+      color: lightGray,
     },
     body1: {
       lineHeight: 1,

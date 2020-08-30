@@ -8,7 +8,15 @@ import Box from '@material-ui/core/Box';
 import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
 
-import {BarChart, Bar, XAxis, YAxis, Tooltip, Legend} from 'recharts';
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from 'recharts';
 
 import {makeStyles, useTheme} from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
@@ -44,6 +52,7 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: theme.palette.primary.light,
     },
   },
+
   graphItem: {
     backgroundColor: theme.palette.secondary.light,
     marginTop: '2em',
@@ -94,7 +103,7 @@ const Dashboard = () => {
       amt: 223,
     },
     {
-      name: 'Sun',
+      name: 'Today',
       $: 75,
       amt: 2100,
     },
@@ -135,11 +144,21 @@ const Dashboard = () => {
           {/* -----Graphs Container----- */}
           <Box m={1} boxShadow={3} className={classes.graphItem}>
             <Grid item>
-              <Grid container>
-                <Grid sm item>
+              <Grid container justify='space-between'>
+                <Grid item xs={12}>
+                  <Grid container justify='center'>
+                    <Grid item>
+                      <Typography variant='h3'>Peru Trip</Typography>
+                      <Typography variant='subtitle2'>
+                        Aug 30th - Sept 10th
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                </Grid>
+                <Grid sm={7} item>
                   <BarChart
                     width={matchXs ? 350 : 500}
-                    height={matchXs ? 250 : 500}
+                    height={matchXs ? 250 : 400}
                     data={data}
                     margin={{
                       top: 20,
@@ -155,13 +174,49 @@ const Dashboard = () => {
                     <Bar dataKey='$' fill='#4bb0f8' />
                   </BarChart>
                 </Grid>
-                <Grid sm item>
-                  <Grid container>
+                <Grid xs={5} sm={3} item>
+                  <Grid container direction='column'>
                     <Grid item className={classes.date}>
                       <Typography variant='h6'>
                         {Moment(Date.now()).format('MMM Do, YYYY')}
                       </Typography>
                     </Grid>
+                    <Grid container direction='row'>
+                      <Grid item className={classes.date}>
+                        <Typography variant='subtitle2'>trip budget</Typography>
+                        <Typography variant='h6'>$1,000.00</Typography>
+                      </Grid>
+                      <Grid item className={classes.date}>
+                        <Typography variant='subtitle2'>
+                          daily budget
+                        </Typography>
+                        <Typography variant='h6'>$50.00</Typography>
+                      </Grid>
+                    </Grid>
+                    <Divider />
+                    <Grid item className={classes.date}>
+                      <Typography variant='subtitle2'>spent today</Typography>
+                      <Typography variant='h6'>$40.00</Typography>
+                    </Grid>
+                    <Grid item className={classes.date}>
+                      <Typography variant='subtitle2'>remaining</Typography>
+                      <Typography variant='h6'>$10.00</Typography>
+                    </Grid>
+                  </Grid>
+                  <Divider />
+                  <Grid container direction='row'>
+                    <Grid item>
+                      <Typography variant='subtitle2'>
+                        total daily average spent
+                      </Typography>
+                      <Typography variant='h6'>$43.50</Typography>
+                    </Grid>
+                  </Grid>
+                  <Grid item>
+                    <Typography variant='subtitle2'>
+                      new daily budget to stay on target
+                    </Typography>
+                    <Typography variant='h6'>$54.00</Typography>
                   </Grid>
                 </Grid>
               </Grid>
