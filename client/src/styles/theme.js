@@ -4,6 +4,8 @@ const mainBlue = '#4bb0f8';
 const softWheat = '#dfd8c8';
 const lightBeige = '#faf8f4';
 const lightGray = '#6e757c';
+const white = '#ffffff';
+const offWhite = '#f8f8ff';
 
 const theme = createMuiTheme({
   palette: {
@@ -18,6 +20,12 @@ const theme = createMuiTheme({
     },
     heading: {
       main: lightGray,
+    },
+    boxTitles: {
+      main: offWhite,
+    },
+    boxContent: {
+      main: white,
     },
   },
   typography: {
@@ -60,7 +68,7 @@ const theme = createMuiTheme({
       lineHeight: 1.25,
       fontSize: '.75rem',
       fontWeight: 500,
-      color: lightGray,
+      color: white,
     },
     body1: {
       lineHeight: 1,
