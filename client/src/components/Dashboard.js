@@ -1,6 +1,12 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import Toolbar from '@material-ui/core/Toolbar';
+import Grid from '@material-ui/core/Grid';
+import Divider from '@material-ui/core/Divider';
+import Button from '@material-ui/core/Button';
+
+import {BarChart, Bar, XAxis, YAxis, Tooltip, Legend} from 'recharts';
 
 import {makeStyles, useTheme} from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
@@ -19,10 +25,27 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     padding: theme.spacing(3),
     marginLeft: drawerWidth,
+    backgroundColor: theme.palette.background.main,
     [theme.breakpoints.down('sm')]: {
       marginLeft: 0,
       marginTop: '1em',
     },
+  },
+  button: {
+    marginTop: '1em',
+    borderRadius: '2em',
+    backgroundColor: theme.palette.primary.main,
+    color: 'white',
+    fontWeight: 'bold',
+    '&:hover': {
+      backgroundColor: theme.palette.primary.light,
+    },
+  },
+  itemContainer: {},
+  date: {
+    backgroundColor: theme.palette.secondary.light,
+    width: '25em',
+    height: '25em',
   },
 }));
 
@@ -30,39 +53,114 @@ const Dashboard = () => {
   const theme = useTheme();
   const classes = useStyles();
 
+  const matchXs = useMediaQuery(theme.breakpoints.down('xs'));
+
+  const data = [
+    {
+      name: 'Mon',
+      // uv: 4000,
+      $: 50,
+      amt: 50,
+    },
+    {
+      name: 'Tue',
+      $: 100,
+      amt: 100,
+    },
+    {
+      name: 'Wed',
+      $: 300,
+      amt: 77,
+    },
+    {
+      name: 'Thu',
+      $: 150,
+      amt: 150,
+    },
+    {
+      name: 'Fri',
+      $: 124,
+      amt: 300,
+    },
+    {
+      name: 'Sat',
+      $: 86,
+      amt: 223,
+    },
+    {
+      name: 'Sun',
+      $: 75,
+      amt: 2100,
+    },
+  ];
+
   return (
     <>
       <main className={classes.content}>
         <Toolbar />
-        <Typography paragraph>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Rhoncus
-          dolor purus non enim praesent elementum facilisis leo vel. Risus at
-          ultrices mi tempus imperdiet. Semper risus in hendrerit gravida rutrum
-          quisque non tellus. Convallis convallis tellus id interdum velit
-          laoreet id donec ultrices. Odio morbi quis commodo odio aenean sed
-          adipiscing. Amet nisl suscipit adipiscing bibendum est ultricies
-          integer quis. Cursus euismod quis viverra nibh cras. Metus vulputate
-          eu scelerisque felis imperdiet proin fermentum leo. Mauris commodo
-          quis imperdiet massa tincidunt. Cras tincidunt lobortis feugiat
-          vivamus at augue. At augue eget arcu dictum varius duis at consectetur
-          lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa sapien
-          faucibus et molestie ac.
-        </Typography>
-        <Typography paragraph>
-          Consequat mauris nunc congue nisi vitae suscipit. Fringilla est
-          ullamcorper eget nulla facilisi etiam dignissim diam. Pulvinar
-          elementum integer enim neque volutpat ac tincidunt. Ornare suspendisse
-          sed nisi lacus sed viverra tellus. Purus sit amet volutpat consequat
-          mauris. Elementum eu facilisis sed odio morbi. Euismod lacinia at quis
-          risus sed vulputate odio. Morbi tincidunt ornare massa eget egestas
-          purus viverra accumsan in. In hendrerit gravida rutrum quisque non
-          tellus orci ac. Pellentesque nec nam aliquam sem et tortor. Habitant
-          morbi tristique senectus et. Adipiscing elit duis tristique
-          sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
-          eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
-          posuere sollicitudin aliquam ultrices sagittis orci a.
-        </Typography>
+        <Grid container direction='column'>
+          {/* -----Welcome Container----- */}
+          <Grid item className={classes.itemContainer}>
+            <Typography variant='h2'>Welcome, Kyle!</Typography>
+            <Typography paragraph>
+              Travelmor. allows you to easily add a trip and start tracking! The
+              last trip that you created will show up here on your dashboard for
+              easy access to enter any new expenses.
+            </Typography>
+          </Grid>
+          <Divider />
+          <Grid item className={classes.itemContainer}>
+            <Grid container direction='column'>
+              <Grid item>
+                <Typography variant='h4'>
+                  Create a trip to get started!
+                </Typography>
+              </Grid>
+              <Grid item>
+                <Button
+                  variant='outlined'
+                  disableRipple
+                  component={Link}
+                  to='/newtrip'
+                  className={classes.button}
+                >
+                  Create New Trip
+                </Button>
+              </Grid>
+            </Grid>
+          </Grid>
+          {/* -----Graphs Container----- */}
+          <Grid item>
+            <Grid container>
+              <Grid item>
+                <BarChart
+                  width={matchXs ? 350 : 500}
+                  height={500}
+                  data={data}
+                  margin={{
+                    top: 5,
+                    right: 30,
+                    left: 20,
+                    bottom: 5,
+                  }}
+                >
+                  <XAxis dataKey='name' />
+                  {/* <YAxis /> */}
+                  <Tooltip />
+                  {/* <Legend /> */}
+                  <Bar dataKey='$' fill='#4bb0f8' />
+                </BarChart>
+              </Grid>
+              <Grid item>
+                <Grid container direction='column'>
+                  <Grid item className={classes.date}>
+                    <Typography variant='h5'>{Date.now()}</Typography>
+                  </Grid>
+                </Grid>
+              </Grid>
+            </Grid>
+          </Grid>
+        </Grid>
       </main>
     </>
   );
