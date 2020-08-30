@@ -1,8 +1,10 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import Moment from 'moment';
 import Typography from '@material-ui/core/Typography';
 import Toolbar from '@material-ui/core/Toolbar';
 import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
 import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
 
@@ -28,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.main,
     [theme.breakpoints.down('sm')]: {
       marginLeft: 0,
+      padding: theme.spacing(1, 0.5),
       marginTop: '1em',
     },
   },
@@ -41,11 +44,14 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: theme.palette.primary.light,
     },
   },
-  itemContainer: {},
-  date: {
+  graphItem: {
     backgroundColor: theme.palette.secondary.light,
-    width: '25em',
-    height: '25em',
+    marginTop: '2em',
+  },
+
+  date: {
+    marginLeft: 'auto',
+    padding: '1em',
   },
 }));
 
@@ -100,19 +106,16 @@ const Dashboard = () => {
         <Toolbar />
         <Grid container direction='column'>
           {/* -----Welcome Container----- */}
-          <Grid item className={classes.itemContainer}>
-            <Typography variant='h2'>Welcome, Kyle!</Typography>
-            <Typography paragraph>
-              Travelmor. allows you to easily add a trip and start tracking! The
-              last trip that you created will show up here on your dashboard for
-              easy access to enter any new expenses.
+          <Grid item>
+            <Typography variant={matchXs ? 'h4' : 'h2'}>
+              Welcome, Kyle!
             </Typography>
           </Grid>
           <Divider />
-          <Grid item className={classes.itemContainer}>
+          <Grid item>
             <Grid container direction='column'>
               <Grid item>
-                <Typography variant='h4'>
+                <Typography variant={matchXs ? 'h5' : 'h4'}>
                   Create a trip to get started!
                 </Typography>
               </Grid>
@@ -130,36 +133,40 @@ const Dashboard = () => {
             </Grid>
           </Grid>
           {/* -----Graphs Container----- */}
-          <Grid item>
-            <Grid container>
-              <Grid item>
-                <BarChart
-                  width={matchXs ? 350 : 500}
-                  height={500}
-                  data={data}
-                  margin={{
-                    top: 5,
-                    right: 30,
-                    left: 20,
-                    bottom: 5,
-                  }}
-                >
-                  <XAxis dataKey='name' />
-                  {/* <YAxis /> */}
-                  <Tooltip />
-                  {/* <Legend /> */}
-                  <Bar dataKey='$' fill='#4bb0f8' />
-                </BarChart>
-              </Grid>
-              <Grid item>
-                <Grid container direction='column'>
-                  <Grid item className={classes.date}>
-                    <Typography variant='h5'>{Date.now()}</Typography>
+          <Box m={1} boxShadow={3} className={classes.graphItem}>
+            <Grid item>
+              <Grid container>
+                <Grid sm item>
+                  <BarChart
+                    width={matchXs ? 350 : 500}
+                    height={matchXs ? 250 : 500}
+                    data={data}
+                    margin={{
+                      top: 20,
+                      right: 30,
+                      left: 20,
+                      bottom: 5,
+                    }}
+                  >
+                    <XAxis dataKey='name' />
+                    {/* <YAxis /> */}
+                    <Tooltip />
+                    {/* <Legend /> */}
+                    <Bar dataKey='$' fill='#4bb0f8' />
+                  </BarChart>
+                </Grid>
+                <Grid sm item>
+                  <Grid container>
+                    <Grid item className={classes.date}>
+                      <Typography variant='h6'>
+                        {Moment(Date.now()).format('MMM Do, YYYY')}
+                      </Typography>
+                    </Grid>
                   </Grid>
                 </Grid>
               </Grid>
             </Grid>
-          </Grid>
+          </Box>
         </Grid>
       </main>
     </>
