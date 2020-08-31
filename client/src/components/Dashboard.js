@@ -16,6 +16,10 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
+  PieChart,
+  Pie,
+  Sector,
+  Cell,
 } from 'recharts';
 
 import {makeStyles, useTheme} from '@material-ui/core/styles';
@@ -66,7 +70,7 @@ const useStyles = makeStyles((theme) => ({
 
   chartContainer: {
     [theme.breakpoints.down('xs')]: {
-      height: '20em',
+      height: '12em',
     },
   },
   overallSpendingItems: {
@@ -143,6 +147,42 @@ const Dashboard = () => {
       amt: 2100,
     },
   ];
+
+  // Pie Charts
+  const pieData = [
+    {name: 'Food', value: 400},
+    {name: 'Transportation', value: 300},
+    {name: 'Lodging', value: 300},
+    {name: 'Tours', value: 200},
+  ];
+  const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+
+  const RADIAN = Math.PI / 180;
+  const renderCustomizedLabel = ({
+    cx,
+    cy,
+    midAngle,
+    innerRadius,
+    outerRadius,
+    percent,
+    index,
+  }) => {
+    const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+    const x = cx + radius * Math.cos(-midAngle * RADIAN);
+    const y = cy + radius * Math.sin(-midAngle * RADIAN);
+
+    return (
+      <text
+        x={x}
+        y={y}
+        fill='white'
+        textAnchor={x > cx ? 'start' : 'end'}
+        dominantBaseline='central'
+      >
+        {`${(percent * 100).toFixed(0)}%`}
+      </text>
+    );
+  };
 
   return (
     <>
@@ -222,7 +262,10 @@ const Dashboard = () => {
                   item
                   className={classes.chartContainer}
                 >
-                  <ResponsiveContainer width='99%'>
+                  <ResponsiveContainer
+                    width='99%'
+                    // height={matchXs ? '50%' : undefined}
+                  >
                     <BarChart
                       // width={matchXs ? 350 : 500}
                       // height={matchXs ? 250 : 400}
@@ -236,6 +279,7 @@ const Dashboard = () => {
                     >
                       <XAxis dataKey='name' />
                       {/* <YAxis /> */}
+
                       <Tooltip />
                       {/* <Legend /> */}
                       <Bar dataKey='$' fill='#4bb0f8' />
@@ -345,6 +389,42 @@ const Dashboard = () => {
                       </Grid>
                     </Grid>
                   </Box>
+                </Grid>
+              </Grid>
+              {/* ---- Pie Chart ----- */}
+              <Grid item>
+                <Grid container direction='row' justify='space-around'>
+                  {/* Pie Chart */}
+                  <Grid sm={6} item>
+                    <PieChart width={300} height={300}>
+                      <Pie
+                        data={pieData}
+                        cx={150}
+                        cy={150}
+                        labelLine={false}
+                        label={renderCustomizedLabel}
+                        outerRadius={80}
+                        fill='#8884d8'
+                        dataKey='value'
+                      >
+                        {data.map((entry, index) => (
+                          <Cell
+                            key={`cell-${index}`}
+                            fill={COLORS[index % COLORS.length]}
+                          />
+                        ))}
+                      </Pie>
+                    </PieChart>
+                  </Grid>
+                  <Grid sm={6} item>
+                    <Grid container direction='column'>
+                      <Grid item>
+                        <Typography variant='h4' align='center'>
+                          Expense History
+                        </Typography>
+                      </Grid>
+                    </Grid>
+                  </Grid>
                 </Grid>
               </Grid>
             </Grid>

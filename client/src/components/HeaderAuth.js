@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, Fragment} from 'react';
 import {Link} from 'react-router-dom';
 import {makeStyles, useTheme} from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -221,7 +221,7 @@ const AuthHeader = () => {
               return <Divider key={`${item}, ${index}`} />;
             } else if (item.text === 'My Trips') {
               return (
-                <>
+                <Fragment key={index + 10}>
                   <ListItem
                     button
                     key={`${item}, ${index}`}
@@ -262,7 +262,7 @@ const AuthHeader = () => {
                       })}
                     </List>
                   </Collapse>
-                </>
+                </Fragment>
               );
             } else {
               return (
