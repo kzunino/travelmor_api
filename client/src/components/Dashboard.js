@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, forwardRef} from 'react';
 import {Link} from 'react-router-dom';
 import Moment from 'moment';
 import Typography from '@material-ui/core/Typography';
@@ -9,14 +9,23 @@ import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
 
 // Table
+import MaterialTable from 'material-table';
 
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
+import AddBox from '@material-ui/icons/AddBox';
+import ArrowDownward from '@material-ui/icons/ArrowDownward';
+import Check from '@material-ui/icons/Check';
+import ChevronLeft from '@material-ui/icons/ChevronLeft';
+import ChevronRight from '@material-ui/icons/ChevronRight';
+import Clear from '@material-ui/icons/Clear';
+import DeleteOutline from '@material-ui/icons/DeleteOutline';
+import Edit from '@material-ui/icons/Edit';
+import FilterList from '@material-ui/icons/FilterList';
+import FirstPage from '@material-ui/icons/FirstPage';
+import LastPage from '@material-ui/icons/LastPage';
+import Remove from '@material-ui/icons/Remove';
+import SaveAlt from '@material-ui/icons/SaveAlt';
+import Search from '@material-ui/icons/Search';
+import ViewColumn from '@material-ui/icons/ViewColumn';
 
 //Charts
 
@@ -38,18 +47,6 @@ import {makeStyles, useTheme} from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 const drawerWidth = 240;
-
-function createData(name, calories, fat, carbs, protein) {
-  return {name, calories, fat, carbs, protein};
-}
-
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
 
 const useStyles = makeStyles((theme) => ({
   toolbarMargin: {
@@ -135,6 +132,58 @@ const Dashboard = () => {
   const classes = useStyles();
 
   const matchXs = useMediaQuery(theme.breakpoints.down('xs'));
+
+  //Table state
+
+  const [state, setState] = useState({
+    columns: [
+      {title: 'Expense', field: 'expense'},
+      {title: 'Cost', field: 'cost', type: 'currency'},
+      {title: 'Type', field: 'type'},
+      {title: 'Date', field: 'date', type: 'date'},
+      // {
+      //   title: 'Type',
+      //   field: 'type',
+      //   lookup: {34: 'İstanbul', 63: 'Şanlıurfa'},
+      // },
+    ],
+    data: [
+      {
+        expense: 'Bus',
+        cost: '10',
+        type: 'Transportation',
+        date: '8 / 31 / 1989',
+      },
+    ],
+  });
+
+  const tableIcons = {
+    Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
+    Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
+    Clear: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
+    Delete: forwardRef((props, ref) => <DeleteOutline {...props} ref={ref} />),
+    DetailPanel: forwardRef((props, ref) => (
+      <ChevronRight {...props} ref={ref} />
+    )),
+    Edit: forwardRef((props, ref) => <Edit {...props} ref={ref} />),
+    Export: forwardRef((props, ref) => <SaveAlt {...props} ref={ref} />),
+    Filter: forwardRef((props, ref) => <FilterList {...props} ref={ref} />),
+    FirstPage: forwardRef((props, ref) => <FirstPage {...props} ref={ref} />),
+    LastPage: forwardRef((props, ref) => <LastPage {...props} ref={ref} />),
+    NextPage: forwardRef((props, ref) => <ChevronRight {...props} ref={ref} />),
+    PreviousPage: forwardRef((props, ref) => (
+      <ChevronLeft {...props} ref={ref} />
+    )),
+    ResetSearch: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
+    Search: forwardRef((props, ref) => <Search {...props} ref={ref} />),
+    SortArrow: forwardRef((props, ref) => (
+      <ArrowDownward {...props} ref={ref} />
+    )),
+    ThirdStateCheck: forwardRef((props, ref) => (
+      <Remove {...props} ref={ref} />
+    )),
+    ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />),
+  };
 
   //if type is null then uncategorized
   const expenses = [
@@ -448,7 +497,7 @@ const Dashboard = () => {
               </Grid>
               {/* ---- Pie Chart ----- */}
               <Grid item>
-                <Grid container direction='row' justify='space-around'>
+                <Grid container direction='row'>
                   {/* Pie Chart */}
                   <Grid sm={6} item>
                     <PieChart width={300} height={300}>
@@ -472,61 +521,58 @@ const Dashboard = () => {
                     </PieChart>
                   </Grid>
                   <Grid sm={6} item>
-                    <Grid container direction='column'>
-                      <Grid item>
-                        <Typography variant='h4' align='center'>
-                          Expense History
-                        </Typography>
-                        <Grid item>
-                          {' '}
-                          <TableContainer component={Paper}>
-                            <Table
-                              className={classes.table}
-                              aria-label='simple table'
-                            >
-                              <TableHead>
-                                <TableRow>
-                                  <TableCell>Dessert (100g serving)</TableCell>
-                                  <TableCell align='right'>Calories</TableCell>
-                                  <TableCell align='right'>
-                                    Fat&nbsp;(g)
-                                  </TableCell>
-                                  <TableCell align='right'>
-                                    Carbs&nbsp;(g)
-                                  </TableCell>
-                                  <TableCell align='right'>
-                                    Protein&nbsp;(g)
-                                  </TableCell>
-                                </TableRow>
-                              </TableHead>
-                              <TableBody>
-                                {rows.map((row) => (
-                                  <TableRow key={row.name}>
-                                    <TableCell component='th' scope='row'>
-                                      {row.name}
-                                    </TableCell>
-                                    <TableCell align='right'>
-                                      {row.calories}
-                                    </TableCell>
-                                    <TableCell align='right'>
-                                      {row.fat}
-                                    </TableCell>
-                                    <TableCell align='right'>
-                                      {row.carbs}
-                                    </TableCell>
-                                    <TableCell align='right'>
-                                      {row.protein}
-                                    </TableCell>
-                                  </TableRow>
-                                ))}
-                              </TableBody>
-                            </Table>
-                          </TableContainer>
-                        </Grid>
-                      </Grid>
-                    </Grid>
+                    <Typography variant='h4'>
+                      Grid box to describe the pie chart
+                    </Typography>
                   </Grid>
                 </Grid>
+              </Grid>
+
+              {/* ------ Expense history ----- */}
+              <Grid xs={11} item>
+                <MaterialTable
+                  icons={tableIcons}
+                  title='Expense history'
+                  columns={state.columns}
+                  data={state.data}
+                  editable={{
+                    onRowAdd: (newData) =>
+                      new Promise((resolve) => {
+                        setTimeout(() => {
+                          resolve();
+                          setState((prevState) => {
+                            const data = [...prevState.data];
+                            data.push(newData);
+                            return {...prevState, data};
+                          });
+                        }, 600);
+                      }),
+                    onRowUpdate: (newData, oldData) =>
+                      new Promise((resolve) => {
+                        setTimeout(() => {
+                          resolve();
+                          if (oldData) {
+                            setState((prevState) => {
+                              const data = [...prevState.data];
+                              data[data.indexOf(oldData)] = newData;
+                              return {...prevState, data};
+                            });
+                          }
+                        }, 600);
+                      }),
+                    onRowDelete: (oldData) =>
+                      new Promise((resolve) => {
+                        setTimeout(() => {
+                          resolve();
+                          setState((prevState) => {
+                            const data = [...prevState.data];
+                            data.splice(data.indexOf(oldData), 1);
+                            return {...prevState, data};
+                          });
+                        }, 600);
+                      }),
+                  }}
+                />
               </Grid>
             </Grid>
           </Box>
