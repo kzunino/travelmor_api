@@ -9,23 +9,13 @@ import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
 
 // Table
-import MaterialTable from 'material-table';
-
-import AddBox from '@material-ui/icons/AddBox';
-import ArrowDownward from '@material-ui/icons/ArrowDownward';
-import Check from '@material-ui/icons/Check';
-import ChevronLeft from '@material-ui/icons/ChevronLeft';
-import ChevronRight from '@material-ui/icons/ChevronRight';
-import Clear from '@material-ui/icons/Clear';
-import DeleteOutline from '@material-ui/icons/DeleteOutline';
-import Edit from '@material-ui/icons/Edit';
-import FilterList from '@material-ui/icons/FilterList';
-import FirstPage from '@material-ui/icons/FirstPage';
-import LastPage from '@material-ui/icons/LastPage';
-import Remove from '@material-ui/icons/Remove';
-import SaveAlt from '@material-ui/icons/SaveAlt';
-import Search from '@material-ui/icons/Search';
-import ViewColumn from '@material-ui/icons/ViewColumn';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
 
 //Charts
 
@@ -54,7 +44,8 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: '1em',
   },
   table: {
-    minWidth: 650,
+    minWidth: 300,
+    maxWidth: 700,
   },
   toolbar: {
     padding: 0,
@@ -133,79 +124,45 @@ const Dashboard = () => {
 
   const matchXs = useMediaQuery(theme.breakpoints.down('xs'));
 
-  //Table state
+  //Table Data
 
-  const [state, setState] = useState({
-    columns: [
-      {title: 'Expense', field: 'expense'},
-      {title: 'Cost', field: 'cost', type: 'currency'},
-      {title: 'Type', field: 'type'},
-      {title: 'Date', field: 'date', type: 'date'},
-      // {
-      //   title: 'Type',
-      //   field: 'type',
-      //   lookup: {34: 'İstanbul', 63: 'Şanlıurfa'},
-      // },
-    ],
-    data: [
-      {
-        expense: 'Bus',
-        cost: '10',
-        type: 'Transportation',
-        date: '8 / 31 / 1989',
-      },
-    ],
-  });
+  function createData(name, cost, date) {
+    return {name, cost, date};
+  }
 
-  const tableIcons = {
-    Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
-    Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
-    Clear: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
-    Delete: forwardRef((props, ref) => <DeleteOutline {...props} ref={ref} />),
-    DetailPanel: forwardRef((props, ref) => (
-      <ChevronRight {...props} ref={ref} />
-    )),
-    Edit: forwardRef((props, ref) => <Edit {...props} ref={ref} />),
-    Export: forwardRef((props, ref) => <SaveAlt {...props} ref={ref} />),
-    Filter: forwardRef((props, ref) => <FilterList {...props} ref={ref} />),
-    FirstPage: forwardRef((props, ref) => <FirstPage {...props} ref={ref} />),
-    LastPage: forwardRef((props, ref) => <LastPage {...props} ref={ref} />),
-    NextPage: forwardRef((props, ref) => <ChevronRight {...props} ref={ref} />),
-    PreviousPage: forwardRef((props, ref) => (
-      <ChevronLeft {...props} ref={ref} />
-    )),
-    ResetSearch: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
-    Search: forwardRef((props, ref) => <Search {...props} ref={ref} />),
-    SortArrow: forwardRef((props, ref) => (
-      <ArrowDownward {...props} ref={ref} />
-    )),
-    ThirdStateCheck: forwardRef((props, ref) => (
-      <Remove {...props} ref={ref} />
-    )),
-    ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />),
-  };
+  const rows = [
+    createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
+    createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
+    createData('Eclair', 262, 16.0, 24, 6.0),
+    createData('Cupcake', 305, 3.7, 67, 4.3),
+    createData('Gingerbread', 356, 16.0, 49, 3.9),
+  ];
 
   //if type is null then uncategorized
   const expenses = [
     {
+      expense_uid: 132323,
       type: 'Transportation',
       name: 'bus tickets',
       cost: 12.0,
       date: Date.now(),
     },
     {
+      expense_uid: 1323222,
       type: 'Food',
       name: 'breakfast',
       cost: 42.0,
       date: Date.now(),
     },
     {
+      expense_uid: 1359693,
       type: 'Tour',
       name: 'Cusco City Tour',
       cost: 50.0,
       date: Date.now(),
     },
     {
+      expense_uid: 190323,
       type: 'Gifts',
       name: 'Bottle of Pisco',
       cost: 18.0,
@@ -497,7 +454,12 @@ const Dashboard = () => {
               </Grid>
               {/* ---- Pie Chart ----- */}
               <Grid item>
-                <Grid container direction='row'>
+                <Grid
+                  container
+                  direction='row'
+                  justify='center'
+                  alignItems='center'
+                >
                   {/* Pie Chart */}
                   <Grid sm={6} item>
                     <PieChart width={300} height={300}>
@@ -520,59 +482,62 @@ const Dashboard = () => {
                       </Pie>
                     </PieChart>
                   </Grid>
-                  <Grid sm={6} item>
-                    <Typography variant='h4'>
-                      Grid box to describe the pie chart
+                  <Grid xs={12} sm={5} item>
+                    <Typography variant='h4' align='center'>
+                      Last five purchases
                     </Typography>
+                    <Grid
+                      container
+                      direction='row'
+                      justify='center'
+                      alignItems='center'
+                    >
+                      <Grid item>
+                        <TableContainer component={Paper}>
+                          <Table
+                            className={classes.table}
+                            size='small'
+                            aria-label='a dense table'
+                          >
+                            <TableHead>
+                              <TableRow>
+                                <TableCell>Expense</TableCell>
+                                <TableCell align='right'>Cost</TableCell>
+                                <TableCell align='right'>Date</TableCell>
+                              </TableRow>
+                            </TableHead>
+                            <TableBody>
+                              {rows.map((row) => (
+                                <TableRow key={row.name}>
+                                  <TableCell component='th' scope='row'>
+                                    {row.name}
+                                  </TableCell>
+                                  <TableCell align='right'>
+                                    {row.cost}
+                                  </TableCell>
+                                  <TableCell align='right'>
+                                    {row.date}
+                                  </TableCell>
+                                </TableRow>
+                              ))}
+                            </TableBody>
+                          </Table>
+                        </TableContainer>
+                        <Grid xs={12} item align='center'>
+                          <Button
+                            className={classes.button}
+                            disableRipple
+                            variant='outlined'
+                            component={Link}
+                            to='/dashboard/history/:trip_uid'
+                          >
+                            See Full History
+                          </Button>
+                        </Grid>
+                      </Grid>
+                    </Grid>
                   </Grid>
                 </Grid>
-              </Grid>
-
-              {/* ------ Expense history ----- */}
-              <Grid xs={11} item>
-                <MaterialTable
-                  icons={tableIcons}
-                  title='Expense history'
-                  columns={state.columns}
-                  data={state.data}
-                  editable={{
-                    onRowAdd: (newData) =>
-                      new Promise((resolve) => {
-                        setTimeout(() => {
-                          resolve();
-                          setState((prevState) => {
-                            const data = [...prevState.data];
-                            data.push(newData);
-                            return {...prevState, data};
-                          });
-                        }, 600);
-                      }),
-                    onRowUpdate: (newData, oldData) =>
-                      new Promise((resolve) => {
-                        setTimeout(() => {
-                          resolve();
-                          if (oldData) {
-                            setState((prevState) => {
-                              const data = [...prevState.data];
-                              data[data.indexOf(oldData)] = newData;
-                              return {...prevState, data};
-                            });
-                          }
-                        }, 600);
-                      }),
-                    onRowDelete: (oldData) =>
-                      new Promise((resolve) => {
-                        setTimeout(() => {
-                          resolve();
-                          setState((prevState) => {
-                            const data = [...prevState.data];
-                            data.splice(data.indexOf(oldData), 1);
-                            return {...prevState, data};
-                          });
-                        }, 600);
-                      }),
-                  }}
-                />
               </Grid>
             </Grid>
           </Box>
