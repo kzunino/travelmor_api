@@ -1,4 +1,4 @@
-import React, {useState, forwardRef} from 'react';
+import React, {useState} from 'react';
 import {Link} from 'react-router-dom';
 import Moment from 'moment';
 import Typography from '@material-ui/core/Typography';
@@ -80,6 +80,8 @@ const useStyles = makeStyles((theme) => ({
     marginTop: '2em',
     marginLeft: 0,
     marginRight: 0,
+    paddingTop: '1em',
+    paddingBottom: '1em',
     display: 'flex',
   },
 
@@ -123,6 +125,9 @@ const Dashboard = () => {
   const classes = useStyles();
 
   const matchXs = useMediaQuery(theme.breakpoints.down('xs'));
+
+  //prevents table from exceeding boundaries
+  const matchesTable = useMediaQuery('(max-width:648px)');
 
   //Table Data
 
@@ -482,7 +487,7 @@ const Dashboard = () => {
                       </Pie>
                     </PieChart>
                   </Grid>
-                  <Grid xs={12} sm={5} item>
+                  <Grid xs={12} sm={matchesTable ? 8 : 5} item>
                     <Typography variant='h4' align='center'>
                       Last five purchases
                     </Typography>
