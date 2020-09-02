@@ -246,6 +246,7 @@ const Dashboard = () => {
         textAnchor={x > cx ? 'start' : 'end'}
         dominantBaseline='central'
       >
+        {/* {data[index].name} */}
         {`${(percent * 100).toFixed(0)}%`}
       </text>
     );
@@ -473,7 +474,7 @@ const Dashboard = () => {
                         data={pieData}
                         cx={150}
                         cy={150}
-                        labelLine={true}
+                        labelLine={false}
                         label={renderCustomizedLabel}
                         outerRadius={80}
                         fill='#8884d8'
@@ -535,9 +536,9 @@ const Dashboard = () => {
                             disableRipple
                             variant='outlined'
                             component={Link}
-                            to='/dashboard/history/:trip_uid'
+                            to='/dashboard/history'
                           >
-                            See Full History
+                            Go to budget
                           </Button>
                         </Grid>
                       </Grid>
