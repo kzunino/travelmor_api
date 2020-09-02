@@ -18,13 +18,13 @@ const theme = createMuiTheme({
     background: {
       main: lightBeige,
     },
-    heading: {
+    boxContentBudgetHeading: {
       main: lightGray,
     },
-    boxTitles: {
-      main: offWhite,
-    },
-    boxContent: {
+    // boxTitles: {
+    //   main: offWhite,
+    // },
+    boxContentBudgetData: {
       main: white,
     },
   },

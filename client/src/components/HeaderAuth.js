@@ -61,7 +61,8 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerPaper: {
     width: drawerWidth,
-    backgroundColor: theme.palette.secondary.main,
+    //backgroundColor: theme.palette.secondary.main,
+    background: `linear-gradient( ${theme.palette.secondary.main}, ${theme.palette.secondary.light})`,
   },
   drawerContainer: {
     overflow: 'auto',
@@ -246,7 +247,7 @@ const AuthHeader = () => {
                             className={classes.nested}
                             key={`${trip.trip_uid}${index}`}
                             component={Link}
-                            to={`/trip/${trip.trip_uid}`}
+                            to={`/dashboard/trip/${trip.trip_uid}`}
                             onClick={() => {
                               setValue(1);
                               setTripValue(trip.trip_uid);
@@ -273,7 +274,7 @@ const AuthHeader = () => {
                   to={item.link}
                   selected={value === item.activeIndex}
                   onClick={() => {
-                    setTripValue(null);
+                    setTripValue(item.activeIndex);
                   }}
                 >
                   <ListItemIcon>{item.icon}</ListItemIcon>

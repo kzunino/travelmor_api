@@ -32,12 +32,7 @@ function App() {
           <Route exact path='/newtrip' component={NewTrip} />
           <Route exact path='/about' component={About} />
           <Route exact path='/contact' component={Contact} />
-          <Route exact path='/myaccount' component={MyAccount} />
-
-          <Route
-            path='/dashboard/trip/:trip_uid'
-            component={() => <div>trips</div>}
-          />
+          <Route exact path='/account' component={MyAccount} />
         </Switch>
         <BottomActions />
       </Router>

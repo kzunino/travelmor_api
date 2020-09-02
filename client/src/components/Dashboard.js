@@ -55,7 +55,8 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(3),
     marginLeft: drawerWidth,
     marginBottom: 50,
-    backgroundColor: theme.palette.background.main,
+    //backgroundColor: '#2F2F31',
+    backgroundColor: 'whitesmoke',
     [theme.breakpoints.down('sm')]: {
       marginLeft: 0,
       padding: theme.spacing(1, 1.5),
@@ -77,7 +78,8 @@ const useStyles = makeStyles((theme) => ({
   },
 
   graphItem: {
-    backgroundColor: theme.palette.secondary.light,
+    //backgroundColor: theme.palette.secondary.light,
+    backgroundColor: theme.palette.background.main,
     marginTop: '2em',
     marginLeft: 0,
     marginRight: 0,
@@ -114,10 +116,10 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#4a4a4a',
   },
   budgetData: {
-    color: theme.palette.boxContent.main,
+    color: theme.palette.boxContentBudgetData.main,
   },
-  subtitleGrey: {
-    color: theme.palette.heading.main,
+  budgetHeading: {
+    color: theme.palette.boxContentBudgetHeading.main,
   },
 }));
 
@@ -295,7 +297,7 @@ const Dashboard = () => {
                       <Typography
                         variant='subtitle2'
                         align='center'
-                        className={classes.subtitleGrey}
+                        className={classes.budgetHeading}
                       >
                         Aug 30th - Sept 10th
                       </Typography>
@@ -306,7 +308,7 @@ const Dashboard = () => {
                   <Grid item className={classes.overallSpendingItems}>
                     <Typography
                       variant='subtitle2'
-                      className={classes.subtitleGrey}
+                      className={classes.budgetHeading}
                     >
                       trip budget
                     </Typography>
@@ -315,7 +317,7 @@ const Dashboard = () => {
                   <Grid item className={classes.overallSpendingItems}>
                     <Typography
                       variant='subtitle2'
-                      className={classes.subtitleGrey}
+                      className={classes.budgetHeading}
                     >
                       daily budget
                     </Typography>
