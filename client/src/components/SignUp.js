@@ -88,6 +88,15 @@ export default function SignIn() {
             margin='normal'
             required
             fullWidth
+            id='home_currency'
+            label='Home Currency'
+            name='home_currency'
+          />
+          <TextField
+            variant='outlined'
+            margin='normal'
+            required
+            fullWidth
             id='email'
             label='Email Address'
             name='email'

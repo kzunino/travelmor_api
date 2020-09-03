@@ -10,6 +10,14 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 
 import Button from '@material-ui/core/Button';
 
+//Select
+
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+
 //Date
 import {KeyboardDatePicker} from '@material-ui/pickers';
 
@@ -59,6 +67,14 @@ const useStyles = makeStyles((theme) => ({
   budgetField: {
     width: '50%',
   },
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+    verticalAlign: 'bottom',
+  },
+  selectEmpty: {
+    marginTop: theme.spacing(2),
+  },
   submit: {
     margin: theme.spacing(3, 0, 2),
     color: 'white',
@@ -71,14 +87,21 @@ const NewTrip = () => {
   const theme = useTheme();
   const classes = useStyles();
 
-  //start date state
+  const [currency, setCurrency] = React.useState('');
   const [selectedStartDate, setSelectedStartDate] = useState(Date.now());
+  const [selectedEndDate, setSelectedEndDate] = useState(Date.now());
+
+  // Currency data
+  const handleCurrencyType = (currency) => {
+    setCurrency(currency);
+  };
+
+  //start date state
   const handleStartDateChange = (date) => {
     setSelectedStartDate(date);
   };
 
   //end date state
-  const [selectedEndDate, setSelectedEndDate] = useState(Date.now());
   const handleEndDateChange = (date) => {
     setSelectedEndDate(date);
   };
@@ -121,6 +144,25 @@ const NewTrip = () => {
                 type='number'
                 id='trip_budget_total'
               />
+
+              {/* ------ Currency Input ----- */}
+              <FormControl required className={classes.formControl}>
+                <InputLabel id='required-label'>Currency</InputLabel>
+                <Select
+                  labelId='demo-simple-select-required-label'
+                  id='demo-simple-select-required'
+                  value={currency}
+                  onChange={handleCurrencyType}
+                  className={classes.selectEmpty}
+                >
+                  <MenuItem value=''>
+                    <em>None</em>
+                  </MenuItem>
+                  <MenuItem value={'USD'}>USD</MenuItem>
+                  <MenuItem value={'COP'}>COP</MenuItem>
+                </Select>
+              </FormControl>
+
               <Grid
                 container
                 direction='row'
