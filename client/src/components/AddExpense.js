@@ -10,6 +10,14 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 
 import Button from '@material-ui/core/Button';
 
+// Select
+
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+
 //Date
 import {KeyboardDatePicker} from '@material-ui/pickers';
 
@@ -59,6 +67,14 @@ const useStyles = makeStyles((theme) => ({
   budgetField: {
     width: '50%',
   },
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+    verticalAlign: 'bottom',
+  },
+  selectEmpty: {
+    marginTop: theme.spacing(2),
+  },
   submit: {
     margin: theme.spacing(3, 0, 2),
     color: 'white',
@@ -67,25 +83,23 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const NewTrip = () => {
+const AddExpense = () => {
   const theme = useTheme();
   const classes = useStyles();
 
-  //start date state
-  const [selectedStartDate, setSelectedStartDate] = useState(Date.now());
-  const handleStartDateChange = (date) => {
-    setSelectedStartDate(date);
+  //end date state
+  const [selectedExpenseDate, setSelectedExpenseDate] = useState(Date.now());
+  const [age, setAge] = React.useState('');
+
+  const handleChange = (event) => {
+    setAge(event.target.value);
   };
 
-  //end date state
-  const [selectedEndDate, setSelectedEndDate] = useState(Date.now());
-  const handleEndDateChange = (date) => {
-    setSelectedEndDate(date);
+  const handleExpenseDate = (date) => {
+    setSelectedExpenseDate(date);
   };
 
   const matchXs = useMediaQuery(theme.breakpoints.down('xs'));
-
-  const defaultDate = Moment(Date.now()).format('YYYY-MM-DD');
 
   return (
     <>
@@ -94,7 +108,9 @@ const NewTrip = () => {
         <Grid direction='column' className={classes.containerWrapper}>
           {/* -----Welcome Container----- */}
           <Grid item>
-            <Typography variant={matchXs ? 'h4' : 'h2'}>New Trip</Typography>
+            <Typography variant={matchXs ? 'h4' : 'h2'}>
+              Peru Trip - Add New Expense
+            </Typography>
           </Grid>
           <Divider />
           <Container component='div' maxWidth='xs'>
@@ -105,9 +121,9 @@ const NewTrip = () => {
                 margin='normal'
                 required
                 fullWidth
-                id='trip_name'
-                label='Trip Name'
-                name='trip_name'
+                id='expense_name'
+                label='Expense Name'
+                name='expense_name'
                 autoFocus
               />
               <TextField
@@ -116,49 +132,56 @@ const NewTrip = () => {
                 margin='normal'
                 required
                 fullWidth
-                name='trip_budget_total'
-                label='Budget Total'
+                name='expense_cost'
+                label='Cost'
                 type='number'
-                id='trip_budget_total'
+                id='expense_cost'
               />
-              <Grid
-                container
-                direction='row'
-                spacing={2}
-                justify='space-between'
-              >
-                <Grid xs={6} item>
-                  <KeyboardDatePicker
-                    disableToolbar
-                    variant='inline'
-                    format='MM/DD/yyyy'
-                    margin='normal'
-                    id='date-picker-inline'
-                    label='Start Date'
-                    value={selectedStartDate}
-                    onChange={handleStartDateChange}
-                    KeyboardButtonProps={{
-                      'aria-label': 'change date',
-                    }}
-                  />
-                </Grid>
 
-                <Grid xs={6} item>
-                  <KeyboardDatePicker
-                    disableToolbar
-                    variant='inline'
-                    format='MM/DD/yyyy'
-                    margin='normal'
-                    id='date-picker-inline'
-                    label='End Date'
-                    value={selectedEndDate}
-                    onChange={handleEndDateChange}
-                    KeyboardButtonProps={{
-                      'aria-label': 'change date',
-                    }}
-                  />
-                </Grid>
-              </Grid>
+              {/* ------ Type Input ----- */}
+              <FormControl required className={classes.formControl}>
+                <InputLabel id='required-label'>Type</InputLabel>
+                <Select
+                  labelId='demo-simple-select-required-label'
+                  id='demo-simple-select-required'
+                  value={age}
+                  onChange={handleChange}
+                  className={classes.selectEmpty}
+                >
+                  <MenuItem value=''>
+                    <em>None</em>
+                  </MenuItem>
+                  <MenuItem value={'Lodging'}>Lodging</MenuItem>
+                  <MenuItem value={'Transportation'}>Transportation</MenuItem>
+                  <MenuItem value={'Food'}>Food</MenuItem>
+                  <MenuItem value={'Other'}>Other</MenuItem>
+                </Select>
+              </FormControl>
+
+              <TextField
+                variant='standard'
+                margin='normal'
+                required
+                fullWidth
+                name='expense_type'
+                label='Type'
+                type='text'
+                id='expense_type'
+              />
+
+              <KeyboardDatePicker
+                disableToolbar
+                variant='inline'
+                format='MM/DD/yyyy'
+                margin='normal'
+                id='date-picker-inline'
+                label='Date'
+                value={selectedExpenseDate}
+                onChange={handleExpenseDate}
+                KeyboardButtonProps={{
+                  'aria-label': 'change date',
+                }}
+              />
 
               <Button
                 type='submit'
@@ -167,7 +190,7 @@ const NewTrip = () => {
                 className={classes.submit}
                 disableRipple
               >
-                Create Trip
+                Submit Expense
               </Button>
               <Grid container></Grid>
             </form>
@@ -178,4 +201,4 @@ const NewTrip = () => {
   );
 };
 
-export default NewTrip;
+export default AddExpense;
