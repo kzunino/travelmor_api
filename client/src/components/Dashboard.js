@@ -77,7 +77,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 
-  graphItem: {
+  mainContentBox: {
     //backgroundColor: theme.palette.secondary.light,
     backgroundColor: theme.palette.background.main,
     marginTop: '2em',
@@ -287,7 +287,7 @@ const Dashboard = () => {
             </Grid>
           </Grid>
           {/* -----Graphs Container----- */}
-          <Box m={1} boxShadow={3} className={classes.graphItem}>
+          <Box m={1} boxShadow={3} className={classes.mainContentBox}>
             <Grid item>
               <Grid container justify='space-between'>
                 <Grid item xs={12}>
@@ -538,7 +538,7 @@ const Dashboard = () => {
                             disableRipple
                             variant='outlined'
                             component={Link}
-                            to='/dashboard/history'
+                            to='/history'
                           >
                             Go to budget
                           </Button>

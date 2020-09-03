@@ -7,6 +7,7 @@ import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
 import AuthHeader from './components/HeaderAuth';
 import Dashboard from './components/Dashboard';
+import History from './components/History';
 import ExpenseHistory from './components/ExpenseHistory';
 import Trip from './components/Trip';
 import NewTrip from './components/NewTrip';
@@ -29,6 +30,7 @@ function App() {
           <Route exact path='/dashboard' component={Dashboard} />
           <Route exact path='/dashboard/trip' component={Trip} />
           <Route exact path='/dashboard/history' component={ExpenseHistory} />
+          <Route exact path='/history' component={History} />
           <Route exact path='/newtrip' component={NewTrip} />
           <Route exact path='/about' component={About} />
           <Route exact path='/contact' component={Contact} />

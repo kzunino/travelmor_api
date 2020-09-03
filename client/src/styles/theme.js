@@ -5,7 +5,7 @@ const softWheat = '#dfd8c8';
 const lightBeige = '#faf8f4';
 const lightGray = '#6e757c';
 const white = '#ffffff';
-const offWhite = '#f8f8ff';
+//const offWhite = '#f8f8ff';
 
 const theme = createMuiTheme({
   palette: {

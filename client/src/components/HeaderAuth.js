@@ -29,6 +29,7 @@ import InfoIcon from '@material-ui/icons/Info';
 import RecentActorsIcon from '@material-ui/icons/RecentActors';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import FlightIcon from '@material-ui/icons/Flight';
+import HistoryIcon from '@material-ui/icons/History';
 
 import logo from '../imgs/travelmor_square.png';
 
@@ -126,10 +127,16 @@ const AuthHeader = () => {
       activeIndex: 1,
     },
     {
+      text: 'History',
+      icon: <HistoryIcon />,
+      link: '/history',
+      activeIndex: 2,
+    },
+    {
       text: 'New Trip',
       icon: <FlightTakeoffIcon />,
       link: '/newtrip',
-      activeIndex: 2,
+      activeIndex: 3,
     },
     {
       text: 'Divider',
