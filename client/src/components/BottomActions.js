@@ -1,10 +1,11 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import {makeStyles} from '@material-ui/core/styles';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import ListIcon from '@material-ui/icons/List';
-import EditIcon from '@material-ui/icons/Edit';
+import HistoryIcon from '@material-ui/icons/History';
 
 const drawerWidth = 240;
 
@@ -52,19 +53,25 @@ const BottomActions = () => {
         label='Expenses'
         icon={<ListIcon />}
         disableRipple
+        component={Link}
+        to='/dashboard/history'
       />
       <BottomNavigationAction
         classes={{wrapper: classes.wrapper, root: classes.navActionButtons}}
         label='Add'
         icon={<AddCircleIcon />}
         disableRipple
+        component={Link}
+        to='/addexpense'
       />
 
       <BottomNavigationAction
         classes={{wrapper: classes.wrapper, root: classes.navActionButtons}}
-        label='Edit'
-        icon={<EditIcon />}
+        label='Trips'
+        icon={<HistoryIcon />}
         disableRipple
+        component={Link}
+        to='/history'
       />
     </BottomNavigation>
   );

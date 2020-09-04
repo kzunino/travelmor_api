@@ -45,6 +45,8 @@ const useStyles = makeStyles((theme) => ({
   },
   appBar: {
     zIndex: theme.zIndex.modal + 1,
+    //changes appbar color opacity
+    backgroundColor: 'rgba(219, 233, 244, .90)',
   },
   toolbar: {
     padding: 0,
@@ -319,7 +321,7 @@ const AuthHeader = () => {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <AppBar position='fixed' className={classes.appBar} color='secondary'>
+      <AppBar position='fixed' className={classes.appBar}>
         <Toolbar className={classes.toolbar}>
           <Button
             component={Link}

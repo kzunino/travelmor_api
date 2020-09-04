@@ -7,6 +7,7 @@ import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
+import Container from '@material-ui/core/Container';
 
 // Table
 import Table from '@material-ui/core/Table';
@@ -266,290 +267,296 @@ const Dashboard = () => {
             </Typography>
           </Grid>
           <Divider />
-          <Grid item>
-            <Grid container direction='column'>
-              <Grid item>
-                <Typography variant={matchXs ? 'h5' : 'h4'}>
-                  Create a trip to get started!
-                </Typography>
-              </Grid>
-              <Grid item>
-                <Button
-                  variant='outlined'
-                  disableRipple
-                  component={Link}
-                  to='/newtrip'
-                  className={classes.button}
-                >
-                  Create New Trip
-                </Button>
+          <Container maxWidth={'lg'}>
+            <Grid item>
+              <Grid container direction='column'>
+                <Grid item>
+                  <Typography variant={matchXs ? 'h5' : 'h4'}>
+                    Create a trip to get started!
+                  </Typography>
+                </Grid>
+                <Grid item>
+                  <Button
+                    variant='outlined'
+                    disableRipple
+                    component={Link}
+                    to='/newtrip'
+                    className={classes.button}
+                  >
+                    Create New Trip
+                  </Button>
+                </Grid>
               </Grid>
             </Grid>
-          </Grid>
-          {/* -----Graphs Container----- */}
-          <Box m={1} boxShadow={3} className={classes.mainContentBox}>
-            <Grid item>
-              <Grid container justify='space-between'>
-                <Grid item xs={12}>
-                  <Grid container justify='center'>
-                    <Grid item>
-                      <Typography variant='h3'>Peru Trip</Typography>
+            {/* -----Graphs Container----- */}
+            <Box m={1} boxShadow={3} className={classes.mainContentBox}>
+              <Grid item>
+                <Grid container justify='space-between'>
+                  <Grid item xs={12}>
+                    <Grid container justify='center'>
+                      <Grid item>
+                        <Typography variant='h3'>Peru Trip</Typography>
+                        <Typography
+                          variant='subtitle2'
+                          align='center'
+                          className={classes.budgetHeading}
+                        >
+                          Aug 30th - Sept 10th
+                        </Typography>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                  <Grid container justify='space-around' direction='row'>
+                    <Grid item className={classes.overallSpendingItems}>
                       <Typography
                         variant='subtitle2'
-                        align='center'
                         className={classes.budgetHeading}
                       >
-                        Aug 30th - Sept 10th
+                        trip budget
                       </Typography>
+                      <Typography variant='h6'>$1,000.00</Typography>
+                    </Grid>
+                    <Grid item className={classes.overallSpendingItems}>
+                      <Typography
+                        variant='subtitle2'
+                        className={classes.budgetHeading}
+                      >
+                        daily budget
+                      </Typography>
+                      <Typography variant='h6'>$50.00</Typography>
                     </Grid>
                   </Grid>
-                </Grid>
-                <Grid container justify='space-around' direction='row'>
-                  <Grid item className={classes.overallSpendingItems}>
-                    <Typography
-                      variant='subtitle2'
-                      className={classes.budgetHeading}
-                    >
-                      trip budget
-                    </Typography>
-                    <Typography variant='h6'>$1,000.00</Typography>
-                  </Grid>
-                  <Grid item className={classes.overallSpendingItems}>
-                    <Typography
-                      variant='subtitle2'
-                      className={classes.budgetHeading}
-                    >
-                      daily budget
-                    </Typography>
-                    <Typography variant='h6'>$50.00</Typography>
-                  </Grid>
-                </Grid>
 
-                <Grid
-                  xs={12}
-                  sm={7}
-                  md={8}
-                  item
-                  className={classes.chartContainer}
-                >
-                  <ResponsiveContainer
-                    width='99%'
-                    // height={matchXs ? '50%' : undefined}
+                  <Grid
+                    xs={12}
+                    sm={7}
+                    md={8}
+                    item
+                    className={classes.chartContainer}
                   >
-                    <BarChart
-                      // width={matchXs ? 350 : 500}
-                      // height={matchXs ? 250 : 400}
-                      data={data}
-                      margin={{
-                        top: 20,
-                        right: 30,
-                        left: 20,
-                        bottom: 5,
-                      }}
+                    <ResponsiveContainer
+                      width='99%'
+                      // height={matchXs ? '50%' : undefined}
                     >
-                      <XAxis dataKey='name' />
-                      {/* <YAxis /> */}
+                      <BarChart
+                        // width={matchXs ? 350 : 500}
+                        // height={matchXs ? 250 : 400}
+                        data={data}
+                        margin={{
+                          top: 20,
+                          right: 30,
+                          left: 20,
+                          bottom: 5,
+                        }}
+                      >
+                        <XAxis dataKey='name' />
+                        {/* <YAxis /> */}
 
-                      <Tooltip />
-                      {/* <Legend /> */}
-                      <Bar dataKey='$' fill='#4bb0f8' />
-                    </BarChart>
-                  </ResponsiveContainer>
-                </Grid>
+                        <Tooltip />
+                        {/* <Legend /> */}
+                        <Bar dataKey='$' fill='#ff0000' />
+                      </BarChart>
+                    </ResponsiveContainer>
+                  </Grid>
 
-                <Grid xs={12} sm={5} md={4} item>
-                  <Box m={1} boxShadow={3} className={classes.box}>
-                    <Grid container direction='column'>
-                      <Grid item className={classes.spendingInfoWidget}>
-                        <Typography
-                          variant='h6'
-                          align='center'
-                          className={classes.budgetData}
-                        >
-                          {Moment(Date.now()).format('MMM Do, YYYY')}
-                        </Typography>
-                      </Grid>
-                      <Grid container justify='space-around'>
-                        <Grid item className={classes.dailySpendingItems}>
-                          <Typography variant='subtitle2'>
-                            spent today
-                          </Typography>
+                  <Grid xs={12} sm={5} md={4} item>
+                    <Box m={1} boxShadow={3} className={classes.box}>
+                      <Grid container direction='column'>
+                        <Grid item className={classes.spendingInfoWidget}>
                           <Typography
                             variant='h6'
+                            align='center'
                             className={classes.budgetData}
                           >
-                            $40.00
+                            {Moment(Date.now()).format('MMM Do, YYYY')}
                           </Typography>
                         </Grid>
-                        <Grid item className={classes.dailySpendingItems}>
-                          <Typography variant='subtitle2'>remaining</Typography>
+                        <Grid container justify='space-around'>
+                          <Grid item className={classes.dailySpendingItems}>
+                            <Typography variant='subtitle2'>
+                              spent today
+                            </Typography>
+                            <Typography
+                              variant='h6'
+                              className={classes.budgetData}
+                            >
+                              $40.00
+                            </Typography>
+                          </Grid>
+                          <Grid item className={classes.dailySpendingItems}>
+                            <Typography variant='subtitle2'>
+                              remaining
+                            </Typography>
+                            <Typography
+                              variant='h6'
+                              className={classes.underBudgetColor}
+                            >
+                              $10.00
+                            </Typography>
+                          </Grid>
+                        </Grid>
+                      </Grid>
+                    </Box>
+
+                    <Box m={1} boxShadow={3} className={classes.box}>
+                      <Grid container justify='space-around' direction='row'>
+                        <Grid item className={classes.averageSpendingItems}>
+                          <Typography variant='subtitle2'>
+                            total daily average
+                          </Typography>
                           <Typography
                             variant='h6'
-                            className={classes.underBudgetColor}
+                            align='center'
+                            className={classes.budgetData}
                           >
-                            $10.00
+                            $43.50
                           </Typography>
                         </Grid>
                       </Grid>
-                    </Grid>
-                  </Box>
+                    </Box>
 
-                  <Box m={1} boxShadow={3} className={classes.box}>
-                    <Grid container justify='space-around' direction='row'>
-                      <Grid item className={classes.averageSpendingItems}>
-                        <Typography variant='subtitle2'>
-                          total daily average
-                        </Typography>
-                        <Typography
-                          variant='h6'
-                          align='center'
-                          className={classes.budgetData}
-                        >
-                          $43.50
-                        </Typography>
+                    <Box m={1} boxShadow={3} className={classes.box}>
+                      <Grid container justify='space-around' direction='row'>
+                        <Grid item className={classes.averageSpendingItems}>
+                          <Typography variant='subtitle2'>
+                            daily budget to stay on target
+                          </Typography>
+                          <Typography
+                            variant='h6'
+                            align='center'
+                            className={classes.budgetData}
+                          >
+                            $54.00
+                          </Typography>
+                        </Grid>
                       </Grid>
-                    </Grid>
-                  </Box>
+                    </Box>
 
-                  <Box m={1} boxShadow={3} className={classes.box}>
-                    <Grid container justify='space-around' direction='row'>
-                      <Grid item className={classes.averageSpendingItems}>
-                        <Typography variant='subtitle2'>
-                          daily budget to stay on target
-                        </Typography>
-                        <Typography
-                          variant='h6'
-                          align='center'
-                          className={classes.budgetData}
-                        >
-                          $54.00
-                        </Typography>
+                    <Box m={1} boxShadow={3} className={classes.box}>
+                      <Grid container justify='space-around' direction='row'>
+                        <Grid item className={classes.averageSpendingItems}>
+                          <Typography variant='subtitle2'>
+                            total spent
+                          </Typography>
+                          <Typography
+                            variant='h6'
+                            align='center'
+                            className={classes.budgetData}
+                          >
+                            $366.00
+                          </Typography>
+                        </Grid>
                       </Grid>
-                    </Grid>
-                  </Box>
+                    </Box>
 
-                  <Box m={1} boxShadow={3} className={classes.box}>
-                    <Grid container justify='space-around' direction='row'>
-                      <Grid item className={classes.averageSpendingItems}>
-                        <Typography variant='subtitle2'>total spent</Typography>
-                        <Typography
-                          variant='h6'
-                          align='center'
-                          className={classes.budgetData}
-                        >
-                          $366.00
-                        </Typography>
+                    <Box m={1} boxShadow={3} className={classes.box}>
+                      <Grid container justify='space-around' direction='row'>
+                        <Grid item className={classes.averageSpendingItems}>
+                          <Typography variant='subtitle2'>
+                            budget remaining
+                          </Typography>
+                          <Typography
+                            variant='h6'
+                            align='center'
+                            className={classes.budgetData}
+                          >
+                            $645.00
+                          </Typography>
+                        </Grid>
                       </Grid>
-                    </Grid>
-                  </Box>
-
-                  <Box m={1} boxShadow={3} className={classes.box}>
-                    <Grid container justify='space-around' direction='row'>
-                      <Grid item className={classes.averageSpendingItems}>
-                        <Typography variant='subtitle2'>
-                          budget remaining
-                        </Typography>
-                        <Typography
-                          variant='h6'
-                          align='center'
-                          className={classes.budgetData}
-                        >
-                          $645.00
-                        </Typography>
-                      </Grid>
-                    </Grid>
-                  </Box>
-                </Grid>
-              </Grid>
-              {/* ---- Pie Chart ----- */}
-              <Grid item>
-                <Grid
-                  container
-                  direction='row'
-                  justify='center'
-                  alignItems='center'
-                >
-                  {/* Pie Chart */}
-                  <Grid sm={6} item>
-                    <PieChart width={300} height={300}>
-                      <Pie
-                        data={pieData}
-                        cx={150}
-                        cy={150}
-                        labelLine={false}
-                        label={renderCustomizedLabel}
-                        outerRadius={80}
-                        fill='#8884d8'
-                        dataKey='value'
-                      >
-                        {data.map((entry, index) => (
-                          <Cell
-                            key={`cell-${index}`}
-                            fill={COLORS[index % COLORS.length]}
-                          />
-                        ))}
-                      </Pie>
-                    </PieChart>
+                    </Box>
                   </Grid>
-                  <Grid xs={12} sm={matchesTable ? 8 : 5} item>
-                    <Typography variant='h4' align='center'>
-                      Last five purchases
-                    </Typography>
-                    <Grid
-                      container
-                      direction='row'
-                      justify='center'
-                      alignItems='center'
-                    >
-                      <Grid item>
-                        <TableContainer component={Paper}>
-                          <Table
-                            className={classes.table}
-                            size='small'
-                            aria-label='a dense table'
-                          >
-                            <TableHead>
-                              <TableRow>
-                                <TableCell>Expense</TableCell>
-                                <TableCell align='right'>Cost</TableCell>
-                                <TableCell align='right'>Date</TableCell>
-                              </TableRow>
-                            </TableHead>
-                            <TableBody>
-                              {rows.map((row) => (
-                                <TableRow key={row.name}>
-                                  <TableCell component='th' scope='row'>
-                                    {row.name}
-                                  </TableCell>
-                                  <TableCell align='right'>
-                                    {row.cost}
-                                  </TableCell>
-                                  <TableCell align='right'>
-                                    {row.date}
-                                  </TableCell>
+                </Grid>
+                {/* ---- Pie Chart ----- */}
+                <Grid item>
+                  <Grid
+                    container
+                    direction='row'
+                    justify='center'
+                    alignItems='center'
+                  >
+                    {/* Pie Chart */}
+                    <Grid sm={6} item>
+                      <PieChart width={300} height={300}>
+                        <Pie
+                          data={pieData}
+                          cx={150}
+                          cy={150}
+                          labelLine={false}
+                          label={renderCustomizedLabel}
+                          outerRadius={80}
+                          fill='#8884d8'
+                          dataKey='value'
+                        >
+                          {data.map((entry, index) => (
+                            <Cell
+                              key={`cell-${index}`}
+                              fill={COLORS[index % COLORS.length]}
+                            />
+                          ))}
+                        </Pie>
+                      </PieChart>
+                    </Grid>
+                    <Grid xs={12} sm={matchesTable ? 8 : 5} item>
+                      <Typography variant='h4' align='center'>
+                        Last five purchases
+                      </Typography>
+                      <Grid
+                        container
+                        direction='row'
+                        justify='center'
+                        alignItems='center'
+                      >
+                        <Grid item>
+                          <TableContainer component={Paper}>
+                            <Table
+                              className={classes.table}
+                              size='small'
+                              aria-label='a dense table'
+                            >
+                              <TableHead>
+                                <TableRow>
+                                  <TableCell>Expense</TableCell>
+                                  <TableCell align='right'>Cost</TableCell>
+                                  <TableCell align='right'>Date</TableCell>
                                 </TableRow>
-                              ))}
-                            </TableBody>
-                          </Table>
-                        </TableContainer>
-                        <Grid xs={12} item align='center'>
-                          <Button
-                            className={classes.button}
-                            disableRipple
-                            variant='outlined'
-                            component={Link}
-                            to='/history'
-                          >
-                            Go to budget
-                          </Button>
+                              </TableHead>
+                              <TableBody>
+                                {rows.map((row) => (
+                                  <TableRow key={row.name}>
+                                    <TableCell component='th' scope='row'>
+                                      {row.name}
+                                    </TableCell>
+                                    <TableCell align='right'>
+                                      {row.cost}
+                                    </TableCell>
+                                    <TableCell align='right'>
+                                      {row.date}
+                                    </TableCell>
+                                  </TableRow>
+                                ))}
+                              </TableBody>
+                            </Table>
+                          </TableContainer>
+                          <Grid xs={12} item align='center'>
+                            <Button
+                              className={classes.button}
+                              disableRipple
+                              variant='outlined'
+                              component={Link}
+                              to='/history'
+                            >
+                              Go to budget
+                            </Button>
+                          </Grid>
                         </Grid>
                       </Grid>
                     </Grid>
                   </Grid>
                 </Grid>
               </Grid>
-            </Grid>
-          </Box>
+            </Box>
+          </Container>
         </Grid>
       </main>
     </>
