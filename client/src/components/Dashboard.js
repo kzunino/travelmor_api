@@ -181,38 +181,38 @@ const Dashboard = () => {
 
   const data = [
     {
-      name: 'Mon',
+      name: Moment(Date.now()).subtract(6, 'days').format('ddd'),
       // uv: 4000,
       $: 50,
       amt: 50,
     },
     {
-      name: 'Tue',
+      name: Moment(Date.now()).subtract(5, 'days').format('ddd'),
       $: 100,
       amt: 100,
     },
     {
-      name: 'Wed',
+      name: Moment(Date.now()).subtract(4, 'days').format('ddd'),
       $: 300,
       amt: 77,
     },
     {
-      name: 'Thu',
+      name: Moment(Date.now()).subtract(3, 'days').format('ddd'),
       $: 150,
       amt: 150,
     },
     {
-      name: 'Fri',
+      name: Moment(Date.now()).subtract(2, 'days').format('ddd'),
       $: 124,
       amt: 300,
     },
     {
-      name: 'Sat',
+      name: Moment(Date.now()).subtract(1, 'days').format('ddd'),
       $: 86,
       amt: 223,
     },
     {
-      name: 'Today',
+      name: 'today',
       $: 75,
       amt: 2100,
     },
