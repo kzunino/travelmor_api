@@ -20,6 +20,40 @@ import AddExpense from './components/AddExpense';
 import BottomActions from './components/BottomActions';
 
 function App() {
+  // if auth then set the header to authorized for private routes.
+
+  // if auth - req to server for latest trip then load the dashboard with trip
+  //if no trip then render basic dashboard with link to create a trip
+
+  // Query database for all trips and pass them to auth header for trips tab
+
+  //With Context should handle the global state - passes component state information
+  //down to components
+
+  /* 
+  
+  const trip = {
+    trip_uid: 
+    trip_ name:
+    trip_budget_total:
+    trip_start:
+    trip_end:
+    trip_length: int - days
+    trip_currency: [] of currency types
+  }
+
+  const expense = {
+    expense_uid: 
+    fk_trip_uid:
+    expense_name:
+    expense_cost:
+    expense_type:
+    trip_length:
+
+  }
+  
+  */
+
   return (
     <>
       <Router>

@@ -1,6 +1,23 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Typography from '@material-ui/core/Typography';
 import Toolbar from '@material-ui/core/Toolbar';
+import Grid from '@material-ui/core/Grid';
+import Divider from '@material-ui/core/Divider';
+import TextField from '@material-ui/core/TextField';
+import Container from '@material-ui/core/Container';
+import CssBaseline from '@material-ui/core/CssBaseline';
+
+import Button from '@material-ui/core/Button';
+
+//Select
+
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+
+import {KeyboardDatePicker} from '@material-ui/pickers';
 
 import {makeStyles, useTheme} from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
@@ -33,39 +50,134 @@ const MyAccount = () => {
   const theme = useTheme();
   const classes = useStyles();
 
+  const [currency, setCurrency] = React.useState('');
+  const [selectedStartDate, setSelectedStartDate] = useState(Date.now());
+  const [selectedEndDate, setSelectedEndDate] = useState(Date.now());
+
+  // Currency data
+  const handleCurrencyType = (currency) => {
+    setCurrency(currency);
+  };
+
+  //start date state
+  const handleStartDateChange = (date) => {
+    setSelectedStartDate(date);
+  };
+
+  //end date state
+  const handleEndDateChange = (date) => {
+    setSelectedEndDate(date);
+  };
+
+  const matchXs = useMediaQuery(theme.breakpoints.down('xs'));
+
   return (
     <>
       <main className={classes.content}>
         <Toolbar />
-        <Typography paragraph>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Rhoncus
-          dolor purus non enim praesent elementum facilisis leo vel. Risus at
-          ultrices mi tempus imperdiet. Semper risus in hendrerit gravida rutrum
-          quisque non tellus. Convallis convallis tellus id interdum velit
-          laoreet id donec ultrices. Odio morbi quis commodo odio aenean sed
-          adipiscing. Amet nisl suscipit adipiscing bibendum est ultricies
-          integer quis. Cursus euismod quis viverra nibh cras. Metus vulputate
-          eu scelerisque felis imperdiet proin fermentum leo. Mauris commodo
-          quis imperdiet massa tincidunt. Cras tincidunt lobortis feugiat
-          vivamus at augue. At augue eget arcu dictum varius duis at consectetur
-          lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa sapien
-          faucibus et molestie ac.
-        </Typography>
-        <Typography paragraph>
-          Consequat mauris nunc congue nisi vitae suscipit. Fringilla est
-          ullamcorper eget nulla facilisi etiam dignissim diam. Pulvinar
-          elementum integer enim neque volutpat ac tincidunt. Ornare suspendisse
-          sed nisi lacus sed viverra tellus. Purus sit amet volutpat consequat
-          mauris. Elementum eu facilisis sed odio morbi. Euismod lacinia at quis
-          risus sed vulputate odio. Morbi tincidunt ornare massa eget egestas
-          purus viverra accumsan in. In hendrerit gravida rutrum quisque non
-          tellus orci ac. Pellentesque nec nam aliquam sem et tortor. Habitant
-          morbi tristique senectus et. Adipiscing elit duis tristique
-          sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
-          eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
-          posuere sollicitudin aliquam ultrices sagittis orci a.
-        </Typography>
+        <Grid container direction='column' className={classes.containerWrapper}>
+          {/* -----Welcome Container----- */}
+          <Grid item>
+            <Typography variant={matchXs ? 'h4' : 'h2'}>
+              Account Settings
+            </Typography>
+          </Grid>
+          <Divider />
+          <Container maxWidth={'lg'}>
+            <CssBaseline />
+            <form className={classes.form} noValidate>
+              <TextField
+                variant='standard'
+                margin='normal'
+                required
+                fullWidth
+                id='trip_name'
+                label='Trip Name'
+                name='trip_name'
+                autoFocus
+              />
+              <TextField
+                className={classes.budgetField}
+                variant='standard'
+                margin='normal'
+                required
+                fullWidth
+                name='trip_budget_total'
+                label='Budget Total'
+                type='number'
+                id='trip_budget_total'
+              />
+
+              {/* ------ Currency Input ----- */}
+              <FormControl required className={classes.formControl}>
+                <InputLabel id='required-label'>Currency</InputLabel>
+                <Select
+                  labelId='demo-simple-select-required-label'
+                  id='demo-simple-select-required'
+                  value={currency}
+                  onChange={handleCurrencyType}
+                  className={classes.selectEmpty}
+                >
+                  <MenuItem value=''>
+                    <em>None</em>
+                  </MenuItem>
+                  <MenuItem value={'USD'}>USD</MenuItem>
+                  <MenuItem value={'COP'}>COP</MenuItem>
+                </Select>
+              </FormControl>
+
+              <Grid
+                container
+                direction='row'
+                spacing={2}
+                justify='space-between'
+              >
+                <Grid xs={6} item>
+                  <KeyboardDatePicker
+                    disableToolbar
+                    variant='inline'
+                    format='MM/DD/yyyy'
+                    margin='normal'
+                    id='date-picker-inline'
+                    label='Start Date'
+                    value={selectedStartDate}
+                    onChange={handleStartDateChange}
+                    KeyboardButtonProps={{
+                      'aria-label': 'change date',
+                    }}
+                  />
+                </Grid>
+
+                <Grid xs={6} item>
+                  <KeyboardDatePicker
+                    disableToolbar
+                    variant='inline'
+                    format='MM/DD/yyyy'
+                    margin='normal'
+                    id='date-picker-inline'
+                    label='End Date'
+                    value={selectedEndDate}
+                    onChange={handleEndDateChange}
+                    KeyboardButtonProps={{
+                      'aria-label': 'change date',
+                    }}
+                  />
+                </Grid>
+              </Grid>
+
+              <Button
+                type='submit'
+                variant='contained'
+                color='primary'
+                className={classes.submit}
+                disableRipple
+              >
+                Create Trip
+              </Button>
+              <Grid container></Grid>
+            </form>
+          </Container>
+        </Grid>
       </main>
     </>
   );
