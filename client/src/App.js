@@ -72,6 +72,8 @@ function App() {
           <Route exact path='/contact' component={Contact} />
           <Route exact path='/account' component={MyAccount} />
 
+          <Route exact path='/trip' component={Trip} />
+
           <Route exact path='/addexpense' component={AddExpense} />
         </Switch>
         <BottomActions />
