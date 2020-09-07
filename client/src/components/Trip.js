@@ -5,9 +5,12 @@ import Typography from '@material-ui/core/Typography';
 import Toolbar from '@material-ui/core/Toolbar';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
+import Divider from '@material-ui/core/Divider';
+
+//icons
+import TodayIcon from '@material-ui/icons/Today';
 
 // Table
 import Table from '@material-ui/core/Table';
@@ -19,22 +22,8 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
 //Charts
-
 import {Bar} from 'react-chartjs-2';
-
-import {
-  BarChart,
-  // Bar,
-  XAxis,
-  YAxis,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-  PieChart,
-  Pie,
-  Sector,
-  Cell,
-} from 'recharts';
+import {Pie} from 'react-chartjs-2';
 
 import {makeStyles, useTheme} from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
@@ -66,6 +55,9 @@ const useStyles = makeStyles((theme) => ({
       marginTop: '1em',
     },
   },
+  container: {
+    padding: 0,
+  },
   containerWrapper: {
     margin: 'auto',
   },
@@ -92,7 +84,7 @@ const useStyles = makeStyles((theme) => ({
   },
   //needs height set for responsive container to work
   chartContainer: {
-    height: '33.7em',
+    height: '15em',
     padding: 5,
     [theme.breakpoints.down('xs')]: {
       height: '12em',
@@ -140,9 +132,6 @@ const useStyles = makeStyles((theme) => ({
       padding: 5,
     },
   },
-  barFill: {
-    color: `linear-gradient( ${theme.palette.secondary.main}, ${theme.palette.secondary.light})`,
-  },
 }));
 
 const Trip = () => {
@@ -170,6 +159,16 @@ const Trip = () => {
     ],
   });
 
+  const [pieStateData, setPieStateData] = useState({
+    labels: ['hello', 'hi', 'greetings'],
+    datasets: [
+      {
+        data: [200, 400, 2850],
+        backgroundColor: ['red', 'blue', 'green'],
+      },
+    ],
+  });
+
   const matchXs = useMediaQuery(theme.breakpoints.down('xs'));
 
   //prevents table from exceeding boundaries
@@ -188,38 +187,6 @@ const Trip = () => {
     createData('Cupcake', 305, 3.7, 67, 4.3),
     createData('Gingerbread', 356, 16.0, 49, 3.9),
   ];
-
-  //if type is null then uncategorized
-  // const expenses = [
-  //   {
-  //     expense_uid: 132323,
-  //     type: 'Transportation',
-  //     name: 'bus tickets',
-  //     cost: 12.0,
-  //     date: Date.now(),
-  //   },
-  //   {
-  //     expense_uid: 1323222,
-  //     type: 'Food',
-  //     name: 'breakfast',
-  //     cost: 42.0,
-  //     date: Date.now(),
-  //   },
-  //   {
-  //     expense_uid: 1359693,
-  //     type: 'Tour',
-  //     name: 'Cusco City Tour',
-  //     cost: 50.0,
-  //     date: Date.now(),
-  //   },
-  //   {
-  //     expense_uid: 190323,
-  //     type: 'Gifts',
-  //     name: 'Bottle of Pisco',
-  //     cost: 18.0,
-  //     date: Date.now(),
-  //   },
-  // ];
 
   const data = [
     {
@@ -260,49 +227,12 @@ const Trip = () => {
     },
   ];
 
-  // Pie Charts
-  const pieData = [
-    {name: 'Food', value: 400},
-    {name: 'Transportation', value: 300},
-    {name: 'Lodging', value: 300},
-    {name: 'Tours', value: 200},
-  ];
-  const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
-
-  const RADIAN = Math.PI / 180;
-  const renderCustomizedLabel = ({
-    cx,
-    cy,
-    midAngle,
-    innerRadius,
-    outerRadius,
-    percent,
-    index,
-  }) => {
-    const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
-    const x = cx + radius * Math.cos(-midAngle * RADIAN);
-    const y = cy + radius * Math.sin(-midAngle * RADIAN);
-
-    return (
-      <text
-        x={x}
-        y={y}
-        fill='white'
-        textAnchor={x > cx ? 'start' : 'end'}
-        dominantBaseline='central'
-      >
-        {/* {data[index].name} */}
-        {`${(percent * 100).toFixed(0)}%`}
-      </text>
-    );
-  };
-
   return (
     <>
       <main className={classes.content}>
         <Toolbar />
         <Grid container direction='column' className={classes.containerWrapper}>
-          <Container maxWidth={'lg'}>
+          <Container maxWidth={'lg'} className={classes.container}>
             <Grid item>
               <Grid container justify='space-between'>
                 {/* Heading Box Item */}
@@ -344,13 +274,8 @@ const Trip = () => {
                         </Grid>
                       </Grid>
                     </Grid>
-                  </Box>
-                </Grid>
 
-                {/* Bar chart Item */}
-                <Grid item xs={12} sm={7}>
-                  <Box m={1} boxShadow={3} className={classes.barChartBox}>
-                    <Grid container className={classes.chartContainer}>
+                    <Grid item className={classes.chartContainer}>
                       <Bar
                         data={barState}
                         options={{
@@ -384,45 +309,55 @@ const Trip = () => {
                           },
                         }}
                       />
-                      {/* <ResponsiveContainer
-                        width='99%'
-                        // height={matchXs ? '50%' : undefined}
-                      >
-                        <BarChart
-                          // width={matchXs ? 350 : 500}
-                          // height={matchXs ? 250 : 400}
-                          data={data}
-                          margin={{
-                            top: 20,
-                            right: 30,
-                            left: 20,
-                            bottom: 5,
-                          }}
-                        >
-                          <XAxis dataKey='name' />
-                         
-
-                          <Tooltip />
-                        
-                          <Bar dataKey='$' fill={'#ff0000'}>
-                            {data.map((entry, index) => (
-                              <Cell
-                                key={`cell-${index}`}
-                                stroke={'black'}
-                                fill={'red'}
-                                strokeWidth={2}
-                              />
-                            ))}
-                          </Bar>
-                        </BarChart>
-                      </ResponsiveContainer> */}
                     </Grid>
                   </Box>
                 </Grid>
 
                 {/* Budget Boxes Item */}
+                <Grid item xs={12}>
+                  <Grid container='row'>
+                    <Grid item xs={12} sm={5} md={6}>
+                      <Box m={1} boxShadow={3} className={classes.budgetBox}>
+                        <Grid container direction='column'>
+                          <Grid item>
+                            <Grid container justify='space-between'>
+                              <Grid item>
+                                <TodayIcon fontSize='large' />
+                              </Grid>
+                              <Grid item>
+                                <Typography variant='h5'>
+                                  {Moment(Date.now()).format('MMM Do, YYYY')}
+                                </Typography>
+                              </Grid>
+                            </Grid>
+                          </Grid>
+                          <Divider />
+                          <Grid container justify='space-around'>
+                            <Grid item>
+                              <Typography variant='subtitle2'>
+                                spent today
+                              </Typography>
+                              <Typography variant='h6'>$40.00</Typography>
+                            </Grid>
+                            <Grid item>
+                              <Typography variant='subtitle2'>
+                                remaining
+                              </Typography>
+                              <Typography
+                                variant='h6'
+                                className={classes.underBudgetColor}
+                              >
+                                $10.00
+                              </Typography>
+                            </Grid>
+                          </Grid>
+                        </Grid>
+                      </Box>
+                    </Grid>
+                  </Grid>
+                </Grid>
 
-                <Grid xs={12} sm={4} item>
+                <Grid xs={12} item>
                   <Box m={1} boxShadow={3} className={classes.budgetBox}>
                     <Box m={1} boxShadow={3} className={classes.box}>
                       <Grid container direction='column'>
@@ -597,25 +532,7 @@ const Trip = () => {
                     {/* ------ Pie Chart --------- */}
                     <Grid xs={12} sm={5} item>
                       <Box m={1} boxShadow={3} className={classes.budgetBox}>
-                        <PieChart width={300} height={300}>
-                          <Pie
-                            data={pieData}
-                            cx={150}
-                            cy={150}
-                            labelLine={false}
-                            label={renderCustomizedLabel}
-                            outerRadius={80}
-                            fill='#8884d8'
-                            dataKey='value'
-                          >
-                            {data.map((entry, index) => (
-                              <Cell
-                                key={`cell-${index}`}
-                                fill={COLORS[index % COLORS.length]}
-                              />
-                            ))}
-                          </Pie>
-                        </PieChart>
+                        <Pie data={pieStateData} />
                       </Box>
                     </Grid>
                   </Grid>
