@@ -20,9 +20,11 @@ import Paper from '@material-ui/core/Paper';
 
 //Charts
 
+import {Bar} from 'react-chartjs-2';
+
 import {
   BarChart,
-  Bar,
+  // Bar,
   XAxis,
   YAxis,
   Tooltip,
@@ -91,6 +93,7 @@ const useStyles = makeStyles((theme) => ({
   //needs height set for responsive container to work
   chartContainer: {
     height: '33.7em',
+    padding: 5,
     [theme.breakpoints.down('xs')]: {
       height: '12em',
     },
@@ -146,7 +149,26 @@ const Trip = () => {
   const theme = useTheme();
   const classes = useStyles();
 
-  const barFill = `linear-gradient( ${theme.palette.secondary.main}, ${theme.palette.secondary.light})`;
+  const [barState, setBarState] = useState({
+    labels: [
+      Moment(Date.now()).subtract(6, 'days').format('ddd'),
+      Moment(Date.now()).subtract(5, 'days').format('ddd'),
+      Moment(Date.now()).subtract(4, 'days').format('ddd'),
+      Moment(Date.now()).subtract(3, 'days').format('ddd'),
+      Moment(Date.now()).subtract(2, 'days').format('ddd'),
+      Moment(Date.now()).subtract(1, 'days').format('ddd'),
+      'Today',
+    ],
+    datasets: [
+      {
+        label: '$',
+        backgroundColor: 'rgba(75,192,192,1)',
+        borderColor: 'rgba(0,0,0,1)',
+        borderWidth: 2,
+        data: [65, 23, 34, 81, 56, 25, 14],
+      },
+    ],
+  });
 
   const matchXs = useMediaQuery(theme.breakpoints.down('xs'));
 
@@ -168,36 +190,36 @@ const Trip = () => {
   ];
 
   //if type is null then uncategorized
-  const expenses = [
-    {
-      expense_uid: 132323,
-      type: 'Transportation',
-      name: 'bus tickets',
-      cost: 12.0,
-      date: Date.now(),
-    },
-    {
-      expense_uid: 1323222,
-      type: 'Food',
-      name: 'breakfast',
-      cost: 42.0,
-      date: Date.now(),
-    },
-    {
-      expense_uid: 1359693,
-      type: 'Tour',
-      name: 'Cusco City Tour',
-      cost: 50.0,
-      date: Date.now(),
-    },
-    {
-      expense_uid: 190323,
-      type: 'Gifts',
-      name: 'Bottle of Pisco',
-      cost: 18.0,
-      date: Date.now(),
-    },
-  ];
+  // const expenses = [
+  //   {
+  //     expense_uid: 132323,
+  //     type: 'Transportation',
+  //     name: 'bus tickets',
+  //     cost: 12.0,
+  //     date: Date.now(),
+  //   },
+  //   {
+  //     expense_uid: 1323222,
+  //     type: 'Food',
+  //     name: 'breakfast',
+  //     cost: 42.0,
+  //     date: Date.now(),
+  //   },
+  //   {
+  //     expense_uid: 1359693,
+  //     type: 'Tour',
+  //     name: 'Cusco City Tour',
+  //     cost: 50.0,
+  //     date: Date.now(),
+  //   },
+  //   {
+  //     expense_uid: 190323,
+  //     type: 'Gifts',
+  //     name: 'Bottle of Pisco',
+  //     cost: 18.0,
+  //     date: Date.now(),
+  //   },
+  // ];
 
   const data = [
     {
@@ -329,7 +351,40 @@ const Trip = () => {
                 <Grid item xs={12} sm={7}>
                   <Box m={1} boxShadow={3} className={classes.barChartBox}>
                     <Grid container className={classes.chartContainer}>
-                      <ResponsiveContainer
+                      <Bar
+                        data={barState}
+                        options={{
+                          title: {
+                            display: false,
+                            fontSize: 20,
+                          },
+                          legend: {
+                            display: false,
+                            position: 'right',
+                          },
+                          maintainAspectRatio: false,
+                          scales: {
+                            xAxes: [
+                              {
+                                gridLines: {
+                                  display: false,
+                                },
+                              },
+                            ],
+                            yAxes: [
+                              {
+                                gridLines: {
+                                  display: false,
+                                },
+                                ticks: {
+                                  display: false,
+                                },
+                              },
+                            ],
+                          },
+                        }}
+                      />
+                      {/* <ResponsiveContainer
                         width='99%'
                         // height={matchXs ? '50%' : undefined}
                       >
@@ -345,10 +400,10 @@ const Trip = () => {
                           }}
                         >
                           <XAxis dataKey='name' />
-                          {/* <YAxis /> */}
+                         
 
                           <Tooltip />
-                          {/* <Legend /> */}
+                        
                           <Bar dataKey='$' fill={'#ff0000'}>
                             {data.map((entry, index) => (
                               <Cell
@@ -360,7 +415,7 @@ const Trip = () => {
                             ))}
                           </Bar>
                         </BarChart>
-                      </ResponsiveContainer>
+                      </ResponsiveContainer> */}
                     </Grid>
                   </Box>
                 </Grid>
