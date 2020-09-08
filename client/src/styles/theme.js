@@ -22,9 +22,6 @@ const theme = createMuiTheme({
     boxContentBudgetHeading: {
       main: lightGray,
     },
-    // boxTitles: {
-    //   main: offWhite,
-    // },
     boxContentBudgetData: {
       main: white,
     },

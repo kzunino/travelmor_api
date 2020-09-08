@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, forwardRef} from 'react';
 import {Link} from 'react-router-dom';
 import Moment from 'moment';
 import Typography from '@material-ui/core/Typography';
@@ -15,13 +15,24 @@ import TimelineIcon from '@material-ui/icons/Timeline';
 import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
 
 // Table
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
+
+import MaterialTable from 'material-table';
+
+import AddBox from '@material-ui/icons/AddBox';
+import ArrowDownward from '@material-ui/icons/ArrowDownward';
+import Check from '@material-ui/icons/Check';
+import ChevronLeft from '@material-ui/icons/ChevronLeft';
+import ChevronRight from '@material-ui/icons/ChevronRight';
+import Clear from '@material-ui/icons/Clear';
+import DeleteOutline from '@material-ui/icons/DeleteOutline';
+import Edit from '@material-ui/icons/Edit';
+import FilterList from '@material-ui/icons/FilterList';
+import FirstPage from '@material-ui/icons/FirstPage';
+import LastPage from '@material-ui/icons/LastPage';
+import Remove from '@material-ui/icons/Remove';
+import SaveAlt from '@material-ui/icons/SaveAlt';
+import Search from '@material-ui/icons/Search';
+import ViewColumn from '@material-ui/icons/ViewColumn';
 
 //Charts
 import {Bar} from 'react-chartjs-2';
@@ -92,9 +103,7 @@ const useStyles = makeStyles((theme) => ({
       height: '12em',
     },
   },
-  spendingInfoWidget: {
-    padding: 10,
-  },
+
   icon: {
     marginLeft: 15,
   },
@@ -120,12 +129,21 @@ const useStyles = makeStyles((theme) => ({
   },
   headingBox: {
     padding: 15,
+    borderRadius: 3,
+  },
+  spendingInfoWidgetBox: {
+    padding: 10,
+    borderRadius: 3,
   },
   budgetBox: {
     padding: 15,
+    borderRadius: 3,
     [theme.breakpoints.down('xs')]: {
       padding: 5,
     },
+  },
+  tableBox: {
+    padding: 8,
   },
 }));
 
@@ -164,24 +182,52 @@ const Trip = () => {
     ],
   });
 
+  const [tableData, setTableData] = useState({
+    columns: [
+      {title: 'Name', field: 'expense_name'},
+      {
+        title: 'Cost',
+        field: 'expense_cost',
+        type: 'currency',
+        currencySetting: {
+          currencyCode: 'USD',
+          minimumFractionDigits: 0,
+          maximumFractionDigits: 2,
+        },
+      },
+      {
+        title: 'Type',
+        field: 'expense_type',
+        lookup: {34: 'Food/Beverage', 63: 'Lodging'},
+      },
+      {
+        title: 'Date',
+        field: 'expense_date',
+        type: 'date',
+      },
+    ],
+    data: [
+      {
+        expense_name: 'Dinner',
+        expense_cost: 10.01,
+        expense_type: 34,
+        expense_date: Moment(Date.now()).format('MM-DD-YYYY'),
+      },
+      {
+        expense_name: 'Hostel',
+        expense_cost: 8.0,
+        expense_type: 63,
+        expense_date: Moment(Date.now()).format('MM-DD-YYYY'),
+      },
+    ],
+  });
+
   const matchXs = useMediaQuery(theme.breakpoints.down('xs'));
 
   //prevents table from exceeding boundaries
   const matchesTable = useMediaQuery('(max-width:648px)');
 
   //Table Data
-
-  function createData(name, cost, date) {
-    return {name, cost, date};
-  }
-
-  const rows = [
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-    createData('Eclair', 262, 16.0, 24, 6.0),
-    createData('Cupcake', 305, 3.7, 67, 4.3),
-    createData('Gingerbread', 356, 16.0, 49, 3.9),
-  ];
 
   const data = [
     {
@@ -221,6 +267,34 @@ const Trip = () => {
       amt: 2100,
     },
   ];
+
+  const tableIcons = {
+    Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
+    Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
+    Clear: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
+    Delete: forwardRef((props, ref) => <DeleteOutline {...props} ref={ref} />),
+    DetailPanel: forwardRef((props, ref) => (
+      <ChevronRight {...props} ref={ref} />
+    )),
+    Edit: forwardRef((props, ref) => <Edit {...props} ref={ref} />),
+    Export: forwardRef((props, ref) => <SaveAlt {...props} ref={ref} />),
+    Filter: forwardRef((props, ref) => <FilterList {...props} ref={ref} />),
+    FirstPage: forwardRef((props, ref) => <FirstPage {...props} ref={ref} />),
+    LastPage: forwardRef((props, ref) => <LastPage {...props} ref={ref} />),
+    NextPage: forwardRef((props, ref) => <ChevronRight {...props} ref={ref} />),
+    PreviousPage: forwardRef((props, ref) => (
+      <ChevronLeft {...props} ref={ref} />
+    )),
+    ResetSearch: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
+    //Search: forwardRef((props, ref) => <Search {...props} ref={ref} />),
+    SortArrow: forwardRef((props, ref) => (
+      <ArrowDownward {...props} ref={ref} />
+    )),
+    ThirdStateCheck: forwardRef((props, ref) => (
+      <Remove {...props} ref={ref} />
+    )),
+    ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />),
+  };
 
   return (
     <>
@@ -315,7 +389,7 @@ const Trip = () => {
                       <Box
                         m={1}
                         boxShadow={3}
-                        className={classes.spendingInfoWidget}
+                        className={classes.spendingInfoWidgetBox}
                       >
                         <Grid container direction='column'>
                           <Grid item>
@@ -367,7 +441,7 @@ const Trip = () => {
                       <Box
                         m={1}
                         boxShadow={3}
-                        className={classes.spendingInfoWidget}
+                        className={classes.spendingInfoWidgetBox}
                       >
                         <Grid container direction='column'>
                           <Grid item>
@@ -416,7 +490,7 @@ const Trip = () => {
                       <Box
                         m={1}
                         boxShadow={3}
-                        className={classes.spendingInfoWidget}
+                        className={classes.spendingInfoWidgetBox}
                       >
                         <Grid container direction='column'>
                           <Grid item>
@@ -466,65 +540,58 @@ const Trip = () => {
                   </Grid>
                 </Grid>
 
-                {/* Pie Chart */}
+                {/* Table / Pie Chart Container */}
                 <Grid item xs>
                   <Grid container justify='space-between'>
                     {/* Last Five Purchases Table */}
-                    <Grid xs={12} sm={6} item>
-                      <Box m={1} boxShadow={3} className={classes.budgetBox}>
-                        <Typography variant='h4' align='center'>
-                          Last five purchases
-                        </Typography>
-                        <Grid
-                          container
-                          direction='row'
-                          justify='center'
-                          alignItems='center'
-                        >
-                          <Grid item>
-                            <TableContainer component={Paper}>
-                              <Table
-                                className={classes.table}
-                                size='small'
-                                aria-label='a dense table'
-                              >
-                                <TableHead>
-                                  <TableRow>
-                                    <TableCell>Expense</TableCell>
-                                    <TableCell align='right'>Cost</TableCell>
-                                    <TableCell align='right'>Date</TableCell>
-                                  </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                  {rows.map((row) => (
-                                    <TableRow key={row.name}>
-                                      <TableCell component='th' scope='row'>
-                                        {row.name}
-                                      </TableCell>
-                                      <TableCell align='right'>
-                                        {row.cost}
-                                      </TableCell>
-                                      <TableCell align='right'>
-                                        {row.date}
-                                      </TableCell>
-                                    </TableRow>
-                                  ))}
-                                </TableBody>
-                              </Table>
-                            </TableContainer>
-                            <Grid xs={12} item align='center'>
-                              <Button
-                                className={classes.button}
-                                disableRipple
-                                variant='outlined'
-                                component={Link}
-                                to='/history'
-                              >
-                                Go to budget
-                              </Button>
-                            </Grid>
-                          </Grid>
-                        </Grid>
+                    <Grid xs={12} item>
+                      <Box m={0} boxShadow={0} className={classes.tableBox}>
+                        <MaterialTable
+                          title='Expenses'
+                          options={{
+                            search: false,
+                          }}
+                          columns={tableData.columns}
+                          data={tableData.data}
+                          icons={tableIcons}
+                          editable={{
+                            onRowAdd: (newData) =>
+                              new Promise((resolve) => {
+                                setTimeout(() => {
+                                  resolve();
+                                  setTableData((prevState) => {
+                                    const data = [...prevState.data];
+                                    data.push(newData);
+                                    return {...prevState, data};
+                                  });
+                                }, 600);
+                              }),
+                            onRowUpdate: (newData, oldData) =>
+                              new Promise((resolve) => {
+                                setTimeout(() => {
+                                  resolve();
+                                  if (oldData) {
+                                    setTableData((prevState) => {
+                                      const data = [...prevState.data];
+                                      data[data.indexOf(oldData)] = newData;
+                                      return {...prevState, data};
+                                    });
+                                  }
+                                }, 600);
+                              }),
+                            onRowDelete: (oldData) =>
+                              new Promise((resolve) => {
+                                setTimeout(() => {
+                                  resolve();
+                                  setTableData((prevState) => {
+                                    const data = [...prevState.data];
+                                    data.splice(data.indexOf(oldData), 1);
+                                    return {...prevState, data};
+                                  });
+                                }, 600);
+                              }),
+                          }}
+                        />
                       </Box>
                     </Grid>
 
