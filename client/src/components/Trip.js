@@ -95,7 +95,7 @@ const useStyles = makeStyles((theme) => ({
   //   paddingBottom: '1em',
   //   display: 'flex',
   // },
-  //needs height set for responsive container to work
+
   chartContainer: {
     height: '15em',
     padding: 5,
@@ -173,11 +173,33 @@ const Trip = () => {
   });
 
   const [pieStateData, setPieStateData] = useState({
-    labels: ['hello', 'hi', 'greetings'],
+    labels: [
+      'Uncategorized',
+      'Accommodation',
+      'Food',
+      'Transportation',
+      'Entertainment',
+      'Tours',
+      'Shopping',
+      'Fees',
+      'Emergencies',
+      'Miscellaneous',
+    ],
     datasets: [
       {
         data: [200, 400, 2850],
-        backgroundColor: ['red', 'blue', 'green'],
+        backgroundColor: [
+          'red',
+          'blue',
+          'green',
+          'black',
+          'purple',
+          'orange',
+          'tomato',
+          'violet',
+          'grey',
+          'yellow',
+        ],
       },
     ],
   });
@@ -198,7 +220,18 @@ const Trip = () => {
       {
         title: 'Type',
         field: 'expense_type',
-        lookup: {34: 'Food/Beverage', 63: 'Lodging'},
+        lookup: {
+          1: 'Uncategorized',
+          2: 'Accomodation',
+          3: 'Food',
+          4: 'Transportation',
+          5: 'Entertainment',
+          6: 'Tours',
+          7: 'Shopping',
+          8: 'Fees',
+          9: 'Emergency',
+          10: 'Miscellaneous',
+        },
       },
       {
         title: 'Date',
@@ -210,13 +243,13 @@ const Trip = () => {
       {
         expense_name: 'Dinner',
         expense_cost: 10.01,
-        expense_type: 34,
+        expense_type: 3,
         expense_date: Moment(Date.now()).format('MM-DD-YYYY'),
       },
       {
         expense_name: 'Hostel',
         expense_cost: 8.0,
-        expense_type: 63,
+        expense_type: 2,
         expense_date: Moment(Date.now()).format('MM-DD-YYYY'),
       },
     ],
@@ -228,45 +261,6 @@ const Trip = () => {
   const matchesTable = useMediaQuery('(max-width:648px)');
 
   //Table Data
-
-  const data = [
-    {
-      name: Moment(Date.now()).subtract(6, 'days').format('ddd'),
-      // uv: 4000,
-      $: 50,
-      amt: 50,
-    },
-    {
-      name: Moment(Date.now()).subtract(5, 'days').format('ddd'),
-      $: 100,
-      amt: 100,
-    },
-    {
-      name: Moment(Date.now()).subtract(4, 'days').format('ddd'),
-      $: 300,
-      amt: 77,
-    },
-    {
-      name: Moment(Date.now()).subtract(3, 'days').format('ddd'),
-      $: 150,
-      amt: 150,
-    },
-    {
-      name: Moment(Date.now()).subtract(2, 'days').format('ddd'),
-      $: 124,
-      amt: 300,
-    },
-    {
-      name: Moment(Date.now()).subtract(1, 'days').format('ddd'),
-      $: 86,
-      amt: 223,
-    },
-    {
-      name: 'today',
-      $: 75,
-      amt: 2100,
-    },
-  ];
 
   const tableIcons = {
     Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -596,7 +590,7 @@ const Trip = () => {
                     </Grid>
 
                     {/* ------ Pie Chart --------- */}
-                    <Grid xs={12} sm={5} item>
+                    <Grid xs={12} item>
                       <Box m={1} boxShadow={3} className={classes.budgetBox}>
                         <Pie data={pieStateData} />
                       </Box>

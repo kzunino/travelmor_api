@@ -148,26 +148,21 @@ const AddExpense = () => {
                   onChange={handleChange}
                   className={classes.selectEmpty}
                 >
-                  <MenuItem value=''>
-                    <em>None</em>
+                  <MenuItem value='Uncategorized'>
+                    <em>Uncategorized</em>
                   </MenuItem>
                   <MenuItem value={'Lodging'}>Lodging</MenuItem>
-                  <MenuItem value={'Transportation'}>Transportation</MenuItem>
+                  <MenuItem value={'Accommodation'}>Accommodation</MenuItem>
                   <MenuItem value={'Food'}>Food</MenuItem>
-                  <MenuItem value={'Other'}>Other</MenuItem>
+                  <MenuItem value={'Transportation'}>Transportation</MenuItem>
+                  <MenuItem value={'Entertainment'}>Entertainment</MenuItem>
+                  <MenuItem value={'Tours'}>Tours</MenuItem>
+                  <MenuItem value={'Shopping'}>Shopping</MenuItem>
+                  <MenuItem value={'Fees'}>Fees</MenuItem>
+                  <MenuItem value={'Emergencies'}>Emergencies</MenuItem>
+                  <MenuItem value={'Miscellaneous'}>Miscellaneous</MenuItem>
                 </Select>
               </FormControl>
-
-              <TextField
-                variant='standard'
-                margin='normal'
-                required
-                fullWidth
-                name='expense_type'
-                label='Type'
-                type='text'
-                id='expense_type'
-              />
 
               <KeyboardDatePicker
                 disableToolbar
