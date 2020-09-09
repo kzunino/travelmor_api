@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import Moment from 'moment';
+// import Moment from 'moment';
 import Typography from '@material-ui/core/Typography';
 import Toolbar from '@material-ui/core/Toolbar';
 import Grid from '@material-ui/core/Grid';
@@ -14,7 +14,7 @@ import Button from '@material-ui/core/Button';
 
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
+// import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
@@ -107,8 +107,6 @@ const NewTrip = () => {
   };
 
   const matchXs = useMediaQuery(theme.breakpoints.down('xs'));
-
-  const defaultDate = Moment(Date.now()).format('YYYY-MM-DD');
 
   return (
     <>

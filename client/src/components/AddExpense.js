@@ -1,7 +1,5 @@
 import React, {useState} from 'react';
-import Moment from 'moment';
 import Typography from '@material-ui/core/Typography';
-import Toolbar from '@material-ui/core/Toolbar';
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
 import TextField from '@material-ui/core/TextField';
@@ -14,7 +12,7 @@ import Button from '@material-ui/core/Button';
 
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
+// import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
@@ -80,6 +78,9 @@ const useStyles = makeStyles((theme) => ({
     color: 'white',
     fontWeight: 'bold',
     width: '50%',
+    [theme.breakpoints.down('xs')]: {
+      width: '75%',
+    },
   },
 }));
 
@@ -103,95 +104,91 @@ const AddExpense = () => {
 
   return (
     <>
-      <main className={classes.content}>
-        <Toolbar />
-        <Grid direction='column' className={classes.containerWrapper}>
-          {/* -----Welcome Container----- */}
-          <Grid item>
-            <Typography variant={matchXs ? 'h4' : 'h2'}>
-              Peru Trip - Add New Expense
-            </Typography>
-          </Grid>
-          <Divider />
-          <Container component='div' maxWidth='xs'>
-            <CssBaseline />
-            <form className={classes.form} noValidate>
-              <TextField
-                variant='standard'
-                margin='normal'
-                required
-                fullWidth
-                id='expense_name'
-                label='Expense Name'
-                name='expense_name'
-                autoFocus
-              />
-              <TextField
-                className={classes.budgetField}
-                variant='standard'
-                margin='normal'
-                required
-                fullWidth
-                name='expense_cost'
-                label='Cost'
-                type='number'
-                id='expense_cost'
-              />
-
-              {/* ------ Type Input ----- */}
-              <FormControl required className={classes.formControl}>
-                <InputLabel id='required-label'>Type</InputLabel>
-                <Select
-                  labelId='demo-simple-select-required-label'
-                  id='demo-simple-select-required'
-                  value={age}
-                  onChange={handleChange}
-                  className={classes.selectEmpty}
-                >
-                  <MenuItem value='Uncategorized'>
-                    <em>Uncategorized</em>
-                  </MenuItem>
-                  <MenuItem value={'Lodging'}>Lodging</MenuItem>
-                  <MenuItem value={'Accommodation'}>Accommodation</MenuItem>
-                  <MenuItem value={'Food'}>Food</MenuItem>
-                  <MenuItem value={'Transportation'}>Transportation</MenuItem>
-                  <MenuItem value={'Entertainment'}>Entertainment</MenuItem>
-                  <MenuItem value={'Tours'}>Tours</MenuItem>
-                  <MenuItem value={'Shopping'}>Shopping</MenuItem>
-                  <MenuItem value={'Fees'}>Fees</MenuItem>
-                  <MenuItem value={'Emergencies'}>Emergencies</MenuItem>
-                  <MenuItem value={'Miscellaneous'}>Miscellaneous</MenuItem>
-                </Select>
-              </FormControl>
-
-              <KeyboardDatePicker
-                disableToolbar
-                variant='inline'
-                format='MM/DD/yyyy'
-                margin='normal'
-                id='date-picker-inline'
-                label='Date'
-                value={selectedExpenseDate}
-                onChange={handleExpenseDate}
-                KeyboardButtonProps={{
-                  'aria-label': 'change date',
-                }}
-              />
-
-              <Button
-                type='submit'
-                variant='contained'
-                color='primary'
-                className={classes.submit}
-                disableRipple
-              >
-                Submit Expense
-              </Button>
-              <Grid container></Grid>
-            </form>
-          </Container>
+      <Grid direction='column' className={classes.containerWrapper}>
+        {/* -----Welcome Container----- */}
+        <Grid item>
+          <Typography variant={matchXs ? 'h4' : 'h2'}>
+            Peru Trip - Add New Expense
+          </Typography>
         </Grid>
-      </main>
+        <Divider />
+        <Container component='div' maxWidth='xs'>
+          <CssBaseline />
+          <form className={classes.form} noValidate>
+            <TextField
+              variant='standard'
+              margin='normal'
+              required
+              fullWidth
+              id='expense_name'
+              label='Expense Name'
+              name='expense_name'
+              autoFocus
+            />
+            <TextField
+              className={classes.budgetField}
+              variant='standard'
+              margin='normal'
+              required
+              fullWidth
+              name='expense_cost'
+              label='Cost'
+              type='number'
+              id='expense_cost'
+            />
+
+            {/* ------ Type Input ----- */}
+            <FormControl required className={classes.formControl}>
+              <InputLabel id='required-label'>Type</InputLabel>
+              <Select
+                labelId='demo-simple-select-required-label'
+                id='demo-simple-select-required'
+                value={age}
+                onChange={handleChange}
+                className={classes.selectEmpty}
+              >
+                <MenuItem value='Uncategorized'>
+                  <em>Uncategorized</em>
+                </MenuItem>
+                <MenuItem value={'Lodging'}>Lodging</MenuItem>
+                <MenuItem value={'Accommodation'}>Accommodation</MenuItem>
+                <MenuItem value={'Food'}>Food</MenuItem>
+                <MenuItem value={'Transportation'}>Transportation</MenuItem>
+                <MenuItem value={'Entertainment'}>Entertainment</MenuItem>
+                <MenuItem value={'Tours'}>Tours</MenuItem>
+                <MenuItem value={'Shopping'}>Shopping</MenuItem>
+                <MenuItem value={'Fees'}>Fees</MenuItem>
+                <MenuItem value={'Emergencies'}>Emergencies</MenuItem>
+                <MenuItem value={'Miscellaneous'}>Miscellaneous</MenuItem>
+              </Select>
+            </FormControl>
+
+            <KeyboardDatePicker
+              disableToolbar
+              variant='inline'
+              format='MM/DD/yyyy'
+              margin='normal'
+              id='date-picker-inline'
+              label='Date'
+              value={selectedExpenseDate}
+              onChange={handleExpenseDate}
+              KeyboardButtonProps={{
+                'aria-label': 'change date',
+              }}
+            />
+
+            <Button
+              type='submit'
+              variant='contained'
+              color='primary'
+              className={classes.submit}
+              disableRipple
+            >
+              Submit Expense
+            </Button>
+          </form>
+        </Container>
+      </Grid>
     </>
   );
 };

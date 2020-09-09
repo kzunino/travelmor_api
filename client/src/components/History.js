@@ -1,5 +1,5 @@
 import React from 'react';
-// import Moment from 'moment';
+import Moment from 'moment';
 import {Link} from 'react-router-dom';
 
 import Toolbar from '@material-ui/core/Toolbar';
@@ -70,20 +70,20 @@ const useStyles = makeStyles((theme) => ({
 const History = () => {
   const theme = useTheme();
   const classes = useStyles();
-  const [checked, setChecked] = React.useState(['wifi']);
+  // const [checked, setChecked] = React.useState(['wifi']);
 
-  const handleToggle = (value) => () => {
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
+  // const handleToggle = (value) => () => {
+  //   const currentIndex = checked.indexOf(value);
+  //   const newChecked = [...checked];
 
-    if (currentIndex === -1) {
-      newChecked.push(value);
-    } else {
-      newChecked.splice(currentIndex, 1);
-    }
+  //   if (currentIndex === -1) {
+  //     newChecked.push(value);
+  //   } else {
+  //     newChecked.splice(currentIndex, 1);
+  //   }
 
-    setChecked(newChecked);
-  };
+  //   setChecked(newChecked);
+  // };
 
   const matchXs = useMediaQuery(theme.breakpoints.down('xs'));
 
@@ -132,7 +132,11 @@ const History = () => {
                   {/* map over trips to get years then map over trips in that year to list them */}
                   {trips.map((trip, index) => (
                     <List
-                      subheader={<ListSubheader>2020</ListSubheader>}
+                      subheader={
+                        <ListSubheader>
+                          {Moment(trip.start_date).format('YYYY')}
+                        </ListSubheader>
+                      }
                       className={classes.root}
                     >
                       <ListItem

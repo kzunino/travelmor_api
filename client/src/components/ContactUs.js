@@ -2,8 +2,8 @@ import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import Toolbar from '@material-ui/core/Toolbar';
 
-import {makeStyles, useTheme} from '@material-ui/core/styles';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
+import {makeStyles} from '@material-ui/core/styles';
+// import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 const drawerWidth = 240;
 
@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ContactUs = () => {
-  const theme = useTheme();
+  // const theme = useTheme();
   const classes = useStyles();
 
   return (

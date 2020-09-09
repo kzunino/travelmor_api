@@ -1,12 +1,12 @@
 import React, {useState, forwardRef} from 'react';
-import {Link} from 'react-router-dom';
+// import {Link} from 'react-router-dom';
 import Moment from 'moment';
 import Typography from '@material-ui/core/Typography';
-import Toolbar from '@material-ui/core/Toolbar';
+// import Toolbar from '@material-ui/core/Toolbar';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
-import Container from '@material-ui/core/Container';
+// import Button from '@material-ui/core/Button';
+// import Container from '@material-ui/core/Container';
 import Divider from '@material-ui/core/Divider';
 
 //icons
@@ -31,7 +31,7 @@ import FirstPage from '@material-ui/icons/FirstPage';
 import LastPage from '@material-ui/icons/LastPage';
 import Remove from '@material-ui/icons/Remove';
 import SaveAlt from '@material-ui/icons/SaveAlt';
-import Search from '@material-ui/icons/Search';
+// import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
 
 //Charts
@@ -39,7 +39,7 @@ import {Bar} from 'react-chartjs-2';
 import {Pie} from 'react-chartjs-2';
 
 import {makeStyles, useTheme} from '@material-ui/core/styles';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
+// import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 const drawerWidth = 240;
 
@@ -148,7 +148,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Trip = () => {
-  const theme = useTheme();
+  // const theme = useTheme();
   const classes = useStyles();
 
   const [barState, setBarState] = useState({
@@ -255,10 +255,10 @@ const Trip = () => {
     ],
   });
 
-  const matchXs = useMediaQuery(theme.breakpoints.down('xs'));
+  // const matchXs = useMediaQuery(theme.breakpoints.down('xs'));
 
   //prevents table from exceeding boundaries
-  const matchesTable = useMediaQuery('(max-width:648px)');
+  // const matchesTable = useMediaQuery('(max-width:648px)');
 
   //Table Data
 
@@ -292,316 +292,316 @@ const Trip = () => {
 
   return (
     <>
-      <main className={classes.content}>
+      {/* <main className={classes.content}>
         <Toolbar />
         <Grid container direction='column' className={classes.containerWrapper}>
-          <Container maxWidth={'lg'} className={classes.container}>
-            <Grid item>
-              <Grid container justify='space-between'>
-                {/* Heading Box Item */}
-                <Grid item xs={12}>
-                  <Box m={1} boxShadow={3} className={classes.headingBox}>
-                    <Grid item>
-                      <Grid container justify='center'>
-                        <Grid item>
-                          <Typography variant='h3'>Peru Trip</Typography>
-                          <Typography
-                            variant='subtitle2'
-                            align='center'
-                            className={classes.budgetHeading}
-                          >
-                            Aug 30th - Sept 10th
-                          </Typography>
-                        </Grid>
-                      </Grid>
-                    </Grid>
-                    <Grid item>
-                      <Grid container justify='space-around' direction='row'>
-                        <Grid item className={classes.mainBoxBudgetItems}>
-                          <Typography
-                            variant='subtitle2'
-                            className={classes.budgetHeading}
-                          >
-                            trip budget
-                          </Typography>
-                          <Typography variant='h6'>$1,000.00</Typography>
-                        </Grid>
-                        <Grid item className={classes.mainBoxBudgetItems}>
-                          <Typography
-                            variant='subtitle2'
-                            className={classes.budgetHeading}
-                          >
-                            daily budget
-                          </Typography>
-                          <Typography variant='h6'>$50.00</Typography>
-                        </Grid>
-                      </Grid>
-                    </Grid>
-
-                    <Grid item className={classes.chartContainer}>
-                      <Bar
-                        data={barState}
-                        options={{
-                          title: {
-                            display: false,
-                            fontSize: 20,
-                          },
-                          legend: {
-                            display: false,
-                            position: 'right',
-                          },
-                          maintainAspectRatio: false,
-                          scales: {
-                            xAxes: [
-                              {
-                                gridLines: {
-                                  display: false,
-                                },
-                              },
-                            ],
-                            yAxes: [
-                              {
-                                gridLines: {
-                                  display: false,
-                                },
-                                ticks: {
-                                  display: false,
-                                },
-                              },
-                            ],
-                          },
-                        }}
-                      />
-                    </Grid>
-                  </Box>
-                </Grid>
-
-                {/* Budget Boxes Item */}
-                <Grid item xs={12}>
-                  <Grid container='row'>
-                    <Grid item xs={12} sm={4} md={4}>
-                      <Box
-                        m={1}
-                        boxShadow={3}
-                        className={classes.spendingInfoWidgetBox}
-                      >
-                        <Grid container direction='column'>
-                          <Grid item>
-                            <Grid container justify='space-between'>
-                              <Grid item>
-                                <TodayIcon
-                                  fontSize='large'
-                                  className={classes.icon}
-                                />
-                              </Grid>
-                              <Grid item>
-                                <Typography
-                                  variant='h5'
-                                  className={classes.spendingWidgetTitle}
-                                >
-                                  {Moment(Date.now()).format('MMM Do')}
-                                </Typography>
-                              </Grid>
-                            </Grid>
-                          </Grid>
-                          <Divider className={classes.divider} />
-                          <Grid container justify='space-around'>
-                            <Grid item>
-                              <Typography variant='subtitle2' align='right'>
-                                spent today
-                              </Typography>
-                              <Typography variant='h6' align='right'>
-                                $40.00
-                              </Typography>
-                            </Grid>
-                            <Grid item>
-                              <Typography variant='subtitle2' align='right'>
-                                remaining
-                              </Typography>
-                              <Typography
-                                variant='h6'
-                                className={classes.underBudgetColor}
-                                align='right'
-                              >
-                                $10.00
-                              </Typography>
-                            </Grid>
-                          </Grid>
-                        </Grid>
-                      </Box>
-                    </Grid>
-
-                    <Grid item xs={12} sm={4} md={4}>
-                      <Box
-                        m={1}
-                        boxShadow={3}
-                        className={classes.spendingInfoWidgetBox}
-                      >
-                        <Grid container direction='column'>
-                          <Grid item>
-                            <Grid container justify='space-between'>
-                              <Grid item>
-                                <TimelineIcon
-                                  fontSize='large'
-                                  className={classes.icon}
-                                />
-                              </Grid>
-                              <Grid item>
-                                <Typography
-                                  variant='h5'
-                                  className={classes.spendingWidgetTitle}
-                                >
-                                  Daily
-                                </Typography>
-                              </Grid>
-                            </Grid>
-                          </Grid>
-                          <Divider className={classes.divider} />
-                          <Grid container justify='space-around'>
-                            <Grid item>
-                              <Typography variant='subtitle2' align='right'>
-                                daily avg.
-                              </Typography>
-                              <Typography variant='h6' align='right'>
-                                $43.50
-                              </Typography>
-                            </Grid>
-                            <Grid item>
-                              <Typography variant='subtitle2' align='right'>
-                                new daily budget.
-                              </Typography>
-                              <Typography variant='h6' align='right'>
-                                $54.00
-                              </Typography>
-                            </Grid>
-                          </Grid>
-                        </Grid>
-                      </Box>
-                    </Grid>
-
-                    {/* Total Widget */}
-                    <Grid item xs={12} sm={4} md={4}>
-                      <Box
-                        m={1}
-                        boxShadow={3}
-                        className={classes.spendingInfoWidgetBox}
-                      >
-                        <Grid container direction='column'>
-                          <Grid item>
-                            <Grid container justify='space-between'>
-                              <Grid item>
-                                <AccountBalanceIcon
-                                  fontSize='large'
-                                  className={classes.icon}
-                                />
-                              </Grid>
-                              <Grid item>
-                                <Typography
-                                  variant='h5'
-                                  className={classes.spendingWidgetTitle}
-                                >
-                                  Total
-                                </Typography>
-                              </Grid>
-                            </Grid>
-                          </Grid>
-                          <Divider className={classes.divider} />
-                          <Grid container justify='space-around'>
-                            <Grid item>
-                              <Typography variant='subtitle2' align='right'>
-                                total spent
-                              </Typography>
-                              <Typography variant='h6' align='right'>
-                                $352.50
-                              </Typography>
-                            </Grid>
-                            <Grid item>
-                              <Typography variant='subtitle2' align='right'>
-                                remaining
-                              </Typography>
-                              <Typography
-                                variant='h6'
-                                className={classes.underBudgetColor}
-                                align='right'
-                              >
-                                $647.50
-                              </Typography>
-                            </Grid>
-                          </Grid>
-                        </Grid>
-                      </Box>
-                    </Grid>
-                  </Grid>
-                </Grid>
-
-                {/* Table / Pie Chart Container */}
-                <Grid item xs>
-                  <Grid container justify='space-between'>
-                    {/* Last Five Purchases Table */}
-                    <Grid xs={12} item>
-                      <Box m={0} boxShadow={0} className={classes.tableBox}>
-                        <MaterialTable
-                          title='Expenses'
-                          options={{
-                            search: false,
-                          }}
-                          columns={tableData.columns}
-                          data={tableData.data}
-                          icons={tableIcons}
-                          editable={{
-                            onRowAdd: (newData) =>
-                              new Promise((resolve) => {
-                                setTimeout(() => {
-                                  resolve();
-                                  setTableData((prevState) => {
-                                    const data = [...prevState.data];
-                                    data.push(newData);
-                                    return {...prevState, data};
-                                  });
-                                }, 600);
-                              }),
-                            onRowUpdate: (newData, oldData) =>
-                              new Promise((resolve) => {
-                                setTimeout(() => {
-                                  resolve();
-                                  if (oldData) {
-                                    setTableData((prevState) => {
-                                      const data = [...prevState.data];
-                                      data[data.indexOf(oldData)] = newData;
-                                      return {...prevState, data};
-                                    });
-                                  }
-                                }, 600);
-                              }),
-                            onRowDelete: (oldData) =>
-                              new Promise((resolve) => {
-                                setTimeout(() => {
-                                  resolve();
-                                  setTableData((prevState) => {
-                                    const data = [...prevState.data];
-                                    data.splice(data.indexOf(oldData), 1);
-                                    return {...prevState, data};
-                                  });
-                                }, 600);
-                              }),
-                          }}
-                        />
-                      </Box>
-                    </Grid>
-
-                    {/* ------ Pie Chart --------- */}
-                    <Grid xs={12} item>
-                      <Box m={1} boxShadow={3} className={classes.budgetBox}>
-                        <Pie data={pieStateData} />
-                      </Box>
-                    </Grid>
+          <Container maxWidth={'lg'} className={classes.container}> */}
+      <Grid item>
+        <Grid container justify='space-between'>
+          {/* Heading Box Item */}
+          <Grid item xs={12}>
+            <Box m={1} boxShadow={3} className={classes.headingBox}>
+              <Grid item>
+                <Grid container justify='center'>
+                  <Grid item>
+                    <Typography variant='h3'>Peru Trip</Typography>
+                    <Typography
+                      variant='subtitle2'
+                      align='center'
+                      className={classes.budgetHeading}
+                    >
+                      Aug 30th - Sept 10th
+                    </Typography>
                   </Grid>
                 </Grid>
               </Grid>
+              <Grid item>
+                <Grid container justify='space-around' direction='row'>
+                  <Grid item className={classes.mainBoxBudgetItems}>
+                    <Typography
+                      variant='subtitle2'
+                      className={classes.budgetHeading}
+                    >
+                      trip budget
+                    </Typography>
+                    <Typography variant='h6'>$1,000.00</Typography>
+                  </Grid>
+                  <Grid item className={classes.mainBoxBudgetItems}>
+                    <Typography
+                      variant='subtitle2'
+                      className={classes.budgetHeading}
+                    >
+                      daily budget
+                    </Typography>
+                    <Typography variant='h6'>$50.00</Typography>
+                  </Grid>
+                </Grid>
+              </Grid>
+
+              <Grid item className={classes.chartContainer}>
+                <Bar
+                  data={barState}
+                  options={{
+                    title: {
+                      display: false,
+                      fontSize: 20,
+                    },
+                    legend: {
+                      display: false,
+                      position: 'right',
+                    },
+                    maintainAspectRatio: false,
+                    scales: {
+                      xAxes: [
+                        {
+                          gridLines: {
+                            display: false,
+                          },
+                        },
+                      ],
+                      yAxes: [
+                        {
+                          gridLines: {
+                            display: false,
+                          },
+                          ticks: {
+                            display: false,
+                          },
+                        },
+                      ],
+                    },
+                  }}
+                />
+              </Grid>
+            </Box>
+          </Grid>
+
+          {/* Budget Boxes Item */}
+          <Grid item xs={12}>
+            <Grid container='row'>
+              <Grid item xs={12} sm={4} md={4}>
+                <Box
+                  m={1}
+                  boxShadow={3}
+                  className={classes.spendingInfoWidgetBox}
+                >
+                  <Grid container direction='column'>
+                    <Grid item>
+                      <Grid container justify='space-between'>
+                        <Grid item>
+                          <TodayIcon
+                            fontSize='large'
+                            className={classes.icon}
+                          />
+                        </Grid>
+                        <Grid item>
+                          <Typography
+                            variant='h5'
+                            className={classes.spendingWidgetTitle}
+                          >
+                            {Moment(Date.now()).format('MMM Do')}
+                          </Typography>
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                    <Divider className={classes.divider} />
+                    <Grid container justify='space-around'>
+                      <Grid item>
+                        <Typography variant='subtitle2' align='right'>
+                          spent today
+                        </Typography>
+                        <Typography variant='h6' align='right'>
+                          $40.00
+                        </Typography>
+                      </Grid>
+                      <Grid item>
+                        <Typography variant='subtitle2' align='right'>
+                          remaining
+                        </Typography>
+                        <Typography
+                          variant='h6'
+                          className={classes.underBudgetColor}
+                          align='right'
+                        >
+                          $10.00
+                        </Typography>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                </Box>
+              </Grid>
+
+              <Grid item xs={12} sm={4} md={4}>
+                <Box
+                  m={1}
+                  boxShadow={3}
+                  className={classes.spendingInfoWidgetBox}
+                >
+                  <Grid container direction='column'>
+                    <Grid item>
+                      <Grid container justify='space-between'>
+                        <Grid item>
+                          <TimelineIcon
+                            fontSize='large'
+                            className={classes.icon}
+                          />
+                        </Grid>
+                        <Grid item>
+                          <Typography
+                            variant='h5'
+                            className={classes.spendingWidgetTitle}
+                          >
+                            Daily
+                          </Typography>
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                    <Divider className={classes.divider} />
+                    <Grid container justify='space-around'>
+                      <Grid item>
+                        <Typography variant='subtitle2' align='right'>
+                          daily avg.
+                        </Typography>
+                        <Typography variant='h6' align='right'>
+                          $43.50
+                        </Typography>
+                      </Grid>
+                      <Grid item>
+                        <Typography variant='subtitle2' align='right'>
+                          new daily budget.
+                        </Typography>
+                        <Typography variant='h6' align='right'>
+                          $54.00
+                        </Typography>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                </Box>
+              </Grid>
+
+              {/* Total Widget */}
+              <Grid item xs={12} sm={4} md={4}>
+                <Box
+                  m={1}
+                  boxShadow={3}
+                  className={classes.spendingInfoWidgetBox}
+                >
+                  <Grid container direction='column'>
+                    <Grid item>
+                      <Grid container justify='space-between'>
+                        <Grid item>
+                          <AccountBalanceIcon
+                            fontSize='large'
+                            className={classes.icon}
+                          />
+                        </Grid>
+                        <Grid item>
+                          <Typography
+                            variant='h5'
+                            className={classes.spendingWidgetTitle}
+                          >
+                            Total
+                          </Typography>
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                    <Divider className={classes.divider} />
+                    <Grid container justify='space-around'>
+                      <Grid item>
+                        <Typography variant='subtitle2' align='right'>
+                          total spent
+                        </Typography>
+                        <Typography variant='h6' align='right'>
+                          $352.50
+                        </Typography>
+                      </Grid>
+                      <Grid item>
+                        <Typography variant='subtitle2' align='right'>
+                          remaining
+                        </Typography>
+                        <Typography
+                          variant='h6'
+                          className={classes.underBudgetColor}
+                          align='right'
+                        >
+                          $647.50
+                        </Typography>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                </Box>
+              </Grid>
             </Grid>
-          </Container>
+          </Grid>
+
+          {/* Table / Pie Chart Container */}
+          <Grid item xs>
+            <Grid container justify='space-between'>
+              {/* Last Five Purchases Table */}
+              <Grid xs={12} lg={6} item>
+                <Box m={0} boxShadow={0} className={classes.tableBox}>
+                  <MaterialTable
+                    title='Expenses'
+                    options={{
+                      search: false,
+                    }}
+                    columns={tableData.columns}
+                    data={tableData.data}
+                    icons={tableIcons}
+                    editable={{
+                      onRowAdd: (newData) =>
+                        new Promise((resolve) => {
+                          setTimeout(() => {
+                            resolve();
+                            setTableData((prevState) => {
+                              const data = [...prevState.data];
+                              data.push(newData);
+                              return {...prevState, data};
+                            });
+                          }, 600);
+                        }),
+                      onRowUpdate: (newData, oldData) =>
+                        new Promise((resolve) => {
+                          setTimeout(() => {
+                            resolve();
+                            if (oldData) {
+                              setTableData((prevState) => {
+                                const data = [...prevState.data];
+                                data[data.indexOf(oldData)] = newData;
+                                return {...prevState, data};
+                              });
+                            }
+                          }, 600);
+                        }),
+                      onRowDelete: (oldData) =>
+                        new Promise((resolve) => {
+                          setTimeout(() => {
+                            resolve();
+                            setTableData((prevState) => {
+                              const data = [...prevState.data];
+                              data.splice(data.indexOf(oldData), 1);
+                              return {...prevState, data};
+                            });
+                          }, 600);
+                        }),
+                    }}
+                  />
+                </Box>
+              </Grid>
+
+              {/* ------ Pie Chart --------- */}
+              <Grid xs={12} md={12} lg={6} item>
+                <Box m={1} boxShadow={3} className={classes.budgetBox}>
+                  <Pie data={pieStateData} />
+                </Box>
+              </Grid>
+            </Grid>
+          </Grid>
         </Grid>
-      </main>
+      </Grid>
+      {/* </Container>
+        </Grid>
+      </main> */}
     </>
   );
 };

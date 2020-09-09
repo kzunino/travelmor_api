@@ -1,21 +1,36 @@
-import React from 'react';
+import React, {useState, forwardRef} from 'react';
+import Moment from 'moment';
 
 import Toolbar from '@material-ui/core/Toolbar';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
 
 // Table Imports
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
 
-import {makeStyles, useTheme, withStyles} from '@material-ui/core/styles';
+// Table
+
+import MaterialTable from 'material-table';
+
+import AddBox from '@material-ui/icons/AddBox';
+import ArrowDownward from '@material-ui/icons/ArrowDownward';
+import Check from '@material-ui/icons/Check';
+import ChevronLeft from '@material-ui/icons/ChevronLeft';
+import ChevronRight from '@material-ui/icons/ChevronRight';
+import Clear from '@material-ui/icons/Clear';
+import DeleteOutline from '@material-ui/icons/DeleteOutline';
+import Edit from '@material-ui/icons/Edit';
+import FilterList from '@material-ui/icons/FilterList';
+import FirstPage from '@material-ui/icons/FirstPage';
+import LastPage from '@material-ui/icons/LastPage';
+import Remove from '@material-ui/icons/Remove';
+import SaveAlt from '@material-ui/icons/SaveAlt';
+// import Search from '@material-ui/icons/Search';
+import ViewColumn from '@material-ui/icons/ViewColumn';
+
+import {makeStyles, useTheme} from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 // Table Imports
@@ -43,46 +58,97 @@ const useStyles = makeStyles((theme) => ({
     margin: 'auto',
   },
   //table styles
-  table: {},
+
   tableWrapper: {
     marginTop: '2em',
     padding: 0,
   },
 }));
 
-const StyledTableCell = withStyles((theme) => ({
-  head: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
-  },
-  body: {
-    fontSize: 14,
-  },
-}))(TableCell);
-
-const StyledTableRow = withStyles((theme) => ({
-  root: {
-    '&:nth-of-type(odd)': {
-      backgroundColor: theme.palette.action.hover,
-    },
-  },
-}))(TableRow);
-
-function createData(expense_name, expense_cost, expense_type, expense_date) {
-  return {expense_name, expense_cost, expense_type, expense_date};
-}
-
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24),
-  createData('Ice cream sandwich', 237, 9.0, 37),
-  createData('Eclair', 262, 16.0, 24),
-  createData('Cupcake', 305, 3.7, 67),
-  createData('Gingerbread', 356, 16.0, 49),
-];
-
 const ExpenseHistory = () => {
   const theme = useTheme();
   const classes = useStyles();
+
+  const [tableData, setTableData] = useState({
+    columns: [
+      {title: 'Name', field: 'expense_name'},
+      {
+        title: 'Cost',
+        field: 'expense_cost',
+        type: 'currency',
+        currencySetting: {
+          currencyCode: 'USD',
+          minimumFractionDigits: 0,
+          maximumFractionDigits: 2,
+        },
+      },
+      {
+        title: 'Type',
+        field: 'expense_type',
+        lookup: {
+          1: 'Uncategorized',
+          2: 'Accomodation',
+          3: 'Food',
+          4: 'Transportation',
+          5: 'Entertainment',
+          6: 'Tours',
+          7: 'Shopping',
+          8: 'Fees',
+          9: 'Emergency',
+          10: 'Miscellaneous',
+        },
+      },
+      {
+        title: 'Date',
+        field: 'expense_date',
+        type: 'date',
+      },
+    ],
+    data: [
+      {
+        expense_name: 'Dinner',
+        expense_cost: 10.01,
+        expense_type: 3,
+        expense_date: Moment(Date.now()).format('MM-DD-YYYY'),
+      },
+      {
+        expense_name: 'Hostel',
+        expense_cost: 8.0,
+        expense_type: 2,
+        expense_date: Moment(Date.now()).format('MM-DD-YYYY'),
+      },
+    ],
+  });
+
+  //Table Data
+
+  const tableIcons = {
+    Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
+    Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
+    Clear: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
+    Delete: forwardRef((props, ref) => <DeleteOutline {...props} ref={ref} />),
+    DetailPanel: forwardRef((props, ref) => (
+      <ChevronRight {...props} ref={ref} />
+    )),
+    Edit: forwardRef((props, ref) => <Edit {...props} ref={ref} />),
+    Export: forwardRef((props, ref) => <SaveAlt {...props} ref={ref} />),
+    Filter: forwardRef((props, ref) => <FilterList {...props} ref={ref} />),
+    FirstPage: forwardRef((props, ref) => <FirstPage {...props} ref={ref} />),
+    LastPage: forwardRef((props, ref) => <LastPage {...props} ref={ref} />),
+    NextPage: forwardRef((props, ref) => <ChevronRight {...props} ref={ref} />),
+    PreviousPage: forwardRef((props, ref) => (
+      <ChevronLeft {...props} ref={ref} />
+    )),
+    ResetSearch: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
+    //Search: forwardRef((props, ref) => <Search {...props} ref={ref} />),
+    SortArrow: forwardRef((props, ref) => (
+      <ArrowDownward {...props} ref={ref} />
+    )),
+    ThirdStateCheck: forwardRef((props, ref) => (
+      <Remove {...props} ref={ref} />
+    )),
+    ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />),
+  };
 
   const matchXs = useMediaQuery(theme.breakpoints.down('xs'));
   return (
@@ -98,41 +164,59 @@ const ExpenseHistory = () => {
         <Divider />
         <Container
           component='div'
-          maxWidth='sm'
+          maxWidth='lg'
           className={classes.tableWrapper}
         >
           <Grid container direction='column'>
-            <Grid item>
-              <TableContainer component={Paper}>
-                <Table className={classes.table} aria-label='customized table'>
-                  <TableHead>
-                    <TableRow>
-                      <StyledTableCell>Expense</StyledTableCell>
-                      <StyledTableCell align='right'>Cost</StyledTableCell>
-                      <StyledTableCell align='right'>Type</StyledTableCell>
-                      <StyledTableCell align='right'>Date</StyledTableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {rows.map((row) => (
-                      <StyledTableRow key={row.expense}>
-                        <StyledTableCell component='th' scope='row'>
-                          {row.expense_name}
-                        </StyledTableCell>
-                        <StyledTableCell align='right'>
-                          {row.expense_cost}
-                        </StyledTableCell>
-                        <StyledTableCell align='right'>
-                          {row.expense_type}
-                        </StyledTableCell>
-                        <StyledTableCell align='right'>
-                          {row.expense_date}
-                        </StyledTableCell>
-                      </StyledTableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </TableContainer>
+            <Grid xs={12} item>
+              <Box m={0} boxShadow={0} className={classes.tableBox}>
+                <MaterialTable
+                  title='Expenses'
+                  options={{
+                    search: false,
+                  }}
+                  columns={tableData.columns}
+                  data={tableData.data}
+                  icons={tableIcons}
+                  editable={{
+                    onRowAdd: (newData) =>
+                      new Promise((resolve) => {
+                        setTimeout(() => {
+                          resolve();
+                          setTableData((prevState) => {
+                            const data = [...prevState.data];
+                            data.push(newData);
+                            return {...prevState, data};
+                          });
+                        }, 600);
+                      }),
+                    onRowUpdate: (newData, oldData) =>
+                      new Promise((resolve) => {
+                        setTimeout(() => {
+                          resolve();
+                          if (oldData) {
+                            setTableData((prevState) => {
+                              const data = [...prevState.data];
+                              data[data.indexOf(oldData)] = newData;
+                              return {...prevState, data};
+                            });
+                          }
+                        }, 600);
+                      }),
+                    onRowDelete: (oldData) =>
+                      new Promise((resolve) => {
+                        setTimeout(() => {
+                          resolve();
+                          setTableData((prevState) => {
+                            const data = [...prevState.data];
+                            data.splice(data.indexOf(oldData), 1);
+                            return {...prevState, data};
+                          });
+                        }, 600);
+                      }),
+                  }}
+                />
+              </Box>
             </Grid>
 
             {/* Spreadsheet with spending */}

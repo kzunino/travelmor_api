@@ -15,8 +15,6 @@ import About from './components/About';
 import Contact from './components/ContactUs';
 import MyAccount from './components/MyAccount';
 
-import AddExpense from './components/AddExpense';
-
 import BottomActions from './components/BottomActions';
 
 function App() {
@@ -73,8 +71,6 @@ function App() {
           <Route exact path='/account' component={MyAccount} />
 
           <Route exact path='/trip' component={Trip} />
-
-          <Route exact path='/addexpense' component={AddExpense} />
         </Switch>
         <BottomActions />
       </Router>
