@@ -44,6 +44,9 @@ const useStyles = makeStyles((theme) => ({
       marginTop: '1em',
     },
   },
+  selectEmpty: {
+    width: '8em',
+  },
 }));
 
 const MyAccount = () => {
@@ -55,8 +58,8 @@ const MyAccount = () => {
   const [selectedEndDate, setSelectedEndDate] = useState(Date.now());
 
   // Currency data
-  const handleCurrencyType = (currency) => {
-    setCurrency(currency);
+  const handleCurrencyType = (event) => {
+    setCurrency(event.target.value);
   };
 
   //start date state
@@ -90,35 +93,40 @@ const MyAccount = () => {
                 variant='standard'
                 margin='normal'
                 required
-                fullWidth
-                id='trip_name'
-                label='Trip Name'
-                name='trip_name'
-                autoFocus
+                id='first_name'
+                label='First Name'
+                name='first_name'
               />
               <TextField
-                className={classes.budgetField}
                 variant='standard'
                 margin='normal'
                 required
-                fullWidth
-                name='trip_budget_total'
-                label='Budget Total'
-                type='number'
-                id='trip_budget_total'
+                id='last_name'
+                label='Last Name'
+                name='last_name'
               />
 
+              <TextField
+                variant='standard'
+                margin='normal'
+                required
+                id='email'
+                label='Email'
+                name='email'
+              />
+
+              <br />
+              <br />
               {/* ------ Currency Input ----- */}
               <FormControl required className={classes.formControl}>
                 <InputLabel id='required-label'>Currency</InputLabel>
                 <Select
-                  labelId='demo-simple-select-required-label'
-                  id='demo-simple-select-required'
+                  id='currency'
                   value={currency}
                   onChange={handleCurrencyType}
                   className={classes.selectEmpty}
                 >
-                  <MenuItem value=''>
+                  <MenuItem value='none'>
                     <em>None</em>
                   </MenuItem>
                   <MenuItem value={'USD'}>USD</MenuItem>
@@ -172,7 +180,7 @@ const MyAccount = () => {
                 className={classes.submit}
                 disableRipple
               >
-                Create Trip
+                Update
               </Button>
               <Grid container></Grid>
             </form>

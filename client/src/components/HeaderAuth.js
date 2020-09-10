@@ -284,6 +284,7 @@ const AuthHeader = () => {
                   selected={value === item.activeIndex}
                   onClick={() => {
                     setTripValue(item.activeIndex);
+                    setOpenDrawer(false);
                   }}
                 >
                   <ListItemIcon>{item.icon}</ListItemIcon>

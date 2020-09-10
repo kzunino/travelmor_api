@@ -592,7 +592,11 @@ const Trip = () => {
               {/* ------ Pie Chart --------- */}
               <Grid xs={12} md={12} lg={6} item>
                 <Box m={1} boxShadow={3} className={classes.budgetBox}>
-                  <Pie data={pieStateData} />
+                  <Pie
+                    height={300}
+                    data={pieStateData}
+                    options={{maintainAspectRatio: false}}
+                  />
                 </Box>
               </Grid>
             </Grid>

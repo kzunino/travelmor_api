@@ -46,6 +46,10 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    [theme.breakpoints.down('xs')]: {
+      width: '95%',
+      margin: 'auto',
+    },
   },
   paper: {
     backgroundColor: theme.palette.background.paper,

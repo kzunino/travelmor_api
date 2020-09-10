@@ -95,6 +95,12 @@ const History = () => {
       end_date: '09-30-2020',
     },
     {
+      trip_uid: 234234,
+      trip_name: 'Canada Trip',
+      start_date: '12-02-2020',
+      end_date: '12-24-2020',
+    },
+    {
       trip_uid: 2342545,
       trip_name: 'Ecuador Trip',
       start_date: '08-30-2019',
@@ -114,6 +120,13 @@ const History = () => {
     },
   ];
 
+  // Grabs and filters out all years that trip has been taken
+  let tripYears = [];
+  trips.forEach((trip, index) => {
+    if (tripYears.indexOf(trip.start_date.slice(-4)) === -1)
+      tripYears.push(trip.start_date.slice(-4));
+  });
+
   return (
     <main className={classes.content}>
       <Toolbar />
@@ -127,10 +140,10 @@ const History = () => {
         <Container maxWidth={'md'}>
           <Box m={1} boxShadow={3} className={classes.mainContentBox}>
             <Grid item>
-              <Grid container justify='space-between'>
-                <Grid item xs={12}>
+              <Grid container>
+                <Grid item>
                   {/* map over trips to get years then map over trips in that year to list them */}
-                  {trips.map((trip, index) => (
+                  {tripYears.map((trip, index) => (
                     <List
                       subheader={
                         <ListSubheader>
