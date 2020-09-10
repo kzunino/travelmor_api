@@ -143,26 +143,32 @@ const History = () => {
               <Grid container>
                 <Grid item>
                   {/* map over trips to get years then map over trips in that year to list them */}
-                  {tripYears.map((trip, index) => (
+                  {tripYears.map((year, index) => (
                     <List
                       subheader={
                         <ListSubheader>
-                          {Moment(trip.start_date).format('YYYY')}
+                          {Moment(year).format('YYYY')}
                         </ListSubheader>
                       }
                       className={classes.root}
                     >
-                      <ListItem
-                        className={classes.listItem}
-                        component={Link}
-                        to={`/history/${trip.trip_uid}`}
-                      >
-                        <ListItemText
-                          classes={{root: classes.listItem}}
-                          id='switch-list-label-wifi'
-                          primary={`${trip.trip_name}`}
-                        />
-                      </ListItem>
+                      {trips.map((trip, index) => {
+                        if (year === trip.start_date.slice(-4)) {
+                          return (
+                            <ListItem
+                              className={classes.listItem}
+                              component={Link}
+                              to={`/history/${trip.trip_uid}`}
+                            >
+                              <ListItemText
+                                classes={{root: classes.listItem}}
+                                id='switch-list-label-wifi'
+                                primary={`${trip.trip_name}`}
+                              />
+                            </ListItem>
+                          );
+                        }
+                      })}
                     </List>
                   ))}
                 </Grid>
