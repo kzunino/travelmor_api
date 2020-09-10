@@ -64,6 +64,8 @@ const useStyles = makeStyles((theme) => ({
   },
   listItem: {
     width: '100%',
+    textDecoration: 'none',
+    color: 'black',
   },
 }));
 
@@ -89,7 +91,7 @@ const History = () => {
 
   let trips = [
     {
-      trip_uid: 234234,
+      trip_uid: 23422224,
       trip_name: 'Peru Trip',
       start_date: '08-30-2020',
       end_date: '09-30-2020',
@@ -151,23 +153,24 @@ const History = () => {
                         </ListSubheader>
                       }
                       className={classes.root}
+                      key={year + index}
                     >
                       {trips.map((trip, index) => {
                         if (year === trip.start_date.slice(-4)) {
                           return (
                             <ListItem
-                              className={classes.listItem}
+                              key={trip.trip_uid}
                               component={Link}
                               to={`/history/${trip.trip_uid}`}
+                              classes={{root: classes.listItem}}
                             >
                               <ListItemText
-                                classes={{root: classes.listItem}}
-                                id='switch-list-label-wifi'
+                                classes={classes.listItemText}
                                 primary={`${trip.trip_name}`}
                               />
                             </ListItem>
                           );
-                        }
+                        } else return null;
                       })}
                     </List>
                   ))}
