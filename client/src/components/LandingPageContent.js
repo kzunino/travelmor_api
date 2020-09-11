@@ -9,12 +9,14 @@ import Container from '@material-ui/core/Container';
 import {makeStyles, useTheme} from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
-import DataReports from '../imgs/undraw_data_reports_706v.svg';
+//import DataReports from '../imgs/undraw_data_reports_706v.svg';
 import Traveler from '../imgs/undraw_stranded_traveler_pdbw.svg';
 import Adventure from '../imgs/undraw_adventure_4hum.svg';
 import Globe from '../imgs/undraw_connected_world_wuay.svg';
 
-import Background from '../imgs/luca-bravo-O453M2Liufs-unsplash.jpg';
+//import Background from '../imgs/luca-bravo-O453M2Liufs-unsplash.jpg';
+import Background2 from '../imgs/simon-migaj-Yui5vfKHuzs-unsplash.jpg';
+//import Background3 from '../imgs/diego-jimenez-A-NVHPka9Rk-unsplash.jpg';
 
 const useStyles = makeStyles((theme) => ({
   content: {
@@ -38,24 +40,30 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   heroContentBlock: {
-    height: '60vh',
-    backgroundImage: `url(${Background})`,
+    marginTop: '-6em',
+    height: '103vh',
+    backgroundImage: `linear-gradient(
+      rgba(0, 0, 0, 0.3),
+      rgba(0, 0, 0, 0.0)
+    ), url(${Background2})`,
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
 
-    // [theme.breakpoints.down('sm')]: {
-    //   marginBottom: '5em',
-    // },
+    [theme.breakpoints.down('sm')]: {
+      height: '105vh',
+    },
+  },
+  heroItem: {
+    marginBottom: '5em',
+    [theme.breakpoints.down('sm')]: {
+      marginBottom: '7em',
+    },
   },
   heroTextContainer: {
     color: '#fff',
-    [theme.breakpoints.down('xs')]: {
-      marginLeft: 0,
-    },
   },
   button: {
-    marginTop: '2em',
     borderRadius: '2em',
     backgroundColor: theme.palette.primary.main,
     color: 'white',
@@ -125,8 +133,8 @@ const LandingPageContent = () => {
         direction='row'
         className={classes.heroContentBlock}
       >
-        <Grid xs={12} sm={8} item>
-          <Grid container='column' justify='center'>
+        <Grid xs={12} sm={8} md={6} lg={5} item className={classes.heroItem}>
+          <Grid container='column' justify='center' alignItems='center'>
             <Grid item>
               <Typography
                 variant={matchesXs ? 'h4' : 'h3'}
@@ -146,7 +154,7 @@ const LandingPageContent = () => {
                 className={classes.button}
                 disableRipple
               >
-                Sign Up
+                Start Budgeting!
               </Button>
             </Grid>
           </Grid>

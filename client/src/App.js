@@ -72,7 +72,7 @@ function App() {
 
           <Route exact path='/trip' component={Trip} />
         </Switch>
-        <BottomActions />
+        {/* <BottomActions /> */}
       </Router>
     </>
   );

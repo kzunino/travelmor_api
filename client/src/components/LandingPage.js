@@ -6,11 +6,11 @@ import AppBar from '@material-ui/core/AppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Toolbar from '@material-ui/core/Toolbar';
 
-import logo from '../imgs/travelmor_square.png';
+//import logo from '../imgs/travelmor_square.png';
 
 import LandingPageContent from './LandingPageContent';
 
-const drawerWidth = 240;
+//const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
   toolbarMargin: {
@@ -24,22 +24,24 @@ const useStyles = makeStyles((theme) => ({
     zIndex: theme.zIndex.modal + 1,
   },
   toolbar: {
+    background: 'transparent',
     padding: 0,
   },
-  logoContainer: {
-    padding: 0,
-  },
-  logo: {
-    width: drawerWidth,
-    height: '5.5em',
-    [theme.breakpoints.down('xs')]: {
-      width: 200,
-    },
-  },
+  // logoContainer: {
+  //   padding: 0,
+  // },
+  // logo: {
+  //   width: drawerWidth,
+  //   height: '5.5em',
+  //   [theme.breakpoints.down('xs')]: {
+  //     width: 200,
+  //   },
+  // },
   buttonWrapper: {
     marginLeft: 'auto',
   },
   signin: {
+    color: '#fff',
     marginRight: '1em',
     textTransform: 'none',
     fontSize: '1rem',
@@ -48,6 +50,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   signup: {
+    color: '#fff',
     marginRight: '1em',
     textTransform: 'none',
   },
@@ -61,16 +64,20 @@ const LandingPage = () => {
     <>
       <div className={classes.root}>
         <CssBaseline />
-        <AppBar position='static' className={classes.appBar} color='secondary'>
+        <AppBar
+          position='static'
+          style={{background: 'transparent', boxShadow: 'none'}}
+          className={classes.appBar}
+        >
           <Toolbar className={classes.toolbar}>
-            <Button
+            {/* <Button
               component={Link}
               to='/'
               className={classes.logoContainer}
               disableRipple
             >
               <img src={logo} alt='Travelmor.logo' className={classes.logo} />
-            </Button>
+            </Button> */}
             <div className={classes.buttonWrapper}>
               <Button className={classes.signin} component={Link} to='/signin'>
                 Sign In
