@@ -378,7 +378,7 @@ const Trip = () => {
 
           {/* Budget Boxes Item */}
           <Grid item xs={12}>
-            <Grid container='row'>
+            <Grid container>
               <Grid item xs={12} sm={4} md={4}>
                 <Box
                   m={1}

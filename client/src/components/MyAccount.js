@@ -47,6 +47,11 @@ const useStyles = makeStyles((theme) => ({
   selectEmpty: {
     width: '8em',
   },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+    color: 'white',
+    fontWeight: 'bold',
+  },
 }));
 
 const MyAccount = () => {

@@ -132,6 +132,7 @@ const AddExpense = () => {
               required
               fullWidth
               name='expense_cost'
+              // step="0.01"
               label='Cost'
               type='number'
               id='expense_cost'

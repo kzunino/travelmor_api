@@ -33,7 +33,8 @@ import ViewColumn from '@material-ui/icons/ViewColumn';
 import {makeStyles, useTheme} from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
-// Table Imports
+// Line Chart imports
+import {Line} from 'react-chartjs-2';
 
 const drawerWidth = 240;
 
@@ -68,6 +69,25 @@ const useStyles = makeStyles((theme) => ({
 const ExpenseHistory = () => {
   const theme = useTheme();
   const classes = useStyles();
+
+  const [chartData, setChartData] = useState({
+    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+    datasets: [
+      {
+        label: 'Daily Spending',
+        data: [33, 53, 85, 41, 44, 65],
+        fill: true,
+        backgroundColor: 'rgba(75,192,192,0.2)',
+        borderColor: 'rgba(75,192,192,1)',
+      },
+      {
+        label: 'Daily Budget',
+        data: [50, 50, 50, 50, 50, 50],
+        fill: false,
+        borderColor: '#742774',
+      },
+    ],
+  });
 
   const [tableData, setTableData] = useState({
     columns: [
@@ -168,6 +188,13 @@ const ExpenseHistory = () => {
           className={classes.tableWrapper}
         >
           <Grid container direction='column'>
+            {/* Line Chart Item */}
+            <Grid item xs={12}>
+              <Box m={1} boxShadow={3} className={classes.tableBox}>
+                <Line data={chartData} />
+              </Box>
+            </Grid>
+            {/* Table Item */}
             <Grid xs={12} item>
               <Box m={0} boxShadow={0} className={classes.tableBox}>
                 <MaterialTable
@@ -218,9 +245,6 @@ const ExpenseHistory = () => {
                 />
               </Box>
             </Grid>
-
-            {/* Spreadsheet with spending */}
-            <Grid item></Grid>
           </Grid>
         </Container>
       </Grid>

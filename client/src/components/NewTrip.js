@@ -112,7 +112,7 @@ const NewTrip = () => {
     <>
       <main className={classes.content}>
         <Toolbar />
-        <Grid direction='column' className={classes.containerWrapper}>
+        <Grid direction='column'>
           {/* -----Welcome Container----- */}
           <Grid item>
             <Typography variant={matchXs ? 'h4' : 'h2'}>New Trip</Typography>
@@ -120,6 +120,7 @@ const NewTrip = () => {
           <Divider />
           <Container component='div' maxWidth='xs'>
             <CssBaseline />
+
             <form className={classes.form} noValidate>
               <TextField
                 variant='standard'
@@ -140,6 +141,8 @@ const NewTrip = () => {
                 name='trip_budget_total'
                 label='Budget Total'
                 type='number'
+                placeholder='0.00'
+                InputProps={{inputProps: {min: 0}}}
                 id='trip_budget_total'
               />
 
