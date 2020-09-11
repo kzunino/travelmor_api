@@ -55,7 +55,7 @@ function App() {
   return (
     <>
       <Router>
-        <AuthHeader />
+        {/* <AuthHeader /> */}
         <Switch>
           <Route exact path='/' component={LandingPage} />
           <Route exact path='/signin' component={SignIn} />
