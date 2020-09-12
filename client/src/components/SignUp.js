@@ -1,5 +1,8 @@
 import React from 'react';
+import {data as countryData} from 'currency-codes';
 import {Link} from 'react-router-dom';
+
+import Divider from '@material-ui/core/Divider';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -12,6 +15,14 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+
+//Select
+
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+// import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 
 function Copyright() {
   return (
@@ -41,6 +52,12 @@ const useStyles = makeStyles((theme) => ({
     width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(1),
   },
+  selectEmpty: {
+    width: '10em',
+  },
+  selectMenu: {
+    maxHeight: '15em',
+  },
   submit: {
     margin: theme.spacing(3, 0, 2),
     color: 'white',
@@ -50,6 +67,13 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignIn() {
   const classes = useStyles();
+
+  const [currency, setCurrency] = React.useState('');
+
+  // Currency data
+  const handleCurrencyType = (event) => {
+    setCurrency(event.target.value);
+  };
 
   return (
     <Container component='main' maxWidth='xs'>
@@ -83,15 +107,27 @@ export default function SignIn() {
             name='last_name'
             autoComplete='last_name'
           />
-          <TextField
-            variant='outlined'
-            margin='normal'
-            required
-            fullWidth
-            id='home_currency'
-            label='Home Currency'
-            name='home_currency'
-          />
+          <FormControl required className={classes.formControl}>
+            <InputLabel id='required-label'>Home Currency</InputLabel>
+            <Select
+              id='currency'
+              value={currency}
+              onChange={handleCurrencyType}
+              className={classes.selectEmpty}
+              // accesses the menu styles
+              MenuProps={{classes: {list: classes.selectMenu}}}
+            >
+              <MenuItem value={'840'}>USD</MenuItem>
+              <MenuItem value={'978'}>EUR</MenuItem>
+              <MenuItem value={'036'}>AUD</MenuItem>
+              <Divider />
+              {countryData.map((country) => (
+                <MenuItem
+                  value={`${country.number}`}
+                >{`${country.code}`}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
           <TextField
             variant='outlined'
             margin='normal'

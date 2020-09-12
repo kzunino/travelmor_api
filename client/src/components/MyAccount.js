@@ -1,4 +1,6 @@
 import React, {useState} from 'react';
+import {data as countryData} from 'currency-codes';
+
 import Typography from '@material-ui/core/Typography';
 import Toolbar from '@material-ui/core/Toolbar';
 import Grid from '@material-ui/core/Grid';
@@ -45,7 +47,10 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   selectEmpty: {
-    width: '8em',
+    width: '10em',
+  },
+  selectMenu: {
+    maxHeight: '15em',
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
@@ -58,23 +63,13 @@ const MyAccount = () => {
   const theme = useTheme();
   const classes = useStyles();
 
+  console.log(countryData);
+
   const [currency, setCurrency] = React.useState('');
-  const [selectedStartDate, setSelectedStartDate] = useState(Date.now());
-  const [selectedEndDate, setSelectedEndDate] = useState(Date.now());
 
   // Currency data
   const handleCurrencyType = (event) => {
     setCurrency(event.target.value);
-  };
-
-  //start date state
-  const handleStartDateChange = (date) => {
-    setSelectedStartDate(date);
-  };
-
-  //end date state
-  const handleEndDateChange = (date) => {
-    setSelectedEndDate(date);
   };
 
   const matchXs = useMediaQuery(theme.breakpoints.down('xs'));
@@ -91,30 +86,39 @@ const MyAccount = () => {
             </Typography>
           </Grid>
           <Divider />
-          <Container maxWidth={'lg'}>
+
+          <Container maxWidth={'xs'}>
             <CssBaseline />
             <form className={classes.form} noValidate>
-              <TextField
-                variant='standard'
-                margin='normal'
-                required
-                id='first_name'
-                label='First Name'
-                name='first_name'
-              />
-              <TextField
-                variant='standard'
-                margin='normal'
-                required
-                id='last_name'
-                label='Last Name'
-                name='last_name'
-              />
+              <Grid container spacing={3}>
+                <Grid item>
+                  <TextField
+                    variant='standard'
+                    margin='normal'
+                    required
+                    id='first_name'
+                    label='First Name'
+                    name='first_name'
+                  />
+                </Grid>
+
+                <Grid item>
+                  <TextField
+                    variant='standard'
+                    margin='normal'
+                    required
+                    id='last_name'
+                    label='Last Name'
+                    name='last_name'
+                  />
+                </Grid>
+              </Grid>
 
               <TextField
                 variant='standard'
                 margin='normal'
                 required
+                fullWidth
                 id='email'
                 label='Email'
                 name='email'
@@ -124,60 +128,28 @@ const MyAccount = () => {
               <br />
               {/* ------ Currency Input ----- */}
               <FormControl required className={classes.formControl}>
-                <InputLabel id='required-label'>Currency</InputLabel>
+                <InputLabel id='required-label'>Home Currency</InputLabel>
                 <Select
                   id='currency'
                   value={currency}
                   onChange={handleCurrencyType}
                   className={classes.selectEmpty}
+                  // accesses the menu styles
+                  MenuProps={{classes: {list: classes.selectMenu}}}
                 >
-                  <MenuItem value='none'>
-                    <em>None</em>
-                  </MenuItem>
-                  <MenuItem value={'USD'}>USD</MenuItem>
-                  <MenuItem value={'COP'}>COP</MenuItem>
+                  <MenuItem value={'840'}>USD</MenuItem>
+                  <MenuItem value={'978'}>EUR</MenuItem>
+                  <MenuItem value={'036'}>AUD</MenuItem>
+                  <Divider />
+                  {countryData.map((country) => (
+                    <MenuItem
+                      key={country.number + country.code}
+                      value={country.number}
+                    >{`${country.code}`}</MenuItem>
+                  ))}
                 </Select>
               </FormControl>
-
-              <Grid
-                container
-                direction='row'
-                spacing={2}
-                justify='space-between'
-              >
-                <Grid xs={6} item>
-                  <KeyboardDatePicker
-                    disableToolbar
-                    variant='inline'
-                    format='MM/DD/yyyy'
-                    margin='normal'
-                    id='date-picker-inline'
-                    label='Start Date'
-                    value={selectedStartDate}
-                    onChange={handleStartDateChange}
-                    KeyboardButtonProps={{
-                      'aria-label': 'change date',
-                    }}
-                  />
-                </Grid>
-
-                <Grid xs={6} item>
-                  <KeyboardDatePicker
-                    disableToolbar
-                    variant='inline'
-                    format='MM/DD/yyyy'
-                    margin='normal'
-                    id='date-picker-inline'
-                    label='End Date'
-                    value={selectedEndDate}
-                    onChange={handleEndDateChange}
-                    KeyboardButtonProps={{
-                      'aria-label': 'change date',
-                    }}
-                  />
-                </Grid>
-              </Grid>
-
+              <br />
               <Button
                 type='submit'
                 variant='contained'

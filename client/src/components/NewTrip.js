@@ -1,4 +1,6 @@
 import React, {useState} from 'react';
+import {data as countryData, countries} from 'currency-codes';
+
 // import Moment from 'moment';
 import Typography from '@material-ui/core/Typography';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -74,6 +76,10 @@ const useStyles = makeStyles((theme) => ({
   },
   selectEmpty: {
     marginTop: theme.spacing(2),
+    width: '10em',
+  },
+  selectMenu: {
+    maxHeight: '15em',
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
@@ -92,8 +98,8 @@ const NewTrip = () => {
   const [selectedEndDate, setSelectedEndDate] = useState(Date.now());
 
   // Currency data
-  const handleCurrencyType = (currency) => {
-    setCurrency(currency);
+  const handleCurrencyType = (event) => {
+    setCurrency(event.target.value);
   };
 
   //start date state
@@ -107,12 +113,13 @@ const NewTrip = () => {
   };
 
   const matchXs = useMediaQuery(theme.breakpoints.down('xs'));
+  console.log(countryData);
 
   return (
     <>
       <main className={classes.content}>
         <Toolbar />
-        <Grid direction='column'>
+        <Grid container direction='column'>
           {/* -----Welcome Container----- */}
           <Grid item>
             <Typography variant={matchXs ? 'h4' : 'h2'}>New Trip</Typography>
@@ -148,19 +155,38 @@ const NewTrip = () => {
 
               {/* ------ Currency Input ----- */}
               <FormControl required className={classes.formControl}>
-                <InputLabel id='required-label'>Currency</InputLabel>
+                <InputLabel id='required-label'>Foreign Currency</InputLabel>
                 <Select
-                  labelId='demo-simple-select-required-label'
-                  id='demo-simple-select-required'
+                  id='currency'
                   value={currency}
                   onChange={handleCurrencyType}
                   className={classes.selectEmpty}
+                  // accesses the menu styles
+                  MenuProps={{classes: {list: classes.selectMenu}}}
                 >
-                  <MenuItem value=''>
-                    <em>None</em>
-                  </MenuItem>
-                  <MenuItem value={'USD'}>USD</MenuItem>
-                  <MenuItem value={'COP'}>COP</MenuItem>
+                  <MenuItem value={'840'}>USD</MenuItem>
+                  <MenuItem value={'978'}>EUR</MenuItem>
+                  <MenuItem value={'036'}>AUD</MenuItem>
+                  <Divider />
+                  {countryData.map((country) =>
+                    country.countries.length > 1 ? (
+                      country.countries.map((place, index) => (
+                        <MenuItem
+                          key={country.number + country.code + index}
+                          value={`${country.number}`}
+                        >
+                          {`${country.code} - ${place}`}
+                        </MenuItem>
+                      ))
+                    ) : (
+                      <MenuItem
+                        key={country.number + country.code}
+                        value={`${country.number}`}
+                      >
+                        {`${country.code} - ${country.countries}`}
+                      </MenuItem>
+                    )
+                  )}
                 </Select>
               </FormControl>
 
@@ -212,7 +238,6 @@ const NewTrip = () => {
               >
                 Create Trip
               </Button>
-              <Grid container></Grid>
             </form>
           </Container>
         </Grid>
