@@ -107,6 +107,15 @@ const useStyles = makeStyles((theme) => ({
   icon: {
     marginLeft: 15,
   },
+  accountBalanceColor: {
+    color: 'rgb(96, 202, 235)',
+  },
+  dailyIconColor: {
+    color: 'rgb(232, 81, 82)',
+  },
+  todayIconColor: {
+    color: 'rgb(218,112,214)',
+  },
   spendingWidgetTitle: {
     marginRight: 15,
   },
@@ -390,6 +399,7 @@ const Trip = () => {
                       <Grid container justify='space-between'>
                         <Grid item>
                           <TodayIcon
+                            classes={{root: classes.todayIconColor}}
                             fontSize='large'
                             className={classes.icon}
                           />
@@ -443,6 +453,7 @@ const Trip = () => {
                         <Grid item>
                           <TimelineIcon
                             fontSize='large'
+                            classes={{root: classes.dailyIconColor}}
                             className={classes.icon}
                           />
                         </Grid>
@@ -491,6 +502,7 @@ const Trip = () => {
                       <Grid container justify='space-between'>
                         <Grid item>
                           <AccountBalanceIcon
+                            classes={{root: classes.accountBalanceColor}}
                             fontSize='large'
                             className={classes.icon}
                           />

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {data as countryData, countries} from 'currency-codes';
+import {data as countryData} from 'currency-codes';
 
 // import Moment from 'moment';
 import Typography from '@material-ui/core/Typography';
@@ -113,7 +113,6 @@ const NewTrip = () => {
   };
 
   const matchXs = useMediaQuery(theme.breakpoints.down('xs'));
-  console.log(countryData);
 
   return (
     <>

@@ -12,14 +12,13 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Button from '@material-ui/core/Button';
 
 //Select
-
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 // import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
-import {KeyboardDatePicker} from '@material-ui/pickers';
+//import {KeyboardDatePicker} from '@material-ui/pickers';
 
 import {makeStyles, useTheme} from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
@@ -63,9 +62,7 @@ const MyAccount = () => {
   const theme = useTheme();
   const classes = useStyles();
 
-  console.log(countryData);
-
-  const [currency, setCurrency] = React.useState('');
+  const [currency, setCurrency] = useState('');
 
   // Currency data
   const handleCurrencyType = (event) => {

@@ -174,7 +174,7 @@ const ExpenseHistory = () => {
   return (
     <main className={classes.content}>
       <Toolbar />
-      <Grid direction='column' className={classes.containerWrapper}>
+      <Grid container direction='column' className={classes.containerWrapper}>
         {/* -----Welcome Container----- */}
         <Grid item>
           <Typography variant={matchXs ? 'h4' : 'h2'}>

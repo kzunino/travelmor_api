@@ -29,6 +29,14 @@ function App() {
   //down to components
 
   /* 
+
+  const user = {
+    first_name:
+    last_name:
+    home_currency:
+    email:
+    password:
+  }
   
   const trip = {
     trip_uid: 
@@ -36,8 +44,9 @@ function App() {
     trip_budget_total:
     trip_start:
     trip_end:
-    trip_length: int - days
-    trip_currency: [] of currency types
+    ----- virtual ------
+    trip_length: int - days (calculate on backend)
+    trip_currency: [] of currency types integers
   }
 
   const expense = {
@@ -47,6 +56,7 @@ function App() {
     expense_cost:
     expense_type:
     trip_length:
+    expense_currency: country integer
 
   }
   
