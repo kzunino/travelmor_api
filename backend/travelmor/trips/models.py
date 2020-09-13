@@ -10,8 +10,8 @@ class Trips(models.Model):
     #     User, related_name='leads',
     #     on_delete=models.CASCADE, null=True)
     trip_name = models.CharField(max_length=50)
-    trip_currency = models.IntegerField()
+    # trip_currency = models.IntegerField() - one to many relationship
     budget_total = models.DecimalField(max_digits=8, decimal_places=2)
     trip_length = models.IntegerField()
     start_date = models.DateField()
-    end_date = modles.DateField()
+    end_date = models.DateField()
