@@ -93,7 +93,7 @@ const NewTrip = () => {
   const theme = useTheme();
   const classes = useStyles();
 
-  const [currency, setCurrency] = React.useState('');
+  const [currency, setCurrency] = useState('');
   const [selectedStartDate, setSelectedStartDate] = useState(Date.now());
   const [selectedEndDate, setSelectedEndDate] = useState(Date.now());
 
