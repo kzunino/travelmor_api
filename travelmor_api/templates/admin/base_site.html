@@ -1,0 +1,11 @@
+{% extends 'admin/base.html' %}
+<!-- Loads static files -->
+{% load static %}
+<!-- Changes the Branding -->
+{% block branding %}
+<h1>Travelmor</h1>
+{% endblock %}
+<!-- CSS -->
+{% block extrastyle %}
+<link rel="stylesheet" href="{% static 'admin.css' %}" />
+{% endblock %}
