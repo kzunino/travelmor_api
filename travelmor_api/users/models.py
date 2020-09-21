@@ -1,19 +1,31 @@
 from django.db import models
+from django.contrib.auth.models import AbstractBaseUser
+from django.utils.translation import ugettext_lazy as _
+from django.contrib.auth.models import PermissionsMixin
+from django.utils import timezone
+
+
 import uuid
-from datetime import datetime
+from .managers import CustomUserManager
 
 
-class User(models.Model):
-    user_uid = models.UUIDField(
-        primary_key=True, default=uuid.uuid4, editable=False)
-    first_name = models.CharField(max_length=20)
-    last_name = models.CharField(max_length=40)
-    email = models.EmailField(unique=True)
-    home_currency = models.CharField(max_length=3)
-    created_at = models.DateTimeField(default=datetime.now(), blank=True)
+class User(AbstractBaseUser, PermissionsMixin):
+    username = None
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    email = models.EmailField(_('email address'), unique=True)
+    first_name = models.CharField(max_length=20, blank=False)
+    last_name = models.CharField(max_length=30, blank=False)
+    home_currency = models.CharField(max_length=3, blank=False)
+    date_joined = models.DateTimeField(default=timezone.now)
+    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
+
+    objects = CustomUserManager()
+
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.first_name
-
-    def get_email(self):
         return self.email

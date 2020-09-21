@@ -32,16 +32,24 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'trips.apps.TripsConfig',
+    # 'trips.apps.TripsConfig',
     'users.apps.UsersConfig',
-    'expenses.apps.ExpensesConfig',
-    'currencies.apps.CurrenciesConfig',
+    # 'expenses.apps.ExpensesConfig',
+    # 'currencies.apps.CurrenciesConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'rest_auth',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    "allauth.socialaccount",
+    'rest_auth.registration',
 ]
 
 MIDDLEWARE = [
@@ -82,7 +90,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         "NAME": 'travelmor',
-        'USER': 'k',
+        'USER': '',
         "HOST": 'localhost',
         "PASSWORD": '',
         "PORT": '5432',
@@ -131,3 +139,47 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'travelmor_api/static')
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        # Returns a Key back when logging in
+        'rest_framework.authentication.TokenAuthentication',
+    ]
+}
+
+# Serializers to use
+
+# REST_AUTH_SERIALIZERS = {
+#     'LOGIN_SERIALIZER': 'users.serializers.CustomUserLoginSerializer',
+# }
+
+REST_AUTH_REGISTER_SERIALIZERS = {
+    'REGISTER_SERIALIZER': 'users.serializers.CustomRegisterSerializer',
+}
+
+
+# User the new user class for auth / creation
+AUTH_USER_MODEL = 'users.User'
+
+
+# django-allauth  configurations for email verification
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+# Adapter
+ACCOUNT_ADAPTER = 'users.adapter.CustomAccountAdapter'
+
+
+# sets usage of email instead of username
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_CONFIRM_EMAIL_ON_GET = True
+ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = '/?verification=1'
+ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = '/?verification=1'
+
+SITE_ID = 1
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

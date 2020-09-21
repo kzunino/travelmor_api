@@ -2,14 +2,14 @@ from django.db import models
 from datetime import datetime
 import uuid
 from trips.models import Trip
-from users.models import User
+from users.models import CustomUser
 
 
 class Expense(models.Model):
     expense_uid = models.UUIDField(
         primary_key=True, default=uuid.uuid4, editable=False)
     trip = models.ForeignKey(Trip, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     name = models.CharField(max_length=30)
     cost = models.DecimalField(max_digits=6, decimal_places=2)
     expense_type = models.CharField(max_length=20)

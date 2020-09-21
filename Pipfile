@@ -9,6 +9,9 @@ verify_ssl = true
 django = "*"
 psycopg2 = "*"
 psycopg2-binary = "*"
+djangorestframework = "*"
+django-allauth = "*"
+django-rest-auth = "*"
 
 [requires]
 python_version = "3.8"
