@@ -26,16 +26,16 @@ SECRET_KEY = 'mnlh8o2x*$6p2_oc+!(ff5i8vo&lt9=@(ppl06p90sh)=6^dvq'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
 
 INSTALLED_APPS = [
-    # 'trips.apps.TripsConfig',
+    'trips.apps.TripsConfig',
     'users.apps.UsersConfig',
-    # 'expenses.apps.ExpensesConfig',
-    # 'currencies.apps.CurrenciesConfig',
+    'expenses.apps.ExpensesConfig',
+    'currencies.apps.CurrenciesConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'allauth.account',
     "allauth.socialaccount",
     'rest_auth.registration',
+    # 'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -60,7 +61,16 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
+
 ]
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000"
+]
+CORS_ALLOW_ALL_ORIGINS = True
+
 
 ROOT_URLCONF = 'travelmor_api.urls'
 
@@ -90,9 +100,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         "NAME": 'travelmor',
-        'USER': '',
+        'USER': 'kylezunino',
         "HOST": 'localhost',
-        "PASSWORD": '',
+        "PASSWORD": 'password123',
         "PORT": '5432',
     }
 }
@@ -124,6 +134,7 @@ LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
 
+
 USE_I18N = True
 
 USE_L10N = True
@@ -141,6 +152,7 @@ STATICFILES_DIRS = [
 ]
 
 REST_FRAMEWORK = {
+
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
@@ -159,6 +171,9 @@ REST_AUTH_REGISTER_SERIALIZERS = {
     'REGISTER_SERIALIZER': 'users.serializers.CustomRegisterSerializer',
 }
 
+REST_AUTH_SERIALIZERS = {
+    'TOKEN_SERIALIZER': 'users.serializers.CustomTokenSerializer',
+}
 
 # User the new user class for auth / creation
 AUTH_USER_MODEL = 'users.User'
@@ -176,8 +191,8 @@ ACCOUNT_ADAPTER = 'users.adapter.CustomAccountAdapter'
 
 # sets usage of email instead of username
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
-ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
-ACCOUNT_CONFIRM_EMAIL_ON_GET = True
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+ACCOUNT_CONFIRM_EMAIL_ON_GET = False
 ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = '/?verification=1'
 ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = '/?verification=1'
 

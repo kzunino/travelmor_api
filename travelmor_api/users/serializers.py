@@ -1,5 +1,11 @@
+from django.contrib.auth import get_user_model
+from rest_auth.serializers import TokenSerializer
 from rest_framework import serializers
+from rest_framework.validators import UniqueValidator
+
 from users.models import User
+from trips.models import Trip
+from trips.serializers import TripSerializer, TripListSerializer
 
 from allauth.account.adapter import get_adapter
 from allauth.account.utils import setup_user_email
@@ -26,11 +32,38 @@ class CustomRegisterSerializer(RegisterSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
+    '''
+    Gets user data and the trips to render to the dashboard links
+    '''
+    trips = TripListSerializer(many=True, read_only=True)
+
     class Meta:
         model = User
         fields = (
             'id',
             'first_name',
             'last_name',
+            'email',
             'home_currency',
+            'trips',
         )
+
+
+class UserTokenSerializer(serializers.ModelSerializer):
+    trips = TripListSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = get_user_model()
+        fields = ('id',
+                  'first_name',
+                  'last_name',
+                  'email',
+                  'home_currency',
+                  'trips',)
+
+
+class CustomTokenSerializer(TokenSerializer):
+    user = UserTokenSerializer(read_only=True)
+
+    class Meta(TokenSerializer.Meta):
+        fields = ('key', 'user')

@@ -11,6 +11,9 @@ from django.shortcuts import get_object_or_404
 
 
 class UserDetailView(APIView):
+    '''
+    Get, update, or delete a user's information 
+    '''
     permission_classes = [IsAuthenticated]
 
     def get(self, request, *args, **kwargs):
@@ -23,12 +26,12 @@ class UserDetailView(APIView):
         # takes request data and validates data format
         # throws 400 bad request if error
         user = get_object_or_404(User, pk=request.user.id)
-        serializer = UserSerializer(user, data=request.data)
+        serializer = UserSerializer(user, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
         else:
-            return Response()
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, format=None):
         user = get_object_or_404(User, pk=request.user.id)
