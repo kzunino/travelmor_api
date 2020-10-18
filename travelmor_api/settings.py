@@ -24,6 +24,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get(
     'SECRET_KEY', 'mnlh8o2x*$6p2_oc+!(ff5i8vo&lt9=@(ppl06p90sh)=6^dvq')
 
+DISABLE_COLLECTSTATIC = 1
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
