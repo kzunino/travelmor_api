@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
-DISABLE_COLLECTSTATIC = 1
+# DISABLE_COLLECTSTATIC = 1
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -69,9 +69,9 @@ MIDDLEWARE = [
 
 ]
 
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000"
-]
+# CORS_ALLOWED_ORIGINS = [
+#     "http://localhost:3000"
+# ]
 CORS_ALLOW_ALL_ORIGINS = True
 
 
@@ -136,9 +136,7 @@ LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
 
-
 USE_I18N = True
-
 USE_L10N = True
 
 USE_TZ = True
