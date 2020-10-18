@@ -21,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'mnlh8o2x*$6p2_oc+!(ff5i8vo&lt9=@(ppl06p90sh)=6^dvq'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -99,10 +99,10 @@ WSGI_APPLICATION = 'travelmor_api.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        "NAME": 'travelmor',
+        "NAME": os.environ.get('PG_NAME'),
         'USER': 'kylezunino',
         "HOST": 'localhost',
-        "PASSWORD": 'password123',
+        "PASSWORD": os.environ.get('PG_PASSWORD'),
         "PORT": '5432',
     }
 }
@@ -152,13 +152,18 @@ STATICFILES_DIRS = [
 ]
 
 REST_FRAMEWORK = {
-
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         # Returns a Key back when logging in
         'rest_framework.authentication.TokenAuthentication',
-    ]
+    ],
+
+    # 'DEFAULT_PERMISSION_CLASSES': [
+    #     'rest_framework.permissions.IsAuthenticated',
+    #     # 'travelmor_api.permissions.IsOwner',
+    # ]
+
 }
 
 # Serializers to use

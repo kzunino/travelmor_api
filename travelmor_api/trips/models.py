@@ -1,7 +1,7 @@
 from django.db import models
 import uuid
 from datetime import datetime
-
+from django.utils import timezone
 from users.models import User
 
 
@@ -14,8 +14,8 @@ class Trip(models.Model):
     total_budget = models.DecimalField(max_digits=7, decimal_places=2)
     length = models.IntegerField()
     home_currency = models.CharField(max_length=3)
-    start_date = models.DateTimeField(default=datetime.now(), blank=True)
-    end_date = models.DateTimeField(default=datetime.now(), blank=True)
+    start_date = models.DateTimeField(default=timezone.now, blank=True)
+    end_date = models.DateTimeField(default=timezone.now, blank=True)
 
     def __str__(self):
         return self.name

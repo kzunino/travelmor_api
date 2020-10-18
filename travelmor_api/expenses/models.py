@@ -1,5 +1,6 @@
 from django.db import models
-from datetime import datetime
+# from datetime import datetime
+from django.utils import timezone
 import uuid
 from trips.models import Trip
 from users.models import User
@@ -16,8 +17,10 @@ class Expense(models.Model):
     expense_type = models.CharField(max_length=20)
     currency = models.CharField(max_length=3)
     home_currency = models.CharField(max_length=3, blank=True)
-    exchange_rate = models.DecimalField(max_digits=8, decimal_places=4)
-    purchase_date = models.DateTimeField(default=datetime.now(), blank=True)
+    cost_conversion = models.DecimalField(
+        max_digits=12, decimal_places=3, blank=True)
+    exchange_rate = models.DecimalField(max_digits=12, decimal_places=3)
+    purchase_date = models.DateTimeField(default=timezone.now, blank=True)
 
     def __str__(self):
         return self.name
