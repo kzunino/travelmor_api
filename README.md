@@ -1,2 +1,3 @@
 # travelmor_budget
-A lightweight travel budget app
+
+A lightweight travel budget app api

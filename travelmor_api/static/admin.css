@@ -14,7 +14,7 @@ a:visited {
 }
 
 div.breadcrumbs {
-  background: #30caa0;
+  background: #4bb0f8;
 }
 div.breadcrumbs a {
   color: #333;
@@ -23,7 +23,7 @@ div.breadcrumbs a {
 .module h2,
 .module caption,
 .inline-group h2 {
-  background: #30caa0;
+  background: #4bb0f8;
 }
 
 .button,
