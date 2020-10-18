@@ -30,7 +30,7 @@ DISABLE_COLLECTSTATIC = 1
 DEBUG = True
 
 # ALLOWED_HOSTS = ["*"]
-ALLOWED_HOSTS = ["travelmor-api.herokuapp.com", '127.0.0.1']
+ALLOWED_HOSTS = ["travelmor-api.herokuapp.com"]
 
 
 # Application definition
