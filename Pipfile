@@ -17,7 +17,6 @@ Django = "*"
 gunicorn = "*"
 django-heroku = "*"
 whitenoise = "*"
-python-dotenv = "*"
 
 [requires]
 python_version = "3.8"
