@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os
+import django_heroku
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,10 +28,10 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # DISABLE_COLLECTSTATIC = 1
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ["*"]
-# ALLOWED_HOSTS = ["travelmor-api.herokuapp.com"]
+# ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["travelmor-api.herokuapp.com"]
 
 
 # Application definition
@@ -151,6 +153,8 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'travelmor_api/static')
 ]
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
@@ -204,3 +208,7 @@ ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = '/?verification=1'
 
 SITE_ID = 1
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+
+# Activate Django-Heroku.
+django_heroku.settings(locals())
