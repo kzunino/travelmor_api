@@ -1,0 +1,1 @@
+web: gunicorn travelmor_api.wsgi
