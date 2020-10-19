@@ -31,7 +31,8 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = False
 
 # ALLOWED_HOSTS = ["*"]
-ALLOWED_HOSTS = ["travelmor-api.herokuapp.com"]
+ALLOWED_HOSTS = ["travelmor-api.herokuapp.com",
+                 "travelmor-client.herokuapp.com"]
 
 
 # Application definition
