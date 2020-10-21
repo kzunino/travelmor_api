@@ -13,12 +13,12 @@ class Expense(models.Model):
         Trip, related_name='expenses', on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=30)
-    cost = models.DecimalField(max_digits=12, decimal_places=2)
+    cost = models.DecimalField(max_digits=14, decimal_places=2)
     expense_type = models.CharField(max_length=20)
     currency = models.CharField(max_length=3)
     home_currency = models.CharField(max_length=3, blank=True)
     cost_conversion = models.DecimalField(
-        max_digits=12, decimal_places=3, blank=True)
+        max_digits=14, decimal_places=3, blank=True)
     exchange_rate = models.DecimalField(max_digits=12, decimal_places=3)
     purchase_date = models.DateTimeField(default=timezone.now, blank=True)
 
