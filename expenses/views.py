@@ -15,6 +15,7 @@ class ExpenseList(APIView):
     """
     List all Expenses, or create a new Expense.
     """
+
     authentication_classes = [authentication.TokenAuthentication]
 
     def get(self, request, format=None):
@@ -23,8 +24,7 @@ class ExpenseList(APIView):
         return Response(serializer.data)
 
     def post(self, request, format=None):
-        serializer = ExpenseSerializer(
-            data=request.data, partial=True)
+        serializer = ExpenseSerializer(data=request.data, many=True, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -48,8 +48,7 @@ class ExpenseDetailView(APIView):
         # allows partial data to be submitted
         expense = get_object_or_404(Expense, pk=pk)
         self.check_object_permissions(request, expense)
-        serializer = ExpenseSerializer(
-            expense, data=request.data, partial=True)
+        serializer = ExpenseSerializer(expense, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)

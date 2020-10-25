@@ -5,7 +5,10 @@ from rest_framework.validators import UniqueValidator
 
 from users.models import User
 from trips.models import Trip
+from default_trips.models import Default_trip
+
 from trips.serializers import TripSerializer, TripListSerializer
+from default_trips.serializers import DefaultTripListSerializer
 
 from allauth.account.adapter import get_adapter
 from allauth.account.utils import setup_user_email
@@ -24,28 +27,30 @@ class CustomRegisterSerializer(RegisterSerializer):
     def get_cleaned_data(self):
         # super inherits the email, password and pass2 from get_cleaned_data from RegisterSerializer
         data_dict = super().get_cleaned_data()
-        data_dict['first_name'] = self.validated_data.get('first_name', '')
-        data_dict['last_name'] = self.validated_data.get('last_name', '')
-        data_dict['home_currency'] = self.validated_data.get(
-            'home_currency', '')
+        data_dict["first_name"] = self.validated_data.get("first_name", "")
+        data_dict["last_name"] = self.validated_data.get("last_name", "")
+        data_dict["home_currency"] = self.validated_data.get("home_currency", "")
         return data_dict
 
 
 class UserSerializer(serializers.ModelSerializer):
-    '''
-    Gets user data and the trips to render to the dashboard links
-    '''
+    """
+    Gets user data, the trips to render to the dashboard links, and default trip if exists
+    """
+
     trips = TripListSerializer(many=True, read_only=True)
+    default_trips = DefaultTripListSerializer(many=True, read_only=True)
 
     class Meta:
         model = User
         fields = (
-            'id',
-            'first_name',
-            'last_name',
-            'email',
-            'home_currency',
-            'trips',
+            "id",
+            "first_name",
+            "last_name",
+            "email",
+            "home_currency",
+            "trips",
+            "default_trips",
         )
 
 
@@ -54,16 +59,18 @@ class UserTokenSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = get_user_model()
-        fields = ('id',
-                  'first_name',
-                  'last_name',
-                  'email',
-                  'home_currency',
-                  'trips',)
+        fields = (
+            "id",
+            "first_name",
+            "last_name",
+            "email",
+            "home_currency",
+            "trips",
+        )
 
 
 class CustomTokenSerializer(TokenSerializer):
     user = UserTokenSerializer(read_only=True)
 
     class Meta(TokenSerializer.Meta):
-        fields = ('key', 'user')
+        fields = ("key", "user")

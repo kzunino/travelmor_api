@@ -10,9 +10,10 @@ from travelmor_api.permissions import IsSelf
 
 
 class UserDetailView(APIView):
-    '''
-    Get, update, or delete a user's information 
-    '''
+    """
+    Get, update, or delete a user's information
+    """
+
     authentication_classes = [authentication.TokenAuthentication]
     permission_classes = [IsSelf]
 

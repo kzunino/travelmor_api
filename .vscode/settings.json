@@ -1,5 +1,8 @@
 {
   "git.ignoreLimitWarning": true,
-  "python.pythonPath": "/Users/kylezunino/.local/share/virtualenvs/lead_project_react_django-ucUAgZMF/bin/python",
-  "python.linting.pylintArgs": ["--load-plugins=pylint_django"]
+  "python.pythonPath": "/Users/kylezunino/.local/share/virtualenvs/travelmor_api-W9--3ccD/bin/python",
+  "python.linting.pylintArgs": [
+    "--load-plugins=pylint_django"
+  ],
+  "python.formatting.provider": "black"
 }
