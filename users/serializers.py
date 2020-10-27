@@ -56,6 +56,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 class UserTokenSerializer(serializers.ModelSerializer):
     trips = TripListSerializer(many=True, read_only=True)
+    default_trips = DefaultTripListSerializer(many=True, read_only=True)
 
     class Meta:
         model = get_user_model()
@@ -66,6 +67,7 @@ class UserTokenSerializer(serializers.ModelSerializer):
             "email",
             "home_currency",
             "trips",
+            "default_trips",
         )
 
 
