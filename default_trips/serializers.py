@@ -11,4 +11,7 @@ class DefaultTripSerializer(serializers.ModelSerializer):
 class DefaultTripListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Default_trip
-        fields = ("trip_uid",)
+        fields = (
+            "default_trip_uid",
+            "trip_uid",
+        )

@@ -24,7 +24,7 @@ class DefaultTripList(APIView):
         return Response(serializer.data)
 
     def post(self, request, format=None):
-        serializer = DefaultTripSerializer(data=request.data, partial=False)
+        serializer = DefaultTripSerializer(data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -41,21 +41,6 @@ class DefaultTripDetailView(APIView):
         self.check_object_permissions(request, default_trip)
         serializer = DefaultTripSerializer(default_trip)
         return Response(serializer.data)
-
-    # def put(self, request, pk, format=None, *args, **kwargs):
-    #     # takes request data and validates data format
-    #     # throws 400 bad request if error
-    #     # allows partial data to be submitted
-    #     default_trip = get_object_or_404(Default_trip, pk=pk)
-    #     self.check_object_permissions(request, default_trip)
-    #     serializer = DefaultTripSerializer(
-    #         default_trip, data=request.data, partial=False
-    #     )
-    #     if serializer.is_valid():
-    #         serializer.save()
-    #         return Response(serializer.data, status=status.HTTP_200_OK)
-    #     else:
-    #         return Response(serializer.errors, status=status.HTTP_404_NOT_FOUND)
 
     def delete(self, request, pk, format=None):
         default_trip = get_object_or_404(Default_trip, pk=pk)
