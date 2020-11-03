@@ -60,3 +60,19 @@ class ExpenseDetailView(APIView):
         self.check_object_permissions(request, expense)
         expense.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+# /api/expense/delete_multiple
+class DeleteMultipleExpensesView(APIView):
+    """
+    Deletes multiple expenses
+    """
+
+    authentication_classes = [authentication.TokenAuthentication]
+    permission_classes = [IsOwner]
+
+    def post(self, request, format=None):
+        id_list = request.data
+        expenses = Expense.objects.filter(pk__in=id_list)
+        expenses.delete()
+        return Response({"msg": "Items deleted"}, status=status.HTTP_204_NO_CONTENT)
