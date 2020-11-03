@@ -28,11 +28,11 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 # DISABLE_COLLECTSTATIC = 1
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = False
-DEBUG = True
+DEBUG = False
+# DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
-# ALLOWED_HOSTS = ["travelmor-api.herokuapp.com", "travelmor-client.herokuapp.com"]
+# ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["travelmor-api.herokuapp.com", "travelmor-client.herokuapp.com"]
 
 
 # Application definition
