@@ -11,7 +11,7 @@ class Expense(models.Model):
     expense_uid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     trip = models.ForeignKey(Trip, related_name="expenses", on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=500)
     cost = models.DecimalField(max_digits=14, decimal_places=2)
     expense_type = models.CharField(max_length=20)
     currency = models.CharField(max_length=3)
